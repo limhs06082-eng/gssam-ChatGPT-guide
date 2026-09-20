@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const KEY = 'gssam-guide-progress-v1';
-const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-20-guide.js'];
+const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-20-guide.js'];
 const sources = files.map(file => fs.readFileSync(path.join(__dirname, file), 'utf8'));
 
 function setup(saved, hash = '#/') {
@@ -63,11 +63,15 @@ function setup(saved, hash = '#/') {
 
 const tests = [];
 function test(name, fn) { tests.push([name,fn]); }
-test('Existing completed lessons and resume link survive seven-lesson upgrade', () => {
-  const app=setup({completed:['chat','work'],last:'work'});
-  assert.match(app.html(),/2\/7 완료/);
-  assert.match(app.html(),/href="#\/lesson\/work">ChatGPT Work 이어보기/);
-  assert.deepEqual(app.saved(),{completed:['chat','work'],last:'work'});
+test('Three-lesson and seven-lesson progress survive ten-lesson upgrade', () => {
+  for (const saved of [{completed:['chat','work'],last:'work'}, {completed:['chat','work','privacy','prompt'],last:'privacy'}]) {
+    const app=setup(saved);
+    assert.ok(app.html().includes(saved.completed.length+'/10 완료'));
+    assert.ok(app.html().includes('href="#/lesson/'+saved.last+'"'));
+    assert.deepEqual(app.saved(),saved);
+    app.route('#/lesson/'+saved.last);
+    assert.deepEqual(app.saved(),saved);
+  }
 });
 test('All four foundations render real content and consecutive previous/next links', () => {
   const app=setup();
@@ -82,28 +86,36 @@ test('All four foundations render real content and consecutive previous/next lin
     assert.ok(nav.includes('href="#/lesson/'+(sequence[i+1] || 'chat')+'"'));
   });
 });
-test('Learning map exposes exactly seven usable lessons and 23 prepared topics', () => {
+test('Learning map exposes exactly ten usable lessons and 20 prepared topics', () => {
   const app=setup(undefined,'#/courses');
-  assert.equal((app.html().match(/class="course-row published"/g)||[]).length,7);
-  assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,23);
-  for(const key of ['choose','setup','prompt','privacy','chat','work','codex']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
+  assert.equal((app.html().match(/class="course-row published"/g)||[]).length,10);
+  assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,20);
+  for(const key of ['choose','setup','prompt','privacy','chat','files','search','projects','work','codex']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
+  const chat=app.html().match(/<section class="course-group" data-group="chat">([\s\S]*?)<\/section>/)[1];
+  const rows=[...chat.matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
+  assert.equal(rows.length,8);
+  rows.forEach((row,i)=> {
+    const key={0:'chat',3:'files',5:'search',6:'projects'}[i];
+    if(key) assert.ok(row.includes('href="#/lesson/'+key+'"'));
+    else assert.match(row,/course-row planned/);
+  });
 });
 test('New completion persists through restart, cancellation persists, old completions remain', async () => {
-  let app=setup({completed:['chat','work'],last:'work'},'#/lesson/privacy');
+  let app=setup({completed:['chat','work','privacy','prompt'],last:'privacy'},'#/lesson/projects');
   const button=await app.complete();
   assert.equal(button.getAttribute('aria-pressed'),'true');
-  assert.deepEqual(app.saved(),{completed:['chat','work','privacy'],last:'privacy'});
-  app=setup(app.saved(),'#/lesson/privacy');
-  assert.match(app.html(),/전체 학습 3\/7 완료/);
+  assert.deepEqual(app.saved(),{completed:['chat','work','privacy','prompt','projects'],last:'projects'});
+  app=setup(app.saved(),'#/lesson/projects');
+  assert.match(app.html(),/전체 학습 5\/10 완료/);
   assert.match(app.html(),/✓ 학습 완료 · 취소/);
   await app.complete();
   app=setup(app.saved());
-  assert.deepEqual(app.saved().completed,['chat','work']);
-  assert.match(app.html(),/2\/7 완료/);
+  assert.deepEqual(app.saved().completed,['chat','work','privacy','prompt']);
+  assert.match(app.html(),/4\/10 완료/);
 });
 test('Every new title and a text-only body fragment are searchable', () => {
   const app=setup();
-  for(const key of ['choose','setup','prompt','privacy']) {
+  for(const key of ['choose','setup','prompt','privacy','files','search','projects']) {
     const lesson=app.lessons[key];
     assert.ok(app.search(lesson.title).includes('href="#/lesson/'+key+'"'));
     const fragment=lesson.steps.map(s=>s.text).find(s=>s.length>30).slice(5,30);
@@ -114,7 +126,7 @@ test('Every new title and a text-only body fragment are searchable', () => {
 test('Cross-tab completion event updates visible lesson count and button', async () => {
   const app=setup({completed:['chat'],last:'chat'},'#/lesson/choose');
   app.storage({completed:['chat','choose'],last:'choose'});
-  assert.match(app.sidebar(),/전체 학습 2\/7 완료/);
+  assert.match(app.sidebar(),/전체 학습 2\/10 완료/);
   const button=await app.complete();
   assert.equal(button.getAttribute('aria-pressed'),'false');
   assert.deepEqual(app.saved().completed,['chat']);
@@ -122,7 +134,7 @@ test('Cross-tab completion event updates visible lesson count and button', async
 test('Unknown and duplicate legacy completion entries cannot inflate progress', () => {
   const app=setup({completed:['chat','chat','removed','privacy'],last:'removed'});
   app.route('#/lesson/setup');
-  assert.match(app.html(),/전체 학습 2\/7 완료/);
+  assert.match(app.html(),/전체 학습 2\/10 완료/);
   assert.deepEqual(app.saved(),{completed:['chat','privacy'],last:'setup'});
 });
 test('Unknown and prototype property routes render not-found without overwriting resume state', () => {
@@ -131,6 +143,38 @@ test('Unknown and prototype property routes render not-found without overwriting
     app.route('#/lesson/'+key);
     assert.match(app.html(),/이 페이지는 찾을 수 없어요/);
     assert.deepEqual(app.saved(),{completed:['chat'],last:'work'});
+  }
+});
+test('New practice lessons render with correct links from Chat through Work', () => {
+  const app=setup();
+  const sequence=['privacy','chat','files','search','projects','work','codex'];
+  sequence.slice(1,-1).forEach((key,i)=> {
+    app.route('#/lesson/'+key);
+    assert.ok(app.html().includes(app.lessons[key].title));
+    assert.doesNotMatch(app.html(),/undefined|이 페이지는 찾을 수 없어요/);
+    const nav=app.html().match(/<nav class="lesson-nav"[\s\S]*?<\/nav>/)[0];
+    assert.ok(nav.includes('href="#/lesson/'+sequence[i]+'"'));
+    assert.ok(nav.includes('href="#/lesson/'+sequence[i+2]+'"'));
+  });
+});
+test('Published entrypoint loads new lesson script before guide and rendered local downloads exist', () => {
+  const workflow=fs.readFileSync(path.join(__dirname,'.github/workflows/2026-09-20-pages.yml'),'utf8');
+  assert.match(workflow,/cp 2026-09-20-guide\.html _site\/index\.html/);
+  assert.match(workflow,/cp [^\n]*2026-09-21-chat-practice\.js[^\n]* _site\//);
+  for(const entry of ['2026-09-20-guide.html']) {
+    const html=fs.readFileSync(path.join(__dirname,entry),'utf8');
+    const scripts=[...html.matchAll(/<script\b[^>]*src="([^"?]+)(?:\?[^\"]*)?"/g)].map(m=>m[1].replace(/^\.\//,''));
+    assert.ok(scripts.includes('2026-09-21-chat-practice.js'),entry+' includes new script');
+    assert.ok(scripts.indexOf('2026-09-20-foundations.js')<scripts.indexOf('2026-09-21-chat-practice.js'));
+    assert.ok(scripts.indexOf('2026-09-21-chat-practice.js')<scripts.indexOf('2026-09-20-guide.js'));
+  }
+  const app=setup();
+  for(const route of ['#/resources','#/lesson/files','#/lesson/search','#/lesson/projects']) {
+    app.route(route);
+    for(const match of app.html().matchAll(/href="(\.\/[^"#?]+)"/g)) {
+      const filename=decodeURIComponent(match[1]);
+      assert.ok(fs.existsSync(path.join(__dirname,filename)),route+' linked file '+filename);
+    }
   }
 });
 (async () => {
