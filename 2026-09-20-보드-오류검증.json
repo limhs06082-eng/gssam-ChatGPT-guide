@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "lessons": [
+    {
+      "title": "3학년 과학 · 자석의 성질 (오류 검증용)",
+      "subject": "불러오기를 거부해야 하는 잘못된 자료 링크 예시",
+      "activities": [
+        { "title": "도입", "description": "허용되지 않는 링크 형식을 검사합니다.", "minutes": 5, "url": "javascript:void(0)" },
+        { "title": "탐구", "description": "가상 활동", "minutes": 25, "url": "" },
+        { "title": "정리", "description": "가상 활동", "minutes": 10, "url": "" }
+      ]
+    }
+  ]
+}

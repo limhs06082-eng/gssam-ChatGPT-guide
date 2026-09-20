@@ -1,0 +1,54 @@
+name: Publish beginner guide
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify scripts and board
+        run: |
+          node --check 2026-09-20-guide.js
+          node --check 2026-09-20-lessons.js
+          node --check 2026-09-20-screen-guides.js
+          node 2026-09-20-board-checks.cjs
+      - uses: actions/configure-pages@v5
+      - name: Prepare public website
+        shell: bash
+        run: |
+          mkdir -p _site
+          cp 2026-09-20-guide.html _site/index.html
+          cp 2026-09-20-guide.html 2026-09-20-guide.css 2026-09-20-guide.js _site/
+          cp 2026-09-20-lessons.js 2026-09-20-screen-guides.js 2026-09-20-screen-guides.css _site/
+          cp 2026-09-20-classroom-board.html _site/
+          cp 2026-09-20-공개수업-계획.txt 2026-09-20-공개수업-메모.txt _site/
+          cp 2026-09-20-실습-체크리스트.md 2026-09-20-보드-연습백업.json _site/
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
