@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const KEY = 'gssam-guide-progress-v1';
-const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-21-work-practice.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-20-guide.js'];
+const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-21-work-practice.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-20-guide.js'];
 const sources = files.map(file => fs.readFileSync(path.join(__dirname, file), 'utf8'));
 
 function setup(saved, hash = '#/') {
@@ -63,10 +63,10 @@ function setup(saved, hash = '#/') {
 
 const tests = [];
 function test(name, fn) { tests.push([name,fn]); }
-test('Three, seven, ten, thirteen and sixteen-lesson progress survive nineteen-lesson upgrade', () => {
-  for (const saved of [{completed:['chat','work'],last:'work'}, {completed:['chat','work','privacy','prompt'],last:'privacy'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','codex'],last:'projects'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex'],last:'review'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','plan','debug','publish'],last:'publish'}]) {
+test('Three, seven, ten, thirteen and sixteen-lesson progress survive twenty-two-lesson upgrade', () => {
+  for (const saved of [{completed:['chat','work'],last:'work'}, {completed:['chat','work','privacy','prompt'],last:'privacy'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','codex'],last:'projects'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex'],last:'review'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','plan','debug','publish'],last:'publish'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish'],last:'run'}]) {
     const app=setup(saved);
-    assert.ok(app.html().includes(saved.completed.length+'/19 완료'));
+    assert.ok(app.html().includes(saved.completed.length+'/22 완료'));
     assert.ok(app.html().includes('href="#/lesson/'+saved.last+'"'));
     assert.deepEqual(app.saved(),saved);
     app.route('#/lesson/'+saved.last);
@@ -86,11 +86,11 @@ test('All four foundations render real content and consecutive previous/next lin
     assert.ok(nav.includes('href="#/lesson/'+(sequence[i+1] || 'chat')+'"'));
   });
 });
-test('Learning map exposes exactly nineteen usable lessons and 11 prepared topics', () => {
+test('Learning map exposes exactly twenty-two usable lessons and 8 prepared topics', () => {
   const app=setup(undefined,'#/courses');
-  assert.equal((app.html().match(/class="course-row published"/g)||[]).length,19);
-  assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,11);
-  for(const key of ['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
+  assert.equal((app.html().match(/class="course-row published"/g)||[]).length,22);
+  assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,8);
+  for(const key of ['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
   const chat=app.html().match(/<section class="course-group" data-group="chat">([\s\S]*?)<\/section>/)[1];
   const rows=[...chat.matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
   assert.equal(rows.length,8);
@@ -106,16 +106,16 @@ test('New completion persists through restart, cancellation persists, old comple
   assert.equal(button.getAttribute('aria-pressed'),'true');
   assert.deepEqual(app.saved(),{completed:['chat','work','privacy','prompt','publish'],last:'publish'});
   app=setup(app.saved(),'#/lesson/publish');
-  assert.match(app.html(),/전체 학습 5\/19 완료/);
+  assert.match(app.html(),/전체 학습 5\/22 완료/);
   assert.match(app.html(),/✓ 학습 완료 · 취소/);
   await app.complete();
   app=setup(app.saved());
   assert.deepEqual(app.saved().completed,['chat','work','privacy','prompt']);
-  assert.match(app.html(),/4\/19 완료/);
+  assert.match(app.html(),/4\/22 완료/);
 });
 test('Every new title and a text-only body fragment are searchable', () => {
   const app=setup();
-  for(const key of ['choose','setup','prompt','privacy','files','search','projects','compare','documents','review','plan','debug','publish','workspace','folders','run']) {
+  for(const key of ['choose','setup','prompt','privacy','files','search','projects','compare','documents','review','plan','debug','publish','workspace','folders','run','modify','changes','backup']) {
     const lesson=app.lessons[key];
     assert.ok(app.search(lesson.title).includes('href="#/lesson/'+key+'"'));
     const fragment=lesson.steps.map(s=>s.text).find(s=>s.length>30).slice(5,30);
@@ -126,7 +126,7 @@ test('Every new title and a text-only body fragment are searchable', () => {
 test('Cross-tab completion event updates visible lesson count and button', async () => {
   const app=setup({completed:['chat'],last:'chat'},'#/lesson/choose');
   app.storage({completed:['chat','choose'],last:'choose'});
-  assert.match(app.sidebar(),/전체 학습 2\/19 완료/);
+  assert.match(app.sidebar(),/전체 학습 2\/22 완료/);
   const button=await app.complete();
   assert.equal(button.getAttribute('aria-pressed'),'false');
   assert.deepEqual(app.saved().completed,['chat']);
@@ -134,7 +134,7 @@ test('Cross-tab completion event updates visible lesson count and button', async
 test('Unknown and duplicate legacy completion entries cannot inflate progress', () => {
   const app=setup({completed:['chat','chat','removed','privacy'],last:'removed'});
   app.route('#/lesson/setup');
-  assert.match(app.html(),/전체 학습 2\/19 완료/);
+  assert.match(app.html(),/전체 학습 2\/22 완료/);
   assert.deepEqual(app.saved(),{completed:['chat','privacy'],last:'setup'});
 });
 test('Unknown and prototype property routes render not-found without overwriting resume state', () => {
@@ -147,7 +147,7 @@ test('Unknown and prototype property routes render not-found without overwriting
 });
 test('Practice lessons render with correct links from Chat through Work and the full Codex practice sequence', () => {
   const app=setup();
-  const sequence=['privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish'];
+  const sequence=['privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish'];
   sequence.slice(1).forEach((key,i)=> {
     app.route('#/lesson/'+key);
     assert.ok(app.html().includes(app.lessons[key].title));
@@ -174,7 +174,7 @@ test('Codex map includes preparation and practice in their correct positions', (
   const rows=[...codex.matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
   assert.equal(rows.length,10);
   rows.forEach((row,i)=> {
-    const key={0:'codex',1:'workspace',2:'folders',3:'plan',4:'run',6:'debug',9:'publish'}[i];
+    const key={0:'codex',1:'workspace',2:'folders',3:'plan',4:'run',5:'modify',6:'debug',7:'changes',8:'backup',9:'publish'}[i];
     if(key) assert.ok(row.includes('href="#/lesson/'+key+'"'));
     else assert.match(row,/course-row planned/);
   });
@@ -193,12 +193,12 @@ test('Published entrypoint loads new lesson script before guide and rendered loc
   const app=setup();
   app.route('#/resources');
   const copiedFiles=workflow.split('\n').map(line=>line.trim()).filter(line=>/^cp .+ _site\/$/.test(line)).flatMap(line=>line.split(/\s+/).slice(1,-1));
-  for(const resource of ['2026-09-21-탐구준비물-비교자료.csv','2026-09-21-공개수업-검토용초안.txt','2026-09-21-Work-결과검토표.md','2026-09-21-Codex-실습기록표.md','2026-09-21-Codex-준비점검표.md']) {
+  for(const resource of ['2026-09-21-탐구준비물-비교자료.csv','2026-09-21-공개수업-검토용초안.txt','2026-09-21-Work-결과검토표.md','2026-09-21-Codex-실습기록표.md','2026-09-21-Codex-준비점검표.md','2026-09-21-Codex-수정복원기록표.md']) {
     assert.ok(copiedFiles.includes(resource),'Workflow publishes '+resource);
     assert.ok(app.html().includes('href="./'+encodeURIComponent(resource)+'"'),'Resource page links '+resource);
     assert.ok(fs.existsSync(path.join(__dirname,resource)),'Resource file exists '+resource);
   }
-  for(const route of ['#/resources','#/lesson/files','#/lesson/search','#/lesson/projects','#/lesson/compare','#/lesson/documents','#/lesson/review','#/lesson/plan','#/lesson/debug','#/lesson/publish','#/lesson/workspace','#/lesson/folders','#/lesson/run']) {
+  for(const route of ['#/resources','#/lesson/files','#/lesson/search','#/lesson/projects','#/lesson/compare','#/lesson/documents','#/lesson/review','#/lesson/plan','#/lesson/debug','#/lesson/publish','#/lesson/workspace','#/lesson/folders','#/lesson/run','#/lesson/modify','#/lesson/changes','#/lesson/backup']) {
     app.route(route);
     for(const match of app.html().matchAll(/href="(\.\/[^"#?]+)"/g)) {
       const filename=decodeURIComponent(match[1]);
