@@ -28,6 +28,7 @@ jobs:
           node --check 2026-09-21-chat-practice.js
           node --check 2026-09-22-chat-completion.js
           node --check 2026-09-21-work-practice.js
+          node --check 2026-09-22-work-completion.js
           node --check 2026-09-21-codex-practice.js
           node --check 2026-09-21-codex-basics.js
           node --check 2026-09-21-codex-maintenance.js
@@ -42,9 +43,10 @@ jobs:
           cp 2026-09-20-guide.html _site/index.html
           cp 2026-09-20-guide.html 2026-09-20-guide.css 2026-09-20-guide.js _site/
           cp 2026-09-20-lessons.js 2026-09-20-screen-guides.js 2026-09-20-screen-guides.css _site/
-          cp 2026-09-20-foundations.js 2026-09-21-chat-practice.js 2026-09-22-chat-completion.js 2026-09-21-work-practice.js 2026-09-21-codex-practice.js 2026-09-21-codex-basics.js 2026-09-21-codex-maintenance.js _site/
+          cp 2026-09-20-foundations.js 2026-09-21-chat-practice.js 2026-09-22-chat-completion.js 2026-09-21-work-practice.js 2026-09-22-work-completion.js 2026-09-21-codex-practice.js 2026-09-21-codex-basics.js 2026-09-21-codex-maintenance.js _site/
           cp 2026-09-21-탐구준비물-비교자료.csv 2026-09-21-공개수업-검토용초안.txt 2026-09-21-Work-결과검토표.md _site/
           cp 2026-09-21-Codex-실습기록표.md 2026-09-21-Codex-준비점검표.md 2026-09-21-Codex-수정복원기록표.md _site/
+          cp 2026-09-22-Work-작업설계표.md _site/
           cp 2026-09-22-채팅활용-기록표.md 2026-09-22-사진질문-연습화면.html _site/
           cp 2026-09-20-classroom-board.html _site/
           cp 2026-09-20-공개수업-계획.txt 2026-09-20-공개수업-메모.txt _site/
