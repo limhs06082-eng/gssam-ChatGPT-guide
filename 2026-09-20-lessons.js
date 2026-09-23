@@ -25,7 +25,7 @@ window.GUIDE_LESSONS = {
   },
   work: {
     title: '가상 자료로 공개수업 안내자료 만들기',
-    eyebrow: 'CHATGPT WORK · 첫 번째 실습',
+    eyebrow: 'CHATGPT WORK · 대표 실습',
     summary: '계획서와 메모를 읽게 하고, 원하는 결과물과 확인 기준을 정해 작은 문서 작업을 맡겨 봅니다.',
     minutes: 20,
     outcome: '제공한 자료를 바탕으로 만든 학부모용 안내자료와 교사용 확인 목록',
@@ -50,7 +50,7 @@ window.GUIDE_LESSONS = {
   },
   codex: {
     title: '매일 쓰는 나만의 수업 운영 보드 만들기',
-    eyebrow: 'CODEX · 첫 번째 프로젝트',
+    eyebrow: 'CODEX · 대표 프로젝트',
     summary: '수업 순서와 자료를 한 화면에 모으고, 저장·복제·백업까지 되는 나만의 도구를 단계적으로 만듭니다.',
     minutes: 45,
     outcome: '수업 카드, 활동 편집, 자료 링크, 진행 화면, 저장·복제·백업을 갖춘 로컬 수업 운영 보드',

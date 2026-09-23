@@ -8,6 +8,10 @@ const vm = require('node:vm');
 const KEY = 'gssam-guide-progress-v1';
 const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-22-chat-completion.js', '2026-09-21-work-practice.js', '2026-09-22-work-completion.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-20-guide.js'];
 const sources = files.map(file => fs.readFileSync(path.join(__dirname, file), 'utf8'));
+// Single learning order: preparation lessons precede the practice that needs them. Home, map, sidebar and prev/next must all follow it.
+const ORDER = {start:['choose','setup','prompt','privacy'], chat:['chat','followup','files','clues','images','search','projects','teaching'], work:['environment','brief','work','redirect','compare','documents','review','reuse'], codex:['workspace','folders','run','codex','plan','modify','changes','debug','backup','publish']};
+const ALL = [...ORDER.start, ...ORDER.chat, ...ORDER.work, ...ORDER.codex];
+const rowsOf = (html, group) => [...html.match(new RegExp('<section class="course-group" data-group="'+group+'">([\\s\\S]*?)<\\/section>'))[1].matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)[^"]*"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
 
 function setup(saved, hash = '#/') {
   const data = new Map(saved === undefined ? [] : [[KEY, JSON.stringify(saved)]]);
@@ -38,13 +42,15 @@ function setup(saved, hash = '#/') {
   let dynamic = {};
   const refresh = () => { dynamic = {complete: parse(main.innerHTML,'button').find(e => e.hasAttribute('data-complete')), links: parse(main.innerHTML,'a'), sidebar: new Element()}; };
   const document = {
+    documentElement: {style: {}},
     querySelector(sel) { if (nodes.has(sel)) return nodes.get(sel); if(sel === '[data-complete]') return dynamic.complete || null; if(sel === '.sidebar-note') return main.innerHTML.includes('sidebar-note') ? dynamic.sidebar : null; return null; },
     querySelectorAll(sel) { if(sel === '.lesson-sidebar .sidebar-link') return (dynamic.links || []).filter(e => e.classList.contains('sidebar-link')); return []; },
     addEventListener: (name,fn) => handlers[name] = fn,
     getElementById: () => null,
     createElement: () => new Element()
   };
-  const window = {scrollY:0, scrollTo() {}, addEventListener: (name,fn) => windowHandlers[name] = fn};
+  const scrolls = [];
+  const window = {scrollY:0, scrollTo() { scrolls.push(document.documentElement.style.scrollBehavior); }, addEventListener: (name,fn) => windowHandlers[name] = fn};
   const location = {hash};
   const context = vm.createContext({document,window,location,URLSearchParams,console,localStorage:{getItem:k => data.get(k) ?? null,setItem:(k,v) => data.set(k,v)},setTimeout:() => 1,clearTimeout() {},requestAnimationFrame:fn => fn()});
   sources.forEach((source,i) => vm.runInContext(source,context,{filename:files[i]}));
@@ -57,17 +63,22 @@ function setup(saved, hash = '#/') {
     async complete() { assert.ok(dynamic.complete,'Rendered completion button exists'); await handlers.click({target:dynamic.complete}); return dynamic.complete; },
     search(query) { nodes.get('#search-input').value=query; nodes.get('#search-input').events.input(); return nodes.get('#search-results').innerHTML; },
     storage(value) { windowHandlers.storage({key:KEY,newValue:JSON.stringify(value)}); },
-    sidebar: () => dynamic.sidebar.innerHTML
+    sidebar: () => dynamic.sidebar.innerHTML,
+    scrolls,
+    rootScrollBehavior: () => document.documentElement.style.scrollBehavior
   };
 }
 
 const tests = [];
 function test(name, fn) { tests.push([name,fn]); }
-test('Legacy progress through twenty-two lessons survive thirty-lesson upgrade', () => {
-  for (const saved of [{completed:['chat','work'],last:'work'}, {completed:['chat','work','privacy','prompt'],last:'privacy'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','codex'],last:'projects'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex'],last:'review'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','plan','debug','publish'],last:'publish'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish'],last:'run'}, {completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish'],last:'backup'}]) {
+test('Legacy progress through twenty-two lessons survive thirty-lesson upgrade and resume at the next unfinished lesson', () => {
+  // expected = first lesson in ORDER after the most recently completed one that is not yet completed
+  for (const [saved,expected] of [[{completed:['chat','work'],last:'work'},'redirect'], [{completed:['chat','work','privacy','prompt'],last:'privacy'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','codex'],last:'projects'},'plan'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex'],last:'review'},'plan'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','plan','debug','publish'],last:'publish'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish'],last:'run'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish'],last:'backup'},'followup']]) {
     const app=setup(saved);
-    assert.ok(app.html().includes(saved.completed.length+'/30 완료'));
-    assert.ok(app.html().includes('href="#/lesson/'+saved.last+'"'));
+    const banner=app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/);
+    assert.ok(banner,'Home shows the progress banner for returning learners');
+    assert.ok(banner[0].includes(saved.completed.length+'/30 완료'));
+    assert.ok(banner[0].includes('href="#/lesson/'+expected+'"'),'Banner recommends '+expected+' for '+JSON.stringify(saved));
     assert.deepEqual(app.saved(),saved);
     app.route('#/lesson/'+saved.last);
     assert.deepEqual(app.saved(),saved);
@@ -88,17 +99,12 @@ test('All four foundations render real content and consecutive previous/next lin
 });
 test('Learning map exposes exactly thirty usable lessons and no prepared topics', () => {
   const app=setup(undefined,'#/courses');
-  assert.equal((app.html().match(/class="course-row published"/g)||[]).length,30);
+  assert.equal((app.html().match(/class="course-row published[^"]*"/g)||[]).length,30);
   assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,0);
   for(const key of ['choose','setup','prompt','privacy','chat','followup','clues','files','images','search','projects','teaching','work','environment','brief','compare','documents','redirect','review','reuse','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
-  const chat=app.html().match(/<section class="course-group" data-group="chat">([\s\S]*?)<\/section>/)[1];
-  const rows=[...chat.matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
+  const rows=rowsOf(app.html(),'chat');
   assert.equal(rows.length,8);
-  rows.forEach((row,i)=> {
-    const key={0:'chat',1:'followup',2:'clues',3:'files',4:'images',5:'search',6:'projects',7:'teaching'}[i];
-    if(key) assert.ok(row.includes('href="#/lesson/'+key+'"'));
-    else assert.match(row,/course-row planned/);
-  });
+  rows.forEach((row,i)=> assert.ok(row.includes('href="#/lesson/'+ORDER.chat[i]+'"'),'chat row '+i+' is '+ORDER.chat[i]));
 });
 test('New completion persists through restart, cancellation persists, old completions remain', async () => {
   let app=setup({completed:['chat','work','privacy','prompt'],last:'privacy'},'#/lesson/reuse');
@@ -147,7 +153,7 @@ test('Unknown and prototype property routes render not-found without overwriting
 });
 test('Practice lessons render with correct links from Chat through Work and the full Codex practice sequence', () => {
   const app=setup();
-  const sequence=['privacy','chat','followup','clues','files','images','search','projects','teaching','work','environment','brief','compare','documents','redirect','review','reuse','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish'];
+  const sequence=['privacy',...ORDER.chat,...ORDER.work,...ORDER.codex];
   sequence.slice(1).forEach((key,i)=> {
     app.route('#/lesson/'+key);
     assert.ok(app.html().includes(app.lessons[key].title));
@@ -159,25 +165,95 @@ test('Practice lessons render with correct links from Chat through Work and the 
 });
 test('Work learning map publishes all eight lessons', () => {
   const app=setup(undefined,'#/courses');
-  const work=app.html().match(/<section class="course-group" data-group="work">([\s\S]*?)<\/section>/)[1];
-  const rows=[...work.matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
+  const rows=rowsOf(app.html(),'work');
   assert.equal(rows.length,8);
-  rows.forEach((row,i)=> {
-    const key={0:'work',1:'environment',2:'brief',3:'compare',4:'documents',5:'redirect',6:'review',7:'reuse'}[i];
-    if(key) assert.ok(row.includes('href="#/lesson/'+key+'"'));
-    else assert.match(row,/course-row planned/);
-  });
+  rows.forEach((row,i)=> assert.ok(row.includes('href="#/lesson/'+ORDER.work[i]+'"'),'work row '+i+' is '+ORDER.work[i]));
 });
 test('Codex map includes preparation and practice in their correct positions', () => {
   const app=setup(undefined,'#/courses');
-  const codex=app.html().match(/<section class="course-group" data-group="codex">([\s\S]*?)<\/section>/)[1];
-  const rows=[...codex.matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
+  const rows=rowsOf(app.html(),'codex');
   assert.equal(rows.length,10);
-  rows.forEach((row,i)=> {
-    const key={0:'codex',1:'workspace',2:'folders',3:'plan',4:'run',5:'modify',6:'debug',7:'changes',8:'backup',9:'publish'}[i];
-    if(key) assert.ok(row.includes('href="#/lesson/'+key+'"'));
-    else assert.match(row,/course-row planned/);
-  });
+  rows.forEach((row,i)=> assert.ok(row.includes('href="#/lesson/'+ORDER.codex[i]+'"'),'codex row '+i+' is '+ORDER.codex[i]));
+});
+test('Home lists only the foundations and three path cards, not the thirty-lesson catalogue', () => {
+  const app=setup();
+  assert.equal((app.html().match(/class="course-row published/g)||[]).length,4,'only the four foundations are listed on home');
+  assert.doesNotMatch(app.html(),/실전 3편|채팅 4편|Work 4편|준비 3편|복원 3편/);
+  const cards=app.html().match(/<div class="path-grid">[\s\S]*?<\/div>\s*<div class="start-strip"/)[0];
+  assert.ok(cards.includes('href="#/lesson/chat"'),'chat card starts at the first chat lesson');
+  assert.ok(cards.includes('href="#/lesson/environment"'),'work card starts at the first work lesson');
+  assert.ok(cards.includes('href="#/lesson/workspace"'),'codex card starts at the first codex lesson');
+  assert.doesNotMatch(cards,/href="#\/lesson\/(work|codex)"/,'cards no longer jump into the middle of a path');
+  assert.ok(cards.includes(app.lessons.environment.title));
+  assert.ok(cards.includes('8편') && cards.includes('10편'));
+});
+test('Start page keeps the first-day route without repeating the thirty-lesson catalogue', () => {
+  const app=setup(undefined,'#/start');
+  assert.equal((app.html().match(/class="course-row published/g)||[]).length,4);
+  assert.doesNotMatch(app.html(),/실전 3편|채팅 4편|Work 4편|준비 3편|복원 3편/);
+  assert.ok(app.html().includes('href="#/lesson/chat"'));
+  assert.ok(app.html().includes('href="#/lesson/environment"') && app.html().includes('href="#/lesson/workspace"'),'wider paths start at their first lesson');
+});
+test('Learning map marks completed lessons, shows minutes and highlights the next recommendation', () => {
+  const app=setup({completed:['chat'],last:'chat'},'#/courses');
+  const rows=Object.fromEntries(ALL.map(key=>[key,app.html().match(new RegExp('<a\\b[^>]*href="#/lesson/'+key+'"[^>]*>[\\s\\S]*?<\\/a>'))[0]]));
+  assert.match(rows.chat,/✓ 완료/);
+  assert.match(rows.followup,/다음 추천/);
+  assert.match(rows.files,/약 12분/);
+  assert.doesNotMatch(rows.files,/✓ 완료|다음 추천/);
+  assert.equal((app.html().match(/다음 추천 →/g)||[]).length,1,'exactly one row carries the next-recommendation badge');
+});
+test('Home banner recommends the next unfinished lesson and handles first-time and finished learners', () => {
+  assert.doesNotMatch(setup().html(),/progress-banner/,'first visit shows no banner');
+  let app=setup({completed:[],last:'files'});
+  assert.match(app.html(),/progress-banner[\s\S]*?href="#\/lesson\/files"/,'no completion yet: continue the last opened lesson');
+  app=setup({completed:['chat'],last:'publish'});
+  const banner=app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/)[0];
+  assert.ok(banner.includes('href="#/lesson/followup"'),'recommends the lesson after the last completed one, not the last opened page');
+  assert.ok(banner.includes('href="#/lesson/publish"'),'still offers the last opened lesson as a secondary link');
+  app=setup({completed:ALL,last:'publish'});
+  assert.match(app.html(),/progress-banner[\s\S]*?30\/30 완료[\s\S]*?href="#\/courses"/);
+  assert.doesNotMatch(app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/)[0],/href="#\/lesson\//,'nothing left to recommend');
+});
+test('Lesson meta shows the position within its path instead of a generic badge', () => {
+  const app=setup();
+  for(const [key,label] of [['files','ChatGPT 채팅 3/8'],['work','ChatGPT Work 3/8'],['choose','공통 입문 1/4'],['publish','Codex 10/10'],['workspace','Codex 1/10']]) {
+    app.route('#/lesson/'+key);
+    const meta=app.html().match(/<div class="lesson-meta">[\s\S]*?<\/div>/)[0];
+    assert.ok(meta.includes(label),key+' meta shows '+label+' but was '+meta);
+    assert.doesNotMatch(meta,/초보 필수|첫 프로젝트/);
+  }
+});
+test('Route change scrolls to the top instantly and restores smooth behaviour afterwards', () => {
+  const app=setup();
+  app.scrolls.length=0;
+  app.route('#/lesson/chat');
+  assert.deepEqual(app.scrolls,['auto'],'scrollTo runs while smooth scrolling is disabled');
+  assert.equal(app.rootScrollBehavior(),'','smooth scrolling is restored for in-page section links');
+});
+test('Lesson file links open in a new tab so the guide stays open', () => {
+  const app=setup();
+  let checked=0;
+  for(const key of ALL) {
+    app.route('#/lesson/'+key);
+    for(const anchor of app.html().matchAll(/<a\b[^>]*href="\.\/[^"]*"[^>]*>/g)) { checked++; assert.match(anchor[0],/target="_blank"/,key+' link '+anchor[0]); assert.match(anchor[0],/rel="noopener/,key+' link '+anchor[0]); }
+    for(const anchor of app.html().matchAll(/<a\b[^>]*href="#\/[^"]*"[^>]*>/g)) assert.doesNotMatch(anchor[0],/target="_blank"/,key+' internal link must stay in this tab');
+  }
+  assert.ok(checked>=20,'file links were actually inspected: '+checked);
+});
+test('Lesson navigation renders previous and next as labelled buttons', () => {
+  const app=setup();
+  app.route('#/lesson/files');
+  const nav=app.html().match(/<nav class="lesson-nav"[\s\S]*?<\/nav>/)[0];
+  assert.match(nav,/<a class="nav-button prev" href="#\/lesson\/followup"><small>이전<\/small><span>후속 요청<\/span><\/a>/);
+  assert.match(nav,/<a class="nav-button next" href="#\/lesson\/clues"><small>다음<\/small><span>요청의 네 단서<\/span><\/a>/);
+});
+test('Sidebar groups the thirty lessons by path in the unified order', () => {
+  const app=setup();
+  app.route('#/lesson/files');
+  const sidebar=app.html().match(/<aside class="lesson-sidebar">[\s\S]*?<\/aside>/)[0];
+  assert.deepEqual([...sidebar.matchAll(/<p class="sidebar-group">([^<]*)<\/p>/g)].map(m=>m[1]),['공통 입문','ChatGPT 채팅','ChatGPT Work','Codex']);
+  assert.deepEqual([...sidebar.matchAll(/href="#\/lesson\/([a-z]+)"/g)].map(m=>m[1]),ALL,'sidebar follows the unified order');
 });
 test('Published entrypoint loads new lesson script before guide and rendered local downloads exist', () => {
   const workflow=fs.readFileSync(path.join(__dirname,'.github/workflows/2026-09-20-pages.yml'),'utf8');
@@ -207,6 +283,11 @@ test('Published entrypoint loads new lesson script before guide and rendered loc
   }
 });
 (async () => {
-  for (const [name,fn] of tests) { await fn(); console.log('PASS '+name); }
-  console.log(`\n${tests.length} application behavior checks passed. DOM/storage mocked; browser verification remains separate.`);
+  let failed=0;
+  for (const [name,fn] of tests) {
+    try { await fn(); console.log('PASS '+name); }
+    catch (error) { failed++; console.log('FAIL '+name+'\n  '+String(error.message||error).split('\n').join('\n  ')); }
+  }
+  if (failed) { console.log(`\n${failed} of ${tests.length} application behavior checks failed.`); process.exitCode=1; }
+  else console.log(`\n${tests.length} application behavior checks passed. DOM/storage mocked; browser verification remains separate.`);
 })().catch(error => { console.error(error); process.exitCode=1; });

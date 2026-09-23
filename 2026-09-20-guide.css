@@ -10,3 +10,12 @@
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 .foundation-route{margin:24px 0 36px}.foundation-intro{padding:0 20px 16px;margin:0;color:var(--muted);font-size:13px;line-height:1.8}.foundation-route .course-row>span:nth-child(2){min-width:0;overflow-wrap:anywhere}.lesson-sidebar{max-height:calc(100vh - 115px);overflow-y:auto}
+
+/* 2026-09-23 구조 개선 · 진행 배너, 학습 지도 진도 표시, 사이드바 묶음, 이전/다음 버튼 */
+.progress-banner{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;font-size:14px;line-height:1.7}.progress-banner .progress-text{flex:1 1 260px}.progress-banner .progress-text b{color:var(--green)}.progress-banner .progress-track{margin-left:0}.progress-banner .progress-count{font-size:12px;color:#5f6f58;white-space:nowrap}.progress-banner a.button{font-size:12px}.progress-banner a.button.primary{color:white}.progress-banner .text-link{font-size:12px;color:#5f7a52}
+.section-note{font-size:13px;color:#5f6f58;margin:-8px 0 20px;line-height:1.8}.section-note a{text-decoration:underline}
+.card-footer{flex-wrap:wrap;gap:6px 9px;font-size:11px}.card-footer .card-first{flex-basis:100%;color:#53674f;line-height:1.6}
+.course-row .row-minutes{margin-left:auto;font-size:11px;color:#5f6f58;white-space:nowrap}.course-row .badge{margin-left:0}.course-row.next{background:#f3f7ed}.badge.next{background:var(--green);color:white}.course-row.done{color:#6f7d68}
+.sidebar-group{font-size:11px;letter-spacing:.6px;font-weight:700;color:#5f7a52;margin:16px 0 6px 12px}
+.lesson-nav{display:flex;gap:12px;margin-top:22px}.nav-button{flex:1 1 0;display:flex;flex-direction:column;gap:3px;padding:14px 16px;min-height:60px;border:1px solid var(--line);border-radius:12px;background:white;font-size:14px;font-weight:600;color:var(--ink);line-height:1.5}.nav-button small{font-size:11px;font-weight:500;color:#5f6f58}.nav-button.next{align-items:flex-end;text-align:right}.nav-button:hover{background:#eaf0e2;border-color:#bacbb0}
+@media(max-width:600px){.lesson-nav a{max-width:none}.progress-banner a.button{width:100%;justify-content:center}}
