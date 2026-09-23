@@ -19,3 +19,29 @@
 .sidebar-group{font-size:11px;letter-spacing:.6px;font-weight:700;color:#5f7a52;margin:16px 0 6px 12px}
 .lesson-nav{display:flex;gap:12px;margin-top:22px}.nav-button{flex:1 1 0;display:flex;flex-direction:column;gap:3px;padding:14px 16px;min-height:60px;border:1px solid var(--line);border-radius:12px;background:white;font-size:14px;font-weight:600;color:var(--ink);line-height:1.5}.nav-button small{font-size:11px;font-weight:500;color:#5f6f58}.nav-button.next{align-items:flex-end;text-align:right}.nav-button:hover{background:#eaf0e2;border-color:#bacbb0}
 @media(max-width:600px){.lesson-nav a{max-width:none}.progress-banner a.button{width:100%;justify-content:center}}
+
+/* 2026-09-23 3차 · 자료실 시작 상자, 용어 사전 */
+.starter-files{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 28px;padding:24px 26px;margin:0 0 28px;background:#eaf0e2;border:1px solid #d7e2cc;border-radius:16px}.starter-files>div{flex:1 1 320px}.starter-files h2{font-size:20px;margin:10px 0 8px}.starter-files p{font-size:14px;color:#4f6844;margin:0;line-height:1.8}.starter-files .button-row{flex-direction:column;align-items:stretch;flex:0 1 280px}.starter-files .button{justify-content:space-between}
+.resource-grid .resource-group{grid-column:1/-1;font-size:18px;margin:16px 0 0;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.glossary{margin:10px 0 36px}.glossary dl{display:grid;grid-template-columns:1fr 1fr;gap:14px 20px;margin:0}.glossary dl>div{background:white;border:1px solid var(--line);border-radius:11px;padding:16px 18px}.glossary dt{font-weight:700;font-size:15px;margin-bottom:6px;color:var(--ink)}.glossary dd{margin:0;font-size:14px;line-height:1.8;color:#4f5f57}
+@media(max-width:600px){.glossary dl{grid-template-columns:1fr}.starter-files{padding:20px}}
+
+/* 2026-09-23 3차 · 글자 크기 상향과 대비 보정. 본문 16px, 부가 정보 최소 12px, 회색 글자는 배경 대비 4.5:1 이상. */
+:root{--muted:#5f6e66}
+.hero-desc{font-size:15px;color:#55645c}.hero-foot{font-size:12px;color:#5f6e66}.visual-caption{font-size:11px;color:#66755d}.mini-body p{font-size:11px;color:#66755d}
+.path-card p{font-size:13px;color:#4f5f57}.card-number{font-size:11px;color:#66755d}.card-footer{font-size:12px;color:#5f6e66}.card-footer .card-first{color:#4f5f57}.badge{font-size:11px;color:#556b4b}.path-card .card-example{font-size:12px}
+.course-row{font-size:14px}.course-row .order{font-size:11px;color:#66755d}.course-row .row-minutes{font-size:12px}.foundation-intro{font-size:14px;color:#5f6e66}.section-top p{font-size:14px;color:#5f6e66}.section-note{color:#5f6e66}
+.start-strip p{font-size:12px;color:#5a6b50}.tool-link p{font-size:12px;color:#5f6e66}.teacher-note p{font-size:13px;color:#54644a}.teacher-note strong{font-size:12px}
+.site-footer,.site-footer p{font-size:12px;color:#5f6e66}.footer-brand{font-size:13px}.footer-brand span{font-size:12px}
+.search-trigger{font-size:13px;color:#5f6e66}kbd{font-size:11px;color:#5f6e66}
+.page-heading p{font-size:15px}.info-note{font-size:13px;color:#54644a}.intro-card p{font-size:14px}.step-route p{font-size:13px}.resource-card p{font-size:14px}.file-meta{font-size:12px;color:#66755d}
+.breadcrumb{font-size:12px;color:#5f6e66}.lesson-meta{font-size:12px;color:#5f6e66}.lesson-summary{font-size:15px;color:#55645c}.lesson-article p,.lesson-article li{font-size:16px;line-height:1.9}.lesson-article h2{font-size:22px}.lesson-article h3{font-size:18px}
+.sidebar-link{font-size:13px;color:#5f6e66}.sidebar-title{font-size:11px;color:#5f7a52}.sidebar-note{font-size:12px;color:#5f6e66}.sidebar-group{font-size:11px}
+.lesson-toc a{font-size:12px;color:#5f6e66}.lesson-toc p{font-size:11px;color:#5f7a52}.tip-small{font-size:11px;color:#66755d}
+.outcome strong{font-size:12px}.outcome p{font-size:15px}.prompt-top{font-size:12px;color:#5a6b50}.copy-button{font-size:12px;padding:8px 12px;min-height:36px}.prompt-box pre{font-size:15px}
+.sources{font-size:12px;color:#5f6e66}.complete-panel p{font-size:13px}.demo-banner p{font-size:13px;color:#5f5270}.faq p{font-size:15px;color:#54644a}.faq summary{font-size:15px}.faq-group h2{font-size:21px}
+.search-hint{font-size:12px}.search-result small{font-size:12px}.search-empty{font-size:14px}#search-input{font-size:15px}
+.progress-banner .progress-count{color:#5f6e66}.nav-button small{color:#5f6e66}
+@media(max-width:800px){.search-trigger{min-width:44px;min-height:44px;justify-content:center;padding:8px}}
+@media(max-width:600px){.lesson-article p,.lesson-article li{font-size:15px}.breadcrumb{font-size:11px}.hero-desc{font-size:14px}.path-card p{font-size:13px}}
+.eyebrow{color:#4f6a45}.sidebar-title,.sidebar-group,.lesson-toc p{color:#4f6a45}.lesson-toc .tip-small{font-size:11px;color:#5f6e66}

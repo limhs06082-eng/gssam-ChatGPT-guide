@@ -255,6 +255,50 @@ test('Sidebar groups the thirty lessons by path in the unified order', () => {
   assert.deepEqual([...sidebar.matchAll(/<p class="sidebar-group">([^<]*)<\/p>/g)].map(m=>m[1]),['공통 입문','ChatGPT 채팅','ChatGPT Work','Codex']);
   assert.deepEqual([...sidebar.matchAll(/href="#\/lesson\/([a-z]+)"/g)].map(m=>m[1]),ALL,'sidebar follows the unified order');
 });
+test('Search understands the words beginners actually type', () => {
+  const app=setup();
+  for(const [query,expected] of [['코덱스','#/lesson/codex'],['코덱스','#/lesson/workspace'],['프롬프트','#/lesson/prompt'],['프롬프트','#/lesson/clues'],['챗지피티 파일','#/lesson/files'],['업로드','#/lesson/files'],['워크','#/lesson/environment'],['회원가입','#/help?faq=signup'],['에러','#/lesson/debug']]) {
+    assert.ok(app.search(query).includes('href="'+expected+'"'),'"'+query+'" should find '+expected);
+  }
+  assert.match(app.search('존재하지않는검색어xyz'),/맞는 결과가 없어요/);
+  const firstHits=q=>[...app.search(q).matchAll(/href="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(firstHits('코덱스')[0],'#/lesson/workspace','path matches rank above lessons that merely mention Codex');
+  assert.equal(firstHits('워크')[0],'#/lesson/environment');
+  assert.equal(firstHits('파일 질문')[0],'#/lesson/files','title matches rank above body matches');
+});
+test('Help page adds signup and install FAQs, a permission rule table and a glossary', () => {
+  const app=setup(undefined,'#/help');
+  const html=app.html();
+  assert.ok(html.includes('id="faq-signup"') && html.includes('id="faq-codex-install"'));
+  const permissions=html.match(/<details class="faq" id="faq-permissions">[\s\S]*?<\/details>/)[0];
+  assert.match(permissions,/허용해도 되는 요청/);
+  assert.match(permissions,/멈추고 확인할 요청/);
+  const glossary=html.match(/<section id="glossary"[\s\S]*?<\/section>/);
+  assert.ok(glossary,'glossary section exists');
+  for(const term of ['로컬','경로','확장자','첨부','요청문','권한 승인','브라우저 저장 공간','배포','저장소','브랜치','시크릿 모드','API 키']) assert.ok(glossary[0].includes('<dt>'+term),'glossary defines '+term);
+  assert.ok(app.search('브랜치').includes('href="#/help?section=glossary"'),'glossary terms are searchable');
+});
+test('Resources page leads with the two starter files and groups the rest by path', () => {
+  const app=setup(undefined,'#/resources');
+  const html=app.html();
+  const starter=html.match(/<section class="starter-files"[\s\S]*?<\/section>/);
+  assert.ok(starter,'starter box exists');
+  assert.ok(starter[0].includes(encodeURIComponent('2026-09-20-공개수업-계획.txt')) && starter[0].includes(encodeURIComponent('2026-09-20-공개수업-메모.txt')));
+  const at=name=>html.indexOf(encodeURIComponent(name));
+  assert.ok(at('2026-09-20-공개수업-계획.txt')<at('2026-09-22-채팅활용-기록표.md'),'chat sheet after starters');
+  assert.ok(at('2026-09-22-채팅활용-기록표.md')<at('2026-09-21-탐구준비물-비교자료.csv'),'work files after chat files');
+  assert.ok(at('2026-09-21-탐구준비물-비교자료.csv')<at('2026-09-21-Codex-준비점검표.md'),'codex files after work files');
+  assert.deepEqual([...html.matchAll(/<h2 class="resource-group">([^<]*)<\/h2>/g)].map(m=>m[1]),['ChatGPT 채팅','ChatGPT Work','Codex','공통']);
+  assert.equal((html.match(/class="resource-grid"/g)||[]).length,1,'single grid so the practice lab still attaches after it');
+});
+test('Prompt boxes use a step-specific label when the prompt is not a chat message', () => {
+  const app=setup();
+  app.lessons.chat.steps[1].promptLabel='프로젝트 지침 칸에 붙여 넣기';
+  app.route('#/lesson/chat');
+  assert.ok(app.html().includes('<span>프로젝트 지침 칸에 붙여 넣기</span>'));
+  assert.ok(app.html().includes('<span>이렇게 말해보세요</span>'),'other prompts keep the default label');
+  delete app.lessons.chat.steps[1].promptLabel;
+});
 test('Published entrypoint loads new lesson script before guide and rendered local downloads exist', () => {
   const workflow=fs.readFileSync(path.join(__dirname,'.github/workflows/2026-09-20-pages.yml'),'utf8');
   assert.match(workflow,/cp 2026-09-20-guide\.html _site\/index\.html/);
