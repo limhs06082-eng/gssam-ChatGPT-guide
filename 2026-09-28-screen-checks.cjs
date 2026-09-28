@@ -16,15 +16,17 @@ function setup(key){
  return {screens:window.GUIDE_SCREENS,html};
 }
 const tests=[
- ['Four verified web screens use local real captures with distinct Chat and Work images',()=>{
+ ['Five verified web screens include the two-file attachment state',()=>{
   const {screens}=setup('setup');
-  for(const key of ['setup','chat','environment','work']){
+  for(const key of ['setup','chat','files','environment','work']){
    assert.ok(screens[key],key+' capture exists');
    assert.match(screens[key].image,/^\.\/2026-09-28-.*\.png$/);
    assert.match(screens[key].caption,/2026-09-28/);
   }
   assert.notEqual(screens.chat.image,screens.work.image);
   assert.match(screens.work.alt,/결과 카드/,'Work shows generated results, not the Chat start image');
+  assert.match(screens.work.caption,/실제로 첨부/,'the current Work capture follows the verified attachment path');
+  assert.doesNotMatch(screens.work.warning,/본문을 붙여 넣은 대체/,'the current capture is not the earlier fallback rehearsal');
  }],
  ['Local PNGs have matching dimensions, valid hotspots and deployable sizes',()=>{
   const {screens}=setup('setup');
@@ -39,7 +41,27 @@ const tests=[
    assert.ok(s.points.length>0);
    for(const p of s.points)assert.ok(p.x>0&&p.x<100&&p.y>0&&p.y<100,key+' hotspot range');
   }
-  assert.equal(count,4,'only the four currently verified web captures are published');
+  assert.equal(count,5,'the five verified web captures are published');
+ }],
+ ['The attachment tour names both files and separates uploading from reading',()=>{
+  const {screens,html}=setup('files');
+  assert.ok(screens.files,'attachment capture exists');
+  const explanations=screens.files.points.map(p=>p.text).join(' ');
+  assert.ok(explanations.includes('2026-09-20-공개수업-계획.txt'));
+  assert.ok(explanations.includes('2026-09-20-공개수업-메모.txt'));
+  assert.match(screens.files.warning,/생략/,'long names can be truncated in the real UI');
+  assert.match(screens.files.warning,/읽/,'file visibility does not prove reading');
+  assert.ok(html.includes('aspect-ratio:'+screens.files.width+'/'+screens.files.height));
+ }],
+ ['Local hotspots remain separate on the 300px frame used at mobile width',()=>{
+  const {screens}=setup('work');
+  for(const [key,s] of Object.entries(screens).filter(([,s])=>s.image.startsWith('./'))){
+   const height=300*s.height/s.width;
+   const centers=s.points.map(p=>[Math.max(20,Math.min(280,p.x*3)),Math.max(20,Math.min(height-20,p.y*height/100))]);
+   for(let i=0;i<centers.length;i++)for(let j=i+1;j<centers.length;j++){
+    assert.ok(Math.hypot(centers[i][0]-centers[j][0],centers[i][1]-centers[j][1])>=36,key+' hotspot '+(i+1)+' and '+(j+1)+' do not overlap');
+   }
+  }
  }],
  ['The rendered frame follows each local image ratio and labels captured screens honestly',()=>{
   const {screens,html}=setup('setup');
