@@ -33,6 +33,8 @@ jobs:
           node --check 2026-09-21-codex-basics.js
           node --check 2026-09-21-codex-maintenance.js
           node --check 2026-09-20-screen-guides.js
+          node --check 2026-09-28-service-lessons.js
+          node 2026-09-28-service-checks.cjs
           node 2026-09-20-guide-checks.cjs
           node 2026-09-20-board-checks.cjs
           node 2026-09-28-ui-content-checks.cjs
@@ -45,6 +47,8 @@ jobs:
           mkdir -p _site
           cp 2026-09-20-guide.html _site/index.html
           cp 2026-09-20-guide.html 2026-09-20-guide.css 2026-09-20-guide.js _site/
+          cp 2026-09-28-service-lessons.js 2026-09-28-service.css _site/
+          cp 2026-09-28-서비스확장-실습기록표.md 2026-09-28-서비스확장-강사안내.md _site/
           cp 2026-09-20-lessons.js 2026-09-20-screen-guides.js 2026-09-20-screen-guides.css _site/
           cp 2026-09-28-화면-setup.png 2026-09-28-화면-chat-검수.png 2026-09-28-화면-environment-검수.png _site/
           cp 2026-09-28-화면-files-검수.png 2026-09-28-화면-work-첨부결과-검수.png _site/

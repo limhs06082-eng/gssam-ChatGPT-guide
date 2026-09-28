@@ -6,11 +6,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const KEY = 'gssam-guide-progress-v1';
-const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-22-chat-completion.js', '2026-09-21-work-practice.js', '2026-09-22-work-completion.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-20-guide.js'];
+const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-22-chat-completion.js', '2026-09-21-work-practice.js', '2026-09-22-work-completion.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-28-service-lessons.js', '2026-09-20-guide.js'];
 const sources = files.map(file => fs.readFileSync(path.join(__dirname, file), 'utf8'));
 // Single learning order: preparation lessons precede the practice that needs them. Home, map, sidebar and prev/next must all follow it.
-const ORDER = {start:['choose','setup','prompt','privacy'], chat:['chat','followup','files','clues','images','search','projects','teaching'], work:['environment','brief','work','redirect','compare','documents','review','reuse'], codex:['workspace','folders','run','codex','plan','modify','changes','debug','backup','publish']};
-const ALL = [...ORDER.start, ...ORDER.chat, ...ORDER.work, ...ORDER.codex];
+const ORDER = {start:['choose','setup','prompt','privacy'], chat:['chat','followup','files','clues','images','search','projects','teaching'], work:['environment','brief','work','redirect','compare','documents','review','reuse'], codex:['workspace','folders','run','codex','plan','modify','changes','debug','backup','publish'], service:['savebackup','git','github','repository','gitpush','localdata','datatransfer','server','apilocal','database','dbdesign','crud','login','permissions','railway','envvars','postgres','operations','realtime','syncerrors']};
+const ALL = Object.values(ORDER).flat();
 const rowsOf = (html, group) => [...html.match(new RegExp('<section class="course-group" data-group="'+group+'">([\\s\\S]*?)<\\/section>'))[1].matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)[^"]*"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
 
 function setup(saved, hash = '#/') {
@@ -71,19 +71,30 @@ function setup(saved, hash = '#/') {
 
 const tests = [];
 function test(name, fn) { tests.push([name,fn]); }
-test('Legacy progress through twenty-two lessons survive thirty-lesson upgrade and resume at the next unfinished lesson', () => {
+test('Legacy progress through twenty-two lessons survive service extension upgrade and resume at the next unfinished lesson', () => {
   // expected = first lesson in ORDER after the most recently completed one that is not yet completed
-  for (const [saved,expected] of [[{completed:['chat','work'],last:'work'},'redirect'], [{completed:['chat','work','privacy','prompt'],last:'privacy'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','codex'],last:'projects'},'plan'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex'],last:'review'},'plan'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','plan','debug','publish'],last:'publish'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish'],last:'run'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish'],last:'backup'},'followup']]) {
+  for (const [saved,expected] of [[{completed:['chat','work'],last:'work'},'redirect'], [{completed:['chat','work','privacy','prompt'],last:'privacy'},'followup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','codex'],last:'projects'},'plan'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex'],last:'review'},'plan'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','plan','debug','publish'],last:'publish'},'savebackup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','debug','publish'],last:'run'},'savebackup'], [{completed:['choose','setup','prompt','privacy','chat','files','search','projects','work','compare','documents','review','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish'],last:'backup'},'savebackup']]) {
     const app=setup(saved);
     const banner=app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/);
     assert.ok(banner,'Home shows the progress banner for returning learners');
-    assert.ok(banner[0].includes(saved.completed.length+'/30 완료'));
+    assert.ok(banner[0].includes(saved.completed.length+'/50 완료'));
     assert.ok(banner[0].includes('href="#/lesson/'+expected+'"'),'Banner recommends '+expected+' for '+JSON.stringify(saved));
     assert.deepEqual(app.saved(),saved);
     app.route('#/lesson/'+saved.last);
     assert.deepEqual(app.saved(),saved);
   }
 });
+test('Existing thirty-lesson progress persists and resumes in the optional extension',()=>{
+ const legacy=Object.values(ORDER).slice(0,4).flat();
+ const app=setup({completed:legacy,last:'publish'});
+ assert.deepEqual(app.saved().completed,legacy);
+ assert.match(app.html(),/30\/50 완료/);
+ assert.ok(app.html().includes('href="#/lesson/savebackup"'));
+ app.route('#/service');
+ assert.match(app.html(),/선택 확장 20편/);
+ assert.equal((app.html().match(/class="course-row published"/g)||[]).length,20);
+});
+
 test('All four foundations render real content and consecutive previous/next links', () => {
   const app=setup();
   const sequence=['choose','setup','prompt','privacy'];
@@ -97,9 +108,9 @@ test('All four foundations render real content and consecutive previous/next lin
     assert.ok(nav.includes('href="#/lesson/'+(sequence[i+1] || 'chat')+'"'));
   });
 });
-test('Learning map exposes exactly thirty usable lessons and no prepared topics', () => {
+test('Learning map exposes exactly fifty usable lessons and no prepared topics', () => {
   const app=setup(undefined,'#/courses');
-  assert.equal((app.html().match(/class="course-row published[^"]*"/g)||[]).length,30);
+  assert.equal((app.html().match(/class="course-row published[^"]*"/g)||[]).length,50);
   assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,0);
   for(const key of ['choose','setup','prompt','privacy','chat','followup','clues','files','images','search','projects','teaching','work','environment','brief','compare','documents','redirect','review','reuse','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
   const rows=rowsOf(app.html(),'chat');
@@ -112,12 +123,12 @@ test('New completion persists through restart, cancellation persists, old comple
   assert.equal(button.getAttribute('aria-pressed'),'true');
   assert.deepEqual(app.saved(),{completed:['chat','work','privacy','prompt','reuse'],last:'reuse'});
   app=setup(app.saved(),'#/lesson/reuse');
-  assert.match(app.html(),/전체 학습 5\/30 완료/);
+  assert.match(app.html(),/전체 학습 5\/50 완료/);
   assert.match(app.html(),/✓ 학습 완료 · 취소/);
   await app.complete();
   app=setup(app.saved());
   assert.deepEqual(app.saved().completed,['chat','work','privacy','prompt']);
-  assert.match(app.html(),/4\/30 완료/);
+  assert.match(app.html(),/4\/50 완료/);
 });
 test('Every new title and a text-only body fragment are searchable', () => {
   const app=setup();
@@ -132,7 +143,7 @@ test('Every new title and a text-only body fragment are searchable', () => {
 test('Cross-tab completion event updates visible lesson count and button', async () => {
   const app=setup({completed:['chat'],last:'chat'},'#/lesson/choose');
   app.storage({completed:['chat','choose'],last:'choose'});
-  assert.match(app.sidebar(),/전체 학습 2\/30 완료/);
+  assert.match(app.sidebar(),/전체 학습 2\/50 완료/);
   const button=await app.complete();
   assert.equal(button.getAttribute('aria-pressed'),'false');
   assert.deepEqual(app.saved().completed,['chat']);
@@ -140,7 +151,7 @@ test('Cross-tab completion event updates visible lesson count and button', async
 test('Unknown and duplicate legacy completion entries cannot inflate progress', () => {
   const app=setup({completed:['chat','chat','removed','privacy'],last:'removed'});
   app.route('#/lesson/setup');
-  assert.match(app.html(),/전체 학습 2\/30 완료/);
+  assert.match(app.html(),/전체 학습 2\/50 완료/);
   assert.deepEqual(app.saved(),{completed:['chat','privacy'],last:'setup'});
 });
 test('Unknown and prototype property routes render not-found without overwriting resume state', () => {
@@ -160,7 +171,7 @@ test('Practice lessons render with correct links from Chat through Work and the 
     assert.doesNotMatch(app.html(),/undefined|이 페이지는 찾을 수 없어요/);
     const nav=app.html().match(/<nav class="lesson-nav"[\s\S]*?<\/nav>/)[0];
     assert.ok(nav.includes('href="#/lesson/'+sequence[i]+'"'));
-    assert.ok(nav.includes('href="'+(sequence[i+2] ? '#/lesson/'+sequence[i+2] : '#/courses')+'"'));
+    assert.ok(nav.includes('href="'+(sequence[i+2] ? '#/lesson/'+sequence[i+2] : '#/lesson/savebackup')+'"'));
   });
 });
 test('Work learning map publishes all eight lessons', () => {
@@ -212,7 +223,7 @@ test('Home banner recommends the next unfinished lesson and handles first-time a
   assert.ok(banner.includes('href="#/lesson/followup"'),'recommends the lesson after the last completed one, not the last opened page');
   assert.ok(banner.includes('href="#/lesson/publish"'),'still offers the last opened lesson as a secondary link');
   app=setup({completed:ALL,last:'publish'});
-  assert.match(app.html(),/progress-banner[\s\S]*?30\/30 완료[\s\S]*?href="#\/courses"/);
+  assert.match(app.html(),/progress-banner[\s\S]*?50\/50 완료[\s\S]*?href="#\/courses"/);
   assert.doesNotMatch(app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/)[0],/href="#\/lesson\//,'nothing left to recommend');
 });
 test('Lesson meta shows the position within its path instead of a generic badge', () => {
@@ -224,9 +235,9 @@ test('Lesson meta shows the position within its path instead of a generic badge'
     assert.doesNotMatch(meta,/초보 필수|첫 프로젝트/);
   }
 });
-test('Lesson heading exposes the current path position and the next destination across all thirty lessons', () => {
+test('Lesson heading exposes the current path position and the next destination across all fifty lessons', () => {
   const app=setup();
-  const labels={start:'공통 입문',chat:'ChatGPT 채팅',work:'ChatGPT Work',codex:'Codex'};
+  const labels={start:'공통 입문',chat:'ChatGPT 채팅',work:'ChatGPT Work',codex:'Codex',service:'Codex 서비스 확장'};
   for(const [group,sequence] of Object.entries(ORDER)) sequence.forEach((key,i)=>{
     app.route('#/lesson/'+key);
     const html=app.html();
@@ -239,7 +250,7 @@ test('Lesson heading exposes the current path position and the next destination 
   app.route('#/lesson/files');
   assert.match(app.html(),/<p class="lesson-position">ChatGPT 채팅 3\/8 · 다음: 요청의 네 단서<\/p>/);
   app.route('#/lesson/publish');
-  assert.match(app.html(),/<p class="lesson-position">Codex 10\/10 · 다음: 전체 학습 지도<\/p>/);
+  assert.match(app.html(),/<p class="lesson-position">Codex 10\/10 · 다음: 저장과 백업<\/p>/);
 });
 test('Lesson data leaves navigation to the shared order and names the representative chat practice consistently', () => {
   const app=setup();
@@ -324,11 +335,11 @@ test('Lesson navigation renders previous and next as labelled buttons', () => {
   assert.match(nav,/<a class="nav-button prev" href="#\/lesson\/followup"><small>이전<\/small><span>후속 요청<\/span><\/a>/);
   assert.match(nav,/<a class="nav-button next" href="#\/lesson\/clues"><small>다음<\/small><span>요청의 네 단서<\/span><\/a>/);
 });
-test('Sidebar groups the thirty lessons by path in the unified order', () => {
+test('Sidebar groups the fifty lessons by path in the unified order', () => {
   const app=setup();
   app.route('#/lesson/files');
   const sidebar=app.html().match(/<aside class="lesson-sidebar">[\s\S]*?<\/aside>/)[0];
-  assert.deepEqual([...sidebar.matchAll(/<p class="sidebar-group">([^<]*)<\/p>/g)].map(m=>m[1]),['공통 입문','ChatGPT 채팅','ChatGPT Work','Codex']);
+  assert.deepEqual([...sidebar.matchAll(/<p class="sidebar-group">([^<]*)<\/p>/g)].map(m=>m[1]),['공통 입문','ChatGPT 채팅','ChatGPT Work','Codex','Codex 서비스 확장']);
   assert.deepEqual([...sidebar.matchAll(/href="#\/lesson\/([a-z]+)"/g)].map(m=>m[1]),ALL,'sidebar follows the unified order');
 });
 test('Search understands the words beginners actually type', () => {
@@ -341,6 +352,9 @@ test('Search understands the words beginners actually type', () => {
   assert.equal(firstHits('코덱스')[0],'#/lesson/workspace','path matches rank above lessons that merely mention Codex');
   assert.equal(firstHits('워크')[0],'#/lesson/environment');
   assert.equal(firstHits('파일 질문')[0],'#/lesson/files','title matches rank above body matches');
+  assert.equal(firstHits('동기화')[0],'#/lesson/realtime','direct topic ranks above older mentions');
+  assert.equal(firstHits('레일웨이')[0],'#/lesson/railway');
+  assert.equal(firstHits('깃허브')[0],'#/lesson/github');
 });
 test('Help page adds signup and install FAQs, a permission rule table and a glossary', () => {
   const app=setup(undefined,'#/help');
@@ -364,7 +378,7 @@ test('Resources page leads with the two starter files and groups the rest by pat
   assert.ok(at('2026-09-20-공개수업-계획.txt')<at('2026-09-22-채팅활용-기록표.md'),'chat sheet after starters');
   assert.ok(at('2026-09-22-채팅활용-기록표.md')<at('2026-09-21-탐구준비물-비교자료.csv'),'work files after chat files');
   assert.ok(at('2026-09-21-탐구준비물-비교자료.csv')<at('2026-09-21-Codex-준비점검표.md'),'codex files after work files');
-  assert.deepEqual([...html.matchAll(/<h2 class="resource-group">([^<]*)<\/h2>/g)].map(m=>m[1]),['ChatGPT 채팅','ChatGPT Work','Codex','공통']);
+  assert.deepEqual([...html.matchAll(/<h2 class="resource-group">([^<]*)<\/h2>/g)].map(m=>m[1]),['ChatGPT 채팅','ChatGPT Work','Codex','Codex 서비스 확장','공통']);
   assert.equal((html.match(/class="resource-grid"/g)||[]).length,1,'single grid so the practice lab still attaches after it');
 });
 test('Prompt boxes use a step-specific label when the prompt is not a chat message', () => {
