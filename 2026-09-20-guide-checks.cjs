@@ -224,6 +224,82 @@ test('Lesson meta shows the position within its path instead of a generic badge'
     assert.doesNotMatch(meta,/초보 필수|첫 프로젝트/);
   }
 });
+test('Lesson heading exposes the current path position and the next destination across all thirty lessons', () => {
+  const app=setup();
+  const labels={start:'공통 입문',chat:'ChatGPT 채팅',work:'ChatGPT Work',codex:'Codex'};
+  for(const [group,sequence] of Object.entries(ORDER)) sequence.forEach((key,i)=>{
+    app.route('#/lesson/'+key);
+    const html=app.html();
+    const position=html.match(/<p class="lesson-position">([^<]*)<\/p>/);
+    assert.ok(position,key+' exposes a position line');
+    const next=html.match(/<a class="nav-button next"[^>]*><small>다음<\/small><span>([^<]*)<\/span>/)[1];
+    assert.equal(position[1],labels[group]+' '+(i+1)+'/'+sequence.length+' · 다음: '+next);
+    assert.ok(html.indexOf(position[0])<html.indexOf('<h1 class="lesson-title">'),key+' position precedes the title');
+  });
+  app.route('#/lesson/files');
+  assert.match(app.html(),/<p class="lesson-position">ChatGPT 채팅 3\/8 · 다음: 요청의 네 단서<\/p>/);
+  app.route('#/lesson/publish');
+  assert.match(app.html(),/<p class="lesson-position">Codex 10\/10 · 다음: 전체 학습 지도<\/p>/);
+});
+test('Lesson data leaves navigation to the shared order and names the representative chat practice consistently', () => {
+  const app=setup();
+  for(const key of ALL) assert.equal(Object.hasOwn(app.lessons[key],'nextKey'),false,key+' has no independent nextKey');
+  assert.equal(app.lessons.chat.eyebrow,'CHATGPT 채팅 · 대표 실습');
+  assert.ok(app.lessons.followup.prerequisites.some(text=>text.includes('채팅 1편(안내문 다듬기)')));
+  assert.ok(app.lessons.followup.steps[0].text.includes('대화(채팅 1편)'));
+  assert.doesNotMatch(JSON.stringify(app.lessons.followup),/첫 번째 실습/);
+});
+test('Home and start describe foundation times from the current lesson data', () => {
+  const app=setup();
+  const intro=()=>app.html().match(/<p class="foundation-intro">([^<]*)<\/p>/)[1];
+  for(const route of ['#/','#/start']) {
+    app.route(route);
+    assert.match(intro(),/각 5~12분/);
+  }
+  app.lessons.choose.minutes=3;
+  app.lessons.setup.minutes=19;
+  for(const route of ['#/','#/start']) {
+    app.route(route);
+    assert.match(intro(),/각 3~19분/,'changing a lesson duration changes the range on '+route);
+    assert.doesNotMatch(intro(),/각 5~8분/);
+  }
+  for(const key of ORDER.start) app.lessons[key].minutes=7;
+  app.route('#/');
+  assert.match(intro(),/각 7분/,'equal durations do not display a misleading range');
+});
+test('Board and screen CSS text palettes meet 4.5 to 1 on their declared backgrounds', () => {
+  const board=fs.readFileSync(path.join(__dirname,'2026-09-20-classroom-board.html'),'utf8');
+  const screen=fs.readFileSync(path.join(__dirname,'2026-09-20-screen-guides.css'),'utf8');
+  const guide=fs.readFileSync(path.join(__dirname,'2026-09-20-guide.css'),'utf8');
+  const property=(source,selector,name)=>{
+    let result;
+    const css=(source.match(/<style\b[^>]*>([\s\S]*?)<\/style>/i)?.[1]||source).replace(/\/\*[\s\S]*?\*\//g,'').replace(/@charset[^;]*;/gi,'');
+    for(const match of css.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+      if(!match[1].split(',').map(s=>s.trim()).includes(selector)) continue;
+      for(const declaration of match[2].split(';')) {
+        const at=declaration.indexOf(':');
+        if(declaration.slice(0,at).trim()===name) result=declaration.slice(at+1).replace(/!important/g,'').trim();
+      }
+    }
+    assert.ok(result,selector+' defines '+name);
+    return result;
+  };
+  const luminance=hex=>{
+    assert.match(hex,/^#[\da-f]{6}$/i);
+    const channels=hex.slice(1).match(/../g).map(v=>parseInt(v,16)/255).map(v=>v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4);
+    return channels[0]*0.2126+channels[1]*0.7152+channels[2]*0.0722;
+  };
+  for(const [label,foreground,background] of [
+    ['Board eyebrow',property(board,'.eyebrow','color'),property(board,':root','background')],
+    ['Selected lesson description',property(board,'.lesson small','color'),property(board,'.lesson.active','background')],
+    ['Screen caption',property(screen,'.screen-caption p','color'),property(guide,':root','--bg')],
+    ['Screen source',property(screen,'.screen-attribution','color'),property(guide,':root','--bg')]
+  ]) {
+    const a=luminance(foreground),b=luminance(background);
+    const ratio=(Math.max(a,b)+0.05)/(Math.min(a,b)+0.05);
+    assert.ok(ratio>=4.5,label+' contrast is '+ratio.toFixed(3)+':1');
+  }
+});
 test('Route change scrolls to the top instantly and restores smooth behaviour afterwards', () => {
   const app=setup();
   app.scrolls.length=0;

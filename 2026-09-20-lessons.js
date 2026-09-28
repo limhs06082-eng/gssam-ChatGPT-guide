@@ -1,7 +1,7 @@
 window.GUIDE_LESSONS = {
   chat: {
     title: '학부모 공개수업 안내문 다듬기',
-    eyebrow: 'CHATGPT 채팅 · 첫 번째 실습',
+    eyebrow: 'CHATGPT 채팅 · 대표 실습',
     summary: '완벽한 질문부터 쓰지 않아도 괜찮아요. 필요한 사실을 알려주고, 초안을 읽고, 한 번 더 부탁하는 흐름을 경험합니다.',
     minutes: 10,
     outcome: '날짜·대상·장소가 정확하고, 학부모가 읽기 편한 안내문 초안 한 편',
@@ -22,7 +22,7 @@ window.GUIDE_LESSONS = {
     ],
     tip: '좋은 요청문 하나를 외우기보다 “사실 알려주기 → 결과 읽기 → 구체적으로 수정하기”를 익혀 보세요. 채팅은 첫 답변에서 끝나는 작업이 아닙니다.',
     sources: [{label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}],
-    checkedDate: '2026-09-23'
+    checkedDate: '2026-09-28'
   },
   work: {
     title: '가상 자료로 공개수업 안내자료 만들기',
