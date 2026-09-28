@@ -1,29 +1,53 @@
-/* 공식 자료의 실제 화면 이미지 + 가이드 자체의 번호 설명. 모델/권한의 선택을 권장하는 그림이 아님. */
+/* 실제 캡처와 공식 예시를 구분하고 이미지 비율에 맞춰 번호를 표시합니다. */
 window.GUIDE_SCREENS = {
- chat: {
-  image:'https://learn.chatgpt.com/images/codex/video-posters/chatgpt-work-select.webp',
-  alt:'OpenAI 공식 예시 화면. 위에 Chat과 Work 선택, 아래에 추가 버튼과 요청 입력창이 있습니다.',
-  source:'https://learn.chatgpt.com/docs/get-started-with-work',
-  sourceLabel:'OpenAI · Work 시작 안내의 화면 예시',
-  caption:'공식 영상의 시작 화면입니다. 번호 표시는 이 가이드에서 추가했습니다.',
-  warning:'영문 예시에서는 Chat이라고 표시됩니다. 내 화면에서는 채팅 등 다른 언어로 표시될 수 있어요. 같은 버튼이 없다면 먼저 새 대화를 열고 일반 질문부터 시작하세요.',
+ setup: {
+  image:'./2026-09-28-화면-setup.png', width:1280, height:650, checkedDate:'2026-09-28',
+  alt:'실습 계정의 Chat 시작 화면. 왼쪽 새 채팅 아이콘, 위쪽 Chat 선택, 가상 안내문 요청 입력창과 보내기 버튼입니다.',
+  source:'https://learn.chatgpt.com/docs/quickstart', sourceLabel:'OpenAI · 시작하기 기능 안내',
+  caption:'2026-09-28 실습 계정에서 가상 안내문 요청을 입력한 화면입니다. 계정과 버전에 따라 다를 수 있어요.',
+  warning:'로그인 과정은 담지 않았어요. 사이드바 기록과 계정 정보는 캡처에서 제외했습니다. 실제 작업은 내 ChatGPT 화면에서 합니다.',
   points:[
-   {x:58,y:11,title:'Chat · 채팅을 찾아요',text:'새 대화 화면에서 Chat을 선택합니다. 이번에는 짧은 안내문을 대화하며 다듬을 거예요. Work를 먼저 켤 필요는 없습니다.'},
-   {x:43,y:74,title:'입력창에 요청을 넣어요',text:'Ask ChatGPT라고 적힌 입력창을 눌러 아래 실습의 요청문을 붙여 넣으세요. Enter 또는 화면의 보내기 버튼으로 전송합니다.'},
-   {x:24,y:76,title:'자료를 넣을 때는 추가 버튼',text:'입력창 옆 +는 자료를 추가할 때 찾는 버튼입니다. 오늘 채팅 실습은 가상 행사 정보를 글로 주므로 파일을 넣지 않아도 됩니다.'}
+   {x:2,y:12,title:'새 채팅으로 시작해요',text:'사이드바를 접으면 연필 모양 아이콘으로 보여요. 새 대화를 열어도 이전 모드가 유지될 수 있으니 Chat 선택도 확인합니다.'},
+   {x:48,y:4,title:'Chat을 선택해요',text:'이번 입문은 짧은 질문을 보내는 Chat 실습이에요. Work가 켜져 있으면 Chat을 선택하세요.'},
+   {x:34,y:61,title:'요청문을 붙여 넣어요',text:'ChatGPT에게 물어보세요 입력창에 아래 실습의 가상 수업 질문을 넣습니다. 이 캡처에는 같은 입력창에서 안내문 요청을 연습한 모습이 담겨 있어요.'},
+   {x:80,y:90,title:'보내기 버튼을 눌러요',text:'글을 입력하면 입력창 오른쪽에 위쪽 화살표가 나타납니다. 보내기 또는 Enter로 요청하고 답변을 읽어 보세요.'}
+  ]
+ },
+ chat: {
+  image:'./2026-09-28-화면-chat-검수.png', width:1228, height:400, checkedDate:'2026-09-28',
+  alt:'실습 계정에서 Chat을 선택한 시작 화면. 요청 입력창과 파일 등 추가 버튼이 보입니다.',
+  source:'https://learn.chatgpt.com/docs/use-chatgpt', sourceLabel:'OpenAI · ChatGPT 사용 안내',
+  caption:'2026-09-28 실습 계정에서 캡처한 Chat 시작 화면입니다. 계정과 버전에 따라 다를 수 있어요.',
+  warning:'그림 안 번호는 위치 설명용이에요. 아래 요청을 복사한 뒤 내 ChatGPT 입력창에서 보내세요. 답변이 편집 문서 상자로 나와도 그 안의 날짜·시간·장소를 확인하면 됩니다.',
+  points:[
+   {x:46,y:6.5,title:'Chat 선택을 확인해요',text:'새 채팅을 연 뒤 Chat을 선택합니다. 이번에는 가상 행사 정보를 글로 전달하고 같은 대화에서 안내문을 수정할 거예요.'},
+   {x:39,y:90.5,title:'입력창에 요청을 넣어요',text:'ChatGPT에게 물어보세요 입력창에 2단계 요청문을 붙여 넣습니다. Enter 또는 글을 입력한 뒤 나타나는 보내기로 전송합니다.'},
+   {x:21,y:90.5,title:'자료 추가 버튼을 알아 둬요',text:'입력창의 +는 파일 등 추가 버튼입니다. 이번 안내문 실습은 가상 정보를 본문으로 주므로 파일 없이도 진행할 수 있어요.'}
+  ]
+ },
+ environment: {
+  image:'./2026-09-28-화면-environment-검수.png', width:1228, height:515, checkedDate:'2026-09-28',
+  alt:'실습 계정에서 Work를 선택한 웹 시작 화면. ChatGPT로 Work 시작 입력창과 추가 버튼이 보입니다.',
+  source:'https://learn.chatgpt.com/docs/get-started-with-work', sourceLabel:'OpenAI · Work 시작 안내',
+  caption:'2026-09-28 실습 계정에서 Work를 선택하고 캡처한 웹 화면입니다. 계정과 버전에 따라 다를 수 있어요.',
+  warning:'이 화면은 브라우저의 온라인 Work예요. 파일 경로만 적으면 내 컴퓨터의 자료를 읽지 못해요. 첨부 또는 이름을 구분한 본문 붙여 넣기로 전달한 뒤 실제로 읽은 범위를 확인합니다.',
+  points:[
+   {x:54.5,y:5,title:'Work를 선택해요',text:'새 대화 상단의 Work를 선택하면 어떤 작업을 할까요? 화면과 Work 시작 입력창이 나타납니다.'},
+   {x:40,y:71,title:'Work 시작 입력창을 찾아요',text:'ChatGPT로 Work 시작이라고 적힌 칸에 자료·목표·완료 조건을 입력합니다. 이 계정에는 별도의 새 작업 버튼이 없어요.'},
+   {x:21,y:85,title:'컴퓨터의 자료를 전달해요',text:'파일 등 추가 → 사진 및 파일 추가(컴퓨터에서 업로드)에서 파일을 선택합니다. 파일 이름이 보이는지 확인하고, 답변의 근거를 원본과 대조하세요.'}
   ]
  },
  work: {
-  image:'https://learn.chatgpt.com/images/codex/video-posters/chatgpt-work-select.webp',
-  alt:'OpenAI 공식 예시의 Chat·Work 선택 화면. 위쪽 Work와 아래쪽 파일 추가·요청 입력창을 찾을 수 있습니다.',
-  source:'https://learn.chatgpt.com/docs/get-started-with-work',
-  sourceLabel:'OpenAI · Work 시작 안내의 화면 예시',
-  caption:'공식 영상의 시작 화면이며 Chat이 선택된 상태입니다. 실제 실습에서는 Work를 선택합니다.',
-  warning:'Work가 보이지 않으면 계정·앱·조직 설정을 확인해 주세요. 이 그림을 눌러도 실제 ChatGPT 설정은 바뀌지 않습니다. 실제 작업은 ChatGPT에서 진행합니다.',
+  image:'./2026-09-28-화면-work-결과-검수.png', width:1228, height:650, checkedDate:'2026-09-28',
+  alt:'실습 계정 Work에서 만든 안내자료와 교사 확인 목록의 수정본 결과 카드입니다.',
+  source:'https://learn.chatgpt.com/docs/artifacts-viewer', sourceLabel:'OpenAI · 결과 파일 검토 안내',
+  caption:'2026-09-28 실습 계정에서 가상 자료 본문으로 만든 DOCX 수정본 결과입니다. 계정과 버전에 따라 다를 수 있어요.',
+  warning:'파일 첨부 대신 본문을 붙여 넣은 대체 실습 결과예요. 파일 첨부·읽기 성공과 구분합니다. 정상 실습에서는 보내기 전에 입력창 위의 파일 이름 두 개부터 확인하세요.',
   points:[
-   {x:73,y:11,title:'Work · 작업을 맡기는 선택',text:'새 대화 상단의 Work를 선택하세요. 데스크톱 앱에서는 먼저 제품 선택에서 ChatGPT를 고른 뒤 Work로 전환하는 흐름을 공식 문서에서 안내합니다.'},
-   {x:24,y:76,title:'실습 자료 두 개를 전달해요',text:'추가 버튼 또는 현재 환경의 첨부 기능으로 계획서와 준비 메모를 전달하세요. 두 파일을 실제로 읽을 수 있는지 확인하고 시작합니다.'},
-   {x:43,y:74,title:'결과물과 조건을 적어요',text:'입력창에 대상·한 쪽 분량·필수 정보·확인할 항목을 함께 적습니다. Work가 진행 중 질문하면 자료를 기준으로 답하고, 결과 파일을 직접 열어 확인합니다.'}
+   {x:18,y:4,title:'Work 결과인지 확인해요',text:'작업 제목 옆에 Work가 표시돼요. 시작할 때 Work를 선택하는 화면은 작업 환경 편에서 볼 수 있습니다.'},
+   {x:26,y:69.5,title:'학부모용 문서를 열어요',text:'안내자료 결과 카드를 눌러 미리보기 열기로 내용을 확인합니다. 실제 날짜·시간·장소가 원본과 같고 교사 내부 메모가 빠졌는지 살펴보세요.'},
+   {x:26,y:79,title:'교사용 목록도 따로 확인해요',text:'두 번째 카드는 교사용 확인 목록이에요. 주차·신청·촬영 미확정과 09:40 내부 점검, 지난 09:50 시간을 여기에서 구분합니다.'},
+   {x:87,y:13,title:'결과 파일을 다시 찾아요',text:'오른쪽 출력 영역에서도 만든 문서를 찾을 수 있어요. 결과 카드의 파일 다운로드 또는 열린 미리보기의 다운로드로 저장하고, 다운로드 폴더의 실제 파일을 확인합니다.'}
   ]
  },
  codex: {
@@ -50,7 +74,7 @@ window.GUIDE_SCREENS = {
  const getKey=()=>location.hash.split('?')[0].split('/')[2];
  function screenMarkup(key) {
   const s=window.GUIDE_SCREENS[key];
-  return `<section class="screen-tour" id="screen-tour" aria-labelledby="screen-tour-title"><h2 id="screen-tour-title">화면에서 먼저 찾아보세요</h2><p class="screen-intro">번호를 누르면 해당 위치에서 할 일을 볼 수 있어요. 영어 메뉴 이름과 함께 확인해 보세요.</p><div class="screen-frame ${key}" data-screen-frame><img src="${s.image}" alt="${esc(s.alt)}" loading="lazy" referrerpolicy="no-referrer"><div class="screen-image-error" role="status">공식 화면 이미지를 불러오지 못했어요.<br>아래 번호 설명으로 계속 배우거나 공식 원문을 열어 보세요.</div>${s.points.map((p,i)=>`<button class="hotspot" style="--x:${p.x}%;--y:${p.y}%" data-tour-point="${i}" aria-label="${i+1}. ${esc(p.title)}" aria-pressed="${i===0}" aria-controls="screen-explanation">${i+1}</button>`).join('')}</div><div class="screen-caption"><p>${esc(s.caption)}</p><button class="button small" data-enlarge-screen>공식 화면 크게 보기 ↗</button></div><p class="screen-attribution">화면 출처: <a href="${s.source}" target="_blank" rel="noopener noreferrer">${s.sourceLabel} ↗</a> · 2026-09-20 확인</p><div class="screen-choices" role="group" aria-label="화면 안내 단계">${s.points.map((p,i)=>`<button data-tour-point="${i}" aria-pressed="${i===0}" aria-controls="screen-explanation">${i+1}. ${esc(p.title)}</button>`).join('')}</div><div class="screen-explanation" id="screen-explanation" aria-live="polite"><h3>${esc(s.points[0].title)}</h3><p>${esc(s.points[0].text)}</p></div><div class="screen-warning">${esc(s.warning)}</div></section>`;
+  return `<section class="screen-tour" id="screen-tour" aria-labelledby="screen-tour-title"><h2 id="screen-tour-title">화면에서 먼저 찾아보세요</h2><p class="screen-intro">번호를 누르면 해당 위치에서 할 일을 볼 수 있어요. 캡처 날짜와 내 화면의 차이도 함께 확인하세요.</p><div class="screen-frame ${key}" data-screen-frame${s.width&&s.height?` style="aspect-ratio:${s.width}/${s.height}"`:""}><img src="${s.image}" alt="${esc(s.alt)}" loading="lazy" referrerpolicy="no-referrer"><div class="screen-image-error" role="status">화면 이미지를 불러오지 못했어요.<br>아래 번호 설명으로 계속 배우거나 공식 원문을 열어 보세요.</div>${s.points.map((p,i)=>`<button class="hotspot" style="--x:${p.x}%;--y:${p.y}%" data-tour-point="${i}" aria-label="${i+1}. ${esc(p.title)}" aria-pressed="${i===0}" aria-controls="screen-explanation">${i+1}</button>`).join('')}</div><div class="screen-caption"><p>${esc(s.caption)}</p><button class="button small" data-enlarge-screen>화면 크게 보기 ↗</button></div><p class="screen-attribution">${s.width?"실습 화면의 공식 기능 안내":"화면 출처"}: <a href="${s.source}" target="_blank" rel="noopener noreferrer">${s.sourceLabel} ↗</a> · ${s.checkedDate||"2026-09-20"} 확인</p><div class="screen-choices" role="group" aria-label="화면 안내 단계">${s.points.map((p,i)=>`<button data-tour-point="${i}" aria-pressed="${i===0}" aria-controls="screen-explanation">${i+1}. ${esc(p.title)}</button>`).join('')}</div><div class="screen-explanation" id="screen-explanation" aria-live="polite"><h3>${esc(s.points[0].title)}</h3><p>${esc(s.points[0].text)}</p></div><div class="screen-warning">${esc(s.warning)}</div></section>`;
  }
  function setupScreen(key) {
   const prepared=main.querySelector('#prepare');if(!prepared||main.querySelector('#screen-tour'))return;

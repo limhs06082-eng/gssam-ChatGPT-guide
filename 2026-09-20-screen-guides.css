@@ -5,3 +5,5 @@
 .screen-caption p{font-size:12px;color:#5f6e66}.screen-caption .button,.screen-choices button,.screen-warning{font-size:12px}
 .screen-attribution{font-size:12px!important;color:#5f6e66!important}
 .copy-fallback textarea,.lab-card textarea{font-family:inherit;font-size:16px;line-height:1.8}
+.screen-frame .hotspot{left:clamp(20px,var(--x),calc(100% - 20px));top:clamp(20px,var(--y),calc(100% - 20px))}
+.screen-frame.failed{aspect-ratio:auto!important}

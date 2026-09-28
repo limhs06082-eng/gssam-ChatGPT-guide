@@ -1,11 +1,11 @@
 Object.assign(window.GUIDE_LESSONS, {
   environment: {
-    title: '온라인 작업과 내 컴퓨터 작업 구분하기', eyebrow: 'CHATGPT WORK · 작업 환경', checkedDate: '2026-09-23', minutes: 12,
+    title: '온라인 작업과 내 컴퓨터 작업 구분하기', eyebrow: 'CHATGPT WORK · 작업 환경', checkedDate: '2026-09-28', minutes: 12,
     summary: 'Work를 여는 방법과 파일을 첨부하는 방법을 익히고, 지금 내 작업이 온라인 작업인지 내 컴퓨터 작업인지 세 줄 규칙으로 구분합니다. 파일 경로를 글로 적는 대신 첨부해야 하는 이유도 확인해요.',
     outcome: '내 작업 환경(온라인/내 컴퓨터), 실제로 읽은 파일, 결과를 받을 위치를 적은 기록',
     prerequisites: ['ChatGPT에 로그인한 상태. 화면에 Work가 없으면 1단계의 “Work가 안 보일 때” 안내를 먼저 보세요.', '가상 공개수업 계획서 한 파일 (3단계에서 받을 수 있어요)', 'Work 작업 설계표 (5단계에서 열 수 있어요)'],
     steps: [
-      {title: '1. Work를 열고 파일을 첨부해요', text: 'chatgpt.com 또는 데스크톱 앱에서 새 대화를 엽니다. 입력창 위쪽의 Chat/Work 선택에서 Work를 고르세요. 공식 안내는 이것을 “Work로 전환(switch to Work)”이라고 부릅니다. “새 작업” 같은 시작 버튼이 보이면 누르고, 바로 입력창이 나오면 그대로 쓰면 돼요.\n파일 첨부는 이렇게 합니다. 입력창 왼쪽의 + 버튼을 누르고 파일 추가(업로드) 항목을 고르면 파일 선택 창이 열립니다. 파일을 고르고 “열기”를 누르세요. 두 파일을 한 번에 넣으려면 첫 파일을 누른 뒤 Ctrl 키를 누른 채 두 번째 파일을 누릅니다. 입력창 위에 파일 이름이 보이면 첨부된 거예요. 항목 이름은 버전에 따라 조금 다를 수 있습니다.\nWork가 보이지 않으면 같은 절차를 채팅에서 할 수 있어요. 아래 두 번째 링크를 누르세요.', links: [{label: 'Work가 안 보일 때', url: '#/help?faq=work-hidden'}, {label: 'Work 대신 채팅으로 하는 절차', url: '#/lesson/work?section=trouble'}, {label: '설명과 내 화면이 다를 때', url: '#/help?faq=screen-different'}]},
+      {title: '1. Work를 열고 파일을 첨부해요', text: 'chatgpt.com 또는 데스크톱 앱에서 새 대화를 엽니다. 입력창 위쪽의 Chat/Work 선택에서 Work를 고르세요. 공식 안내는 이것을 “Work로 전환(switch to Work)”이라고 부릅니다. 실습 웹 화면에는 “어떤 작업을 할까요?”와 “ChatGPT로 Work 시작” 입력창이 나타납니다. 이 입력창에서 시작하면 돼요. 앱이나 다른 계정에서는 배치와 이름이 다를 수 있어요.\n파일 첨부는 이렇게 합니다. 입력창 왼쪽의 + 버튼(파일 등 추가)을 누르고 “사진 및 파일 추가”(컴퓨터에서 업로드)처럼 컴퓨터의 자료를 올리는 항목을 고르면 파일 선택 창이 열립니다. 파일을 고르고 “열기”를 누르세요. 두 파일을 한 번에 넣으려면 첫 파일을 누른 뒤 Ctrl 키를 누른 채 두 번째 파일을 누릅니다. 입력창 위에 파일 이름이 보이면 첨부된 거예요. 항목 이름은 버전에 따라 조금 다를 수 있습니다.\nWork가 보이지 않으면 같은 절차를 채팅에서 할 수 있어요. 아래 두 번째 링크를 누르세요.', links: [{label: 'Work가 안 보일 때', url: '#/help?faq=work-hidden'}, {label: 'Work 대신 채팅으로 하는 절차', url: '#/lesson/work?section=trouble'}, {label: '설명과 내 화면이 다를 때', url: '#/help?faq=screen-different'}]},
       {title: '2. 지금 내 작업이 어디에서 되는지 세 줄로 판단해요', text: '세 줄만 기억하세요.\n① 브라우저(chatgpt.com)에서 쓰고 있다 → 온라인 작업\n② 데스크톱 앱에서 폴더를 고르라는 화면이 나왔다 → 내 컴퓨터 작업\n③ 파일 경로(C:\\…)를 글로 적어도 온라인 작업은 그 파일을 읽지 못한다 → 첨부해야 한다\n공식 안내는 내 컴퓨터 작업을 “Work locally”, 온라인 작업을 “Cloud”라고 부릅니다. 내 컴퓨터 작업도 AI 서비스와 통신하므로 오프라인 처리는 아니에요. 판단한 결과를 작업 설계표의 “현재 환경 표시” 칸에 적으세요.'},
       {title: '3. 실제로 읽을 수 있는지 확인해요', text: '아래 가상 계획서를 내려받아 1단계 방법으로 첨부한 뒤 요청을 보냅니다. 답변에 나온 파일 이름과 행사 날짜를 계획서와 직접 대조하세요. 다르면 “실제로 읽은 파일 이름만 알려 줘”라고 다시 묻고 넘어갑니다.', prompt: '첨부한 2026-09-20-공개수업-계획.txt는 실습용 가상 자료야. 지금 작업 환경에서 이 파일을 읽을 수 있는지 확인해 줘. 실제로 읽은 파일 이름과 행사 날짜를 알려 줘. 내 컴퓨터의 다른 폴더까지 접근할 수 있다고 가정하지 마. 아직 파일을 수정하거나 외부에 공유하지 말고, 결과 파일을 만들면 어디에서 확인하거나 내려받을 수 있는지 설명해 줘.', links: [{label: '공개수업 계획서 받기', url: './2026-09-20-공개수업-계획.txt'}]},
       {title: '4. 결과물의 위치를 확인해요', text: '온라인 작업에서 만든 파일은 답변 안의 결과 카드 또는 파일 링크에 나타납니다. 내려받기를 누르면 내 컴퓨터의 다운로드 폴더에 저장되고, 거기서 직접 열어 확인해요. 내 컴퓨터 작업이라면 답변에 적힌 저장 경로에서 파일을 엽니다. 대화에 본문만 나온 것과 파일이 저장된 것은 다르고, 첨부한 원본 파일은 자동으로 바뀌지 않습니다.'},
@@ -17,7 +17,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   },
   brief: {
-    title: '자료와 완료 조건 전달하기', eyebrow: 'CHATGPT WORK · 작업 요청', checkedDate: '2026-09-23', minutes: 12,
+    title: '자료와 완료 조건 전달하기', eyebrow: 'CHATGPT WORK · 작업 요청', checkedDate: '2026-09-28', minutes: 12,
     summary: '두 파일을 첨부하면서 자료의 역할과 완성된 결과의 기준을 함께 전달합니다. 파일 이름만 나열하지 않고 어떤 근거를 우선할지 정해요.',
     outcome: '가상 안내자료 제작을 위한 자료 목록·완료 조건과, 그 조건으로 받은 학부모용 본문·교사용 확인 목록',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '가상 파일 두 개: 2026-09-20-공개수업-계획.txt, 2026-09-20-공개수업-메모.txt (1단계에서 받을 수 있어요)', 'Work 작업 설계표'],
@@ -34,7 +34,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
   },
   redirect: {
-    title: '중간에 방향 바꾸기', eyebrow: 'CHATGPT WORK · 방향 조정', checkedDate: '2026-09-23', minutes: 12,
+    title: '중간에 방향 바꾸기', eyebrow: 'CHATGPT WORK · 방향 조정', checkedDate: '2026-09-28', minutes: 12,
     summary: '작업 도중 대상이나 형식이 달라졌다면 바뀐 조건과 유지할 조건을 나눠 전달합니다. 이미 만들어진 결과도 따로 확인해요.',
     outcome: '수정된 작업 조건과 그 조건에 맞춰 검토한 결과',
     prerequisites: ['“자료와 완료 조건 전달하기” 4단계 또는 “가상 자료로 공개수업 안내자료 만들기” 6단계에서 받은 안내자료 초안이 있는 대화 (1단계 링크에서 다시 열 수 있어요)', 'Work 작업 설계표'],
@@ -51,7 +51,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
   },
   reuse: {
-    title: '다음 작업에 재사용하기', eyebrow: 'CHATGPT WORK · 재사용', checkedDate: '2026-09-23', minutes: 12,
+    title: '다음 작업에 재사용하기', eyebrow: 'CHATGPT WORK · 재사용', checkedDate: '2026-09-28', minutes: 12,
     summary: '검토한 결과에서 틀은 남기고 날짜·대상·자료는 바꿉니다. 지난 행사의 사실이 새 작업에 섞이지 않도록 확인해요.',
     outcome: '변수를 비운 요청 틀과 새 가상 행사에 적용한 검토 기록',
     prerequisites: ['“결과물을 원본과 대조하기” 5단계에서 검토를 마친 수정 안내문. 검토 편을 건너뛰었다면 “자료와 완료 조건 전달하기” 4단계 본문 (2단계 링크에서 다시 열 수 있어요)', 'Work 작업 설계표', '새로 사용할 가상 조건 (3단계에 있어요)'],
