@@ -522,6 +522,19 @@ test('Counts separate the basic course from the optional extension', () => {
   assert.match(html,/기본 과정 30편 \+ 선택 확장 20편/);
   assert.doesNotMatch(html,/총 50편 공개/);
 });
+
+test('New-feature practices: flashcards in teaching, paper scan tip in files, annotation tip in documents', () => {
+  const app=setup();
+  const teaching=app.lessons.teaching;
+  const flash=teaching.steps.find(st=>st.title.includes('플래시카드'));
+  assert.ok(flash&&flash.prompt,'teaching has a flashcard step with a copyable prompt');
+  assert.ok(teaching.checks.some(c=>c.includes('플래시카드')));
+  app.route('#/lesson/teaching');
+  assert.ok(app.html().includes('href="https://help.openai.com/en/articles/20001533-flashcards-in-chatgpt"'),'links the official flashcard article');
+  assert.ok(app.lessons.files.troubleshooting.some(t=>t.question.includes('종이')&&/Scan|스캔/.test(t.answer)),'files explains paper documents via phone camera/scan');
+  assert.ok(app.lessons.documents.steps[4].text.includes('주석'),'documents step 5 mentions preview annotations');
+  for(const k of ['teaching','files','documents']) assert.equal(app.lessons[k].checkedDate,'2026-10-06');
+});
 (async () => {
   let failed=0;
   for (const [name,fn] of tests) {
