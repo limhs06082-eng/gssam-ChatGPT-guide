@@ -228,9 +228,9 @@ window.GUIDE_SERVICE={
   {title:'데이터 저장하고 옮기기',description:'현재 브라우저의 저장과 백업 이동을 경험합니다.',keys:['localdata','datatransfer']},
   {title:'서버와 API 이해하기',description:'화면의 요청을 처리할 서버를 내 컴퓨터에서 실행합니다.',keys:['server','apilocal']},
   {title:'데이터베이스 준비하기',description:'공유 자료를 설계하고 임시 메모리로 네 동작을 연습합니다.',keys:['database','dbdesign','crud']},
-  {title:'로그인과 권한 만들기',description:'공개 전에 서버가 사용자를 확인하고 권한 없는 요청을 거부하게 합니다.',keys:['login','permissions']},
-  {title:'Railway로 연결하고 운영하기',description:'비용 확인 → 서버 공개 → 설정 → 실제 DB 저장 → 운영 점검으로 이어집니다.',keys:['railway','envvars','postgres','operations']},
-  {title:'실시간 동기화 확인하기',description:'PC·휴대폰의 자동 반영과 연결 끊김·동시 수정을 확인합니다.',keys:['realtime','syncerrors']}
+  {advanced:true,title:'로그인과 권한 만들기',description:'공개 전에 서버가 사용자를 확인하고 권한 없는 요청을 거부하게 합니다.',keys:['login','permissions']},
+  {advanced:true,title:'Railway로 연결하고 운영하기',description:'비용 확인 → 서버 공개 → 설정 → 실제 DB 저장 → 운영 점검으로 이어집니다.',keys:['railway','envvars','postgres','operations']},
+  {advanced:true,title:'실시간 동기화 확인하기',description:'PC·휴대폰의 자동 반영과 연결 끊김·동시 수정을 확인합니다.',keys:['realtime','syncerrors']}
  ],
  glossary:[
   {term:'SDK',text:'어떤 서비스를 내 코드에서 쓰기 위해 제공되는 도구 묶음. 예: Firebase Admin SDK는 서버에서 로그인 토큰을 검증할 때 씁니다.'},

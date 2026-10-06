@@ -65,6 +65,9 @@ function setup(saved, hash = '#/') {
     storage(value) { windowHandlers.storage({key:KEY,newValue:JSON.stringify(value)}); },
     sidebar: () => dynamic.sidebar.innerHTML,
     dialog: () => nodes.get('#search-dialog'),
+    buttons: () => parse(main.innerHTML,'button'),
+    async click(el) { await handlers.click({target:el}); refresh(); },
+    raw: key => data.get(key) ?? null,
     scrolls,
     rootScrollBehavior: () => document.documentElement.style.scrollBehavior
   };
@@ -473,6 +476,51 @@ test('Learning map and start page state the two course sizes in hours', () => {
 test('Extension glossary explains the shorthand its lessons use', () => {
   const app=setup(undefined,'#/help');
   for(const term of ['SDK','.gitignore','PORT','409','SSE']) assert.ok(app.html().includes('<dt>'+term),'glossary defines '+term);
+});
+
+test('Readiness page gates extension lesson 8 with four toggles persisted in this browser', async () => {
+  const app=setup(undefined,'#/service-ready');
+  let toggles=app.buttons().filter(b=>b.dataset.ready);
+  assert.equal(toggles.length,4,'four readiness items');
+  assert.match(app.html(),/여기까지만 해도 충분해요/);
+  assert.doesNotMatch(app.html(),/href="#\/lesson\/server"[^>]*>[^<]*8편 시작/);
+  for(const t of toggles){ await app.click(t); }
+  assert.match(app.html(),/준비 완료[\s\S]*?href="#\/lesson\/server"/);
+  assert.doesNotMatch(app.html(),/여기까지만 해도 충분해요/);
+  assert.ok(app.raw('gssam-service-ready-v1'),'readiness is saved');
+  const again=setup(undefined,'#/service-ready');
+  assert.doesNotMatch(again.html(),/준비 완료/,'a fresh browser starts unready');
+});
+test('Extension lesson 8 shows the readiness gate until all items are checked', async () => {
+  const app=setup(undefined,'#/lesson/server');
+  assert.match(app.html(),/class="gate-note"[\s\S]*?href="#\/service-ready"/);
+  app.route('#/lesson/datatransfer');
+  assert.doesNotMatch(app.html(),/class="gate-note"/,'lesson 7 has no gate');
+  app.route('#/service-ready');
+  for(const t of app.buttons().filter(b=>b.dataset.ready)){ await app.click(t); }
+  app.route('#/lesson/server');
+  assert.doesNotMatch(app.html(),/class="gate-note"/,'gate disappears once ready');
+});
+test('Lessons 13-20 are marked advanced in the lesson, sidebar and learning map', () => {
+  const app=setup(undefined,'#/lesson/login');
+  assert.match(app.html(),/class="advanced-note"[\s\S]*?개발 경험/);
+  const sidebar=app.html().match(/<div class="service-sidebar">[\s\S]*?<\/div>/)[0];
+  assert.ok((sidebar.match(/심화/g)||[]).length>=3,'advanced chapters are labelled in the sidebar');
+  app.route('#/lesson/server');
+  assert.doesNotMatch(app.html(),/class="advanced-note"/);
+  app.route('#/courses');
+  const adv=app.html().match(/<details class="advanced-group"[\s\S]*?<\/details>/);
+  assert.ok(adv,'learning map folds the advanced chapters');
+  for(const k of ['login','permissions','railway','envvars','postgres','operations','realtime','syncerrors']) assert.ok(adv[0].includes('href="#/lesson/'+k+'"'),k+' inside advanced group');
+  for(const k of ['savebackup','server','crud']) assert.ok(!adv[0].includes('href="#/lesson/'+k+'"'),k+' outside advanced group');
+  assert.match(adv[0],/<summary>[^<]*심화/);
+});
+test('Counts separate the basic course from the optional extension', () => {
+  const app=setup({completed:['chat','savebackup','login'],last:'login'},'#/lesson/files');
+  assert.match(app.html(),/기본 1\/30 · 확장 2\/20/);
+  const html=fs.readFileSync(path.join(__dirname,'2026-09-20-guide.html'),'utf8');
+  assert.match(html,/기본 과정 30편 \+ 선택 확장 20편/);
+  assert.doesNotMatch(html,/총 50편 공개/);
 });
 (async () => {
   let failed=0;
