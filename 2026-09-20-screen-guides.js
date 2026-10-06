@@ -62,6 +62,42 @@ window.GUIDE_SCREENS = {
    {x:55,y:90.5,title:'교사용 수정본도 확인해요',text:'두 번째 카드는 교사용 확인 목록 수정본이에요. 주차·신청·촬영 미확정과 09:40 내부 점검, 지난 09:50 시간을 여기에서 구분합니다. 이 문서도 내려받은 뒤 내 컴퓨터의 파일을 확인하세요.'}
   ]
  },
+ projects: {
+  image:'./2026-10-06-화면-projects.png', width:1420, height:650, checkedDate:'2026-10-06',
+  alt:'사용자 계정에서 만든 가상수업 캡처 실습 프로젝트의 사이드바 항목과 프로젝트 설정의 지침 칸입니다. 무관한 기록과 기존 요청 초안은 단색으로 가렸습니다.',
+  source:'https://learn.chatgpt.com/docs/projects', sourceLabel:'OpenAI · 프로젝트 공식 기능 안내',
+  caption:'2026-10-06 사용자 계정에서 진행한 캡처 실습 화면입니다. 계정과 버전에 따라 다를 수 있어요. 공식 기능 안내: https://learn.chatgpt.com/docs/projects',
+  warning:'이 계정에서는 프로젝트 이름 옆 메뉴 → 프로젝트 설정에서 지침을 편집했어요. 가상 지침을 저장한 뒤 다시 열어 확인했습니다. Sources 파일 영역과 프로젝트 전용 입력창을 함께 보여 주는 캡처는 미완료예요. 화면 뒤의 기존 요청 초안과 무관한 기록은 가렸고 대화는 보내지 않았습니다.',
+  points:[
+   {x:14,y:53,title:'실습 프로젝트를 구분해요',text:'왼쪽 프로젝트 목록에 2026-10-06-가상수업-캡처실습이 있어요. 이름 옆 프로젝트 액션 메뉴에서 프로젝트 설정을 선택했습니다.'},
+   {x:53,y:10.5,title:'프로젝트 설정을 열어요',text:'현재 확인한 웹 화면은 별도의 프로젝트 설정 창이에요. 프로젝트 이름과 지침을 여기에서 확인할 수 있습니다. 계정에 따라 프로젝트 화면이나 메뉴 구성이 다를 수 있어요.'},
+   {x:60,y:42,title:'지침 칸에 공통 기준을 적어요',text:'지침은 대화 입력창과 구분된 설정 칸이에요. 가상 자료만 사용하고 외부 공유·발송을 하지 않는 기준을 넣었습니다. 수정하면 나타나는 저장을 누른 뒤 다시 열어 확인하세요.'}
+  ]
+ },
+ login: {
+  image:'./2026-10-06-화면-login.png', width:1360, height:775, checkedDate:'2026-10-06',
+  alt:'Firebase Authentication의 로그인 방법에서 Google 제공업체 구성을 연 실제 화면입니다. Google 로그인 사용 설정은 꺼져 있습니다.',
+  source:'https://firebase.google.com/docs/auth/web/google-signin', sourceLabel:'Firebase · Google 로그인 공식 안내',
+  caption:'2026-10-06 사용자 계정에서 진행한 캡처 실습 화면입니다. 계정과 버전에 따라 다를 수 있어요. 공식 기능 안내: https://firebase.google.com/docs/auth/web/google-signin',
+  warning:'기존 프로젝트의 설정 화면만 열었어요. Google 사용 설정을 바꾸거나 저장하지 않고 취소했습니다. 캡처는 로그인 연결·서버 인증 검증·권한 보호를 완료했다는 증거가 아닙니다. 계정·프로젝트 이름·요금제 영역은 제외했고 비밀 값은 펼치지 않았어요.',
+  points:[
+   {x:22,y:28,title:'로그인 제공업체를 찾아요',text:'Authentication → 로그인 방법에서 로그인 제공업체 목록을 확인해요. Google이 목록에 없으면 새 제공업체 추가에서 Google을 고르면 이 구성 화면이 열립니다.'},
+   {x:34,y:56.5,title:'Google 구성인지 확인해요',text:'제공업체 구성에 Google이 표시돼요. 다른 제공업체나 프로젝트의 설정을 바꾸지 않도록 먼저 확인합니다.'},
+   {x:68,y:56.5,title:'사용 설정의 위치를 알아 둬요',text:'오른쪽 스위치는 Google 로그인 사용 설정이에요. 이 캡처에서는 꺼져 있습니다. 실제 연결 실습은 본인의 별도 실습 프로젝트에서 공식 순서와 지원 이메일을 확인한 뒤 진행하세요.'}
+  ]
+ },
+ railway: {
+  image:'./2026-10-06-화면-railway.png', width:1200, height:450, checkedDate:'2026-10-06',
+  alt:'Railway의 기존 서비스 카드가 Online이고 Deployments에 ACTIVE와 Deployment successful, 공개 도메인이 표시된 영어 화면입니다.',
+  source:'https://docs.railway.com/quick-start', sourceLabel:'Railway · 배포 공식 안내',
+  caption:'2026-10-06 사용자 계정에서 진행한 캡처 실습 화면입니다. 계정과 버전에 따라 다를 수 있어요. 표시 언어는 영어입니다. 공식 기능 안내: https://docs.railway.com/quick-start',
+  warning:'이미 실행 중이던 기존 서비스의 상태를 읽기만 했어요. 새 배포·도메인 생성·결제 수단 등록은 하지 않았습니다. 계정 아이콘과 비용 정보는 가리거나 제외했어요. Usage는 프로젝트 패널과 다른 대시보드 메뉴에 있어 1단계의 별도 실제 캡처 링크로 확인합니다. 이 상태만으로 DB 저장이나 기기 간 동기화를 확인한 것은 아니에요.',
+  points:[
+   {x:12,y:70,title:'서비스 카드를 확인해요',text:'왼쪽 카드의 Online은 이 기존 서비스가 현재 실행 중임을 보여 줍니다. 캡처 작업에서 새 서버를 만든 것은 아니에요.'},
+   {x:43,y:41.5,title:'공개 도메인 위치를 찾아요',text:'Deployments 아래에 이 기존 서비스의 공개 도메인이 표시됩니다. 주소가 있다는 것과 데이터가 안전하게 저장된다는 것은 별도로 확인해야 해요.'},
+   {x:52,y:70,title:'배포 상태를 읽어요',text:'Deployments의 ACTIVE와 Deployment successful을 함께 확인합니다. 내 실습에서는 배포한 커밋과 상태 응답도 따로 대조하고, 비용은 대시보드의 Usage에서 확인하세요.'}
+  ]
+ },
  codex: {
   image:'https://learn.chatgpt.com/images/codex/video-posters/proactive-teammate-v2.webp',
   alt:'OpenAI 공식 데스크톱 앱 예시. 가운데 작업 폴더 선택, 아래 요청 입력창, 입력창 왼쪽 권한 설정과 오른쪽 보내기 버튼이 있습니다.',

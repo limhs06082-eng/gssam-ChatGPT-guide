@@ -4,12 +4,19 @@ const vm=require('node:vm');
 const assert=require('node:assert/strict');
 const path=require('node:path');
 const window={};
-for(const file of ['2026-09-20-lessons.js','2026-09-20-foundations.js','2026-09-21-chat-practice.js','2026-09-21-work-practice.js','2026-09-22-work-completion.js','2026-09-21-codex-basics.js'])vm.runInNewContext(fs.readFileSync(path.join(__dirname,file),'utf8'),{window});
+for(const file of ['2026-09-20-lessons.js','2026-09-20-foundations.js','2026-09-21-chat-practice.js','2026-09-21-work-practice.js','2026-09-22-work-completion.js','2026-09-21-codex-basics.js','2026-09-28-service-lessons.js'])vm.runInNewContext(fs.readFileSync(path.join(__dirname,file),'utf8'),{window});
 const lessons=window.GUIDE_LESSONS;
 const tests=[
- ['A new chat explicitly selects Chat because the previous mode can persist',()=>{
+ ['Chat and captured settings use observed controls and distinguish incomplete evidence',()=>{
   assert.match(lessons.chat.steps[0].text,/새 채팅/);
   assert.match(lessons.chat.steps[0].text,/Chat.*선택/);
+  assert.match(lessons.projects.steps[0].text,/프로젝트 선택.*새 프로젝트.*프로젝트 만들기/);
+  assert.match(lessons.projects.steps[2].text,/프로젝트 액션.*프로젝트 설정.*지침.*저장/);
+  assert.match(lessons.projects.steps[1].text,/라이브러리/);
+  assert.match(lessons.login.steps[1].text,/로그인 방법.*새 제공업체 추가.*Google.*사용 설정/);
+  assert.equal(lessons.login.checkedDate,'2026-10-06');
+  assert.match(lessons.railway.steps[0].text,/Usage/);
+  assert.ok(lessons.railway.steps[0].links.some(l=>l.url==='./2026-10-06-화면-railway-usage.png'));
  }],
  ['The file attachment step names the verified menu and checks both filenames',()=>{
   assert.match(lessons.files.steps[1].text,/사진 및 파일 추가/);

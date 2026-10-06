@@ -19,7 +19,7 @@ test('Six chapters contain eighteen distinct complete lessons',()=>{
  assert.deepEqual(Object.keys(lessons),Array.from(keys));
  for(const key of keys){const l=lessons[key];
   for(const field of ['title','summary','outcome','tip'])assert.ok(l[field]?.length>8,key+' '+field);
-  assert.equal(l.checkedDate,'2026-09-28');assert.ok(l.minutes>0);
+  assert.equal(l.checkedDate,['login','railway'].includes(key)?'2026-10-06':'2026-09-28');assert.ok(l.minutes>0);
   assert.ok(l.prerequisites.length>=2 && l.steps.length>=3 && l.checks.length>=3 && l.troubleshooting.length>=2 && l.sources.length>=1,key);
   assert.ok(l.steps.some(s=>s.prompt),key+' copyable practice');
   assert.ok(l.sources.every(s=>/^https:\/\//.test(s.url)),key+' sources');

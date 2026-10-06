@@ -16,7 +16,7 @@ function setup(key){
  return {screens:window.GUIDE_SCREENS,html};
 }
 const tests=[
- ['Five verified web screens include the two-file attachment state',()=>{
+ ['Verified web screens preserve attachment evidence and add the captured settings',()=>{
   const {screens}=setup('setup');
   for(const key of ['setup','chat','files','environment','work']){
    assert.ok(screens[key],key+' capture exists');
@@ -27,6 +27,21 @@ const tests=[
   assert.match(screens.work.alt,/결과 카드/,'Work shows generated results, not the Chat start image');
   assert.match(screens.work.caption,/실제로 첨부/,'the current Work capture follows the verified attachment path');
   assert.doesNotMatch(screens.work.warning,/본문을 붙여 넣은 대체/,'the current capture is not the earlier fallback rehearsal');
+  for(const key of ['projects','login','railway']){
+   const s=screens[key];
+   assert.ok(s,key+' capture exists');
+   assert.equal(s.image,'./2026-10-06-화면-'+key+'.png');
+   assert.equal(s.checkedDate,'2026-10-06');
+   for(const field of ['alt','source','sourceLabel','caption','warning'])assert.ok(s[field],key+' '+field);
+   assert.match(s.caption,/2026-10-06.*사용자 계정/,'do not claim an unverified dedicated account');
+   assert.ok(s.caption.includes(s.source),key+' caption links its official feature guide');
+   for(const p of s.points)assert.ok(p.x>=5&&p.x<=95&&p.y>=5&&p.y<=95,key+' avoids edge correction');
+  }
+  assert.match(screens.projects.warning,/Sources.*미완료/,'partial project evidence is labelled');
+  assert.match(screens.login.warning,/저장.*취소/,'viewing settings does not claim enabling login');
+  assert.match(screens.railway.warning,/기존.*새 배포/,'existing deployments do not imply a new deployment');
+  assert.equal(screens.run,undefined,'blocked file URL capture has no substitute');
+  assert.equal(screens.postgres,undefined,'missing PostgreSQL service has no substitute');
  }],
  ['Local PNGs have matching dimensions, valid hotspots and deployable sizes',()=>{
   const {screens}=setup('setup');
@@ -41,7 +56,10 @@ const tests=[
    assert.ok(s.points.length>0);
    for(const p of s.points)assert.ok(p.x>0&&p.x<100&&p.y>0&&p.y<100,key+' hotspot range');
   }
-  assert.equal(count,5,'the five verified web captures are published');
+  assert.equal(count,8,'the eight verified web captures are published');
+  const usage=fs.readFileSync(path.join(__dirname,'2026-10-06-화면-railway-usage.png'));
+  assert.equal(usage.toString('ascii',1,4),'PNG');
+  assert.ok(usage.readUInt32BE(16)<=1600&&usage.length<=300*1024,'supplementary Usage capture size');
  }],
  ['The attachment tour names both files and separates uploading from reading',()=>{
   const {screens,html}=setup('files');
@@ -77,6 +95,7 @@ const tests=[
   const copied=workflow.split('\n').map(l=>l.trim()).filter(l=>/^cp .+ _site\/$/.test(l)).flatMap(l=>l.split(/\s+/).slice(1,-1));
   for(const [key,s] of Object.entries(screens).filter(([,s])=>s.image.startsWith('./')))assert.ok(copied.includes(s.image.slice(2)),key+' is published');
   assert.ok(Object.values(screens).some(s=>s.image.startsWith('./')),'there are local captures');
+  assert.ok(copied.includes('2026-10-06-화면-railway-usage.png'),'Usage menu is published');
  }]
 ];
 let failed=0;
