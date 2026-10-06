@@ -12,10 +12,10 @@ const course=window.GUIDE_SERVICE;
 const lessons=window.GUIDE_LESSONS;
 const tests=[];
 const test=(name,fn)=>tests.push([name,fn]);
-test('Seven chapters contain twenty distinct complete lessons',()=>{
- assert.equal(course.chapters.length,7);
+test('Six chapters contain eighteen distinct complete lessons',()=>{
+ assert.equal(course.chapters.length,6);
  const keys=course.chapters.flatMap(g=>g.keys);
- assert.equal(keys.length,20);assert.equal(new Set(keys).size,20);
+ assert.equal(keys.length,18);assert.equal(new Set(keys).size,18);
  assert.deepEqual(Object.keys(lessons),Array.from(keys));
  for(const key of keys){const l=lessons[key];
   for(const field of ['title','summary','outcome','tip'])assert.ok(l[field]?.length>8,key+' '+field);
@@ -57,11 +57,10 @@ test('Railway costs, restart persistence and recovery remain distinct checks',()
  assert.match(JSON.stringify(lessons.postgres),/비공개|private/);
  assert.match(JSON.stringify(lessons.operations),/복원/);
 });
-test('Real-time success uses two devices with reconnect and concurrency verification',()=>{
- assert.match(JSON.stringify(lessons.realtime),/휴대폰/);
- assert.match(JSON.stringify(lessons.realtime),/새로고침/);
- assert.match(JSON.stringify(lessons.syncerrors),/동시/);
- assert.match(JSON.stringify(lessons.syncerrors),/재연결|다시 연결/);
+test('Real-time lessons moved to the instructor notes instead of the site',()=>{
+ assert.equal(lessons.realtime,undefined);assert.equal(lessons.syncerrors,undefined);
+ const notes=fs.readFileSync(path.join(base,'2026-09-28-서비스확장-강사안내.md'),'utf8');
+ assert.match(notes,/심화 19편\(사이트 미게시\)/);assert.match(notes,/심화 20편\(사이트 미게시\)/);assert.match(notes,/휴대폰/);assert.match(notes,/동시/);
 });
 test('Entry point and deployment publish the entire extension',()=>{
  const html=fs.readFileSync(path.join(base,'2026-09-20-guide.html'),'utf8');

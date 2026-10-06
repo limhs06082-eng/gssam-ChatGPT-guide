@@ -9,7 +9,7 @@ const KEY = 'gssam-guide-progress-v1';
 const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-22-chat-completion.js', '2026-09-21-work-practice.js', '2026-09-22-work-completion.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-28-service-lessons.js', '2026-09-20-guide.js'];
 const sources = files.map(file => fs.readFileSync(path.join(__dirname, file), 'utf8'));
 // Single learning order: preparation lessons precede the practice that needs them. Home, map, sidebar and prev/next must all follow it.
-const ORDER = {start:['choose','setup','prompt','privacy'], chat:['chat','followup','files','clues','images','search','projects','teaching'], work:['environment','brief','work','redirect','compare','documents','review','reuse'], codex:['workspace','folders','run','codex','plan','modify','changes','debug','backup','publish'], service:['savebackup','git','github','repository','gitpush','localdata','datatransfer','server','apilocal','database','dbdesign','crud','login','permissions','railway','envvars','postgres','operations','realtime','syncerrors']};
+const ORDER = {start:['choose','setup','prompt','privacy'], chat:['chat','followup','files','clues','images','search','projects','teaching'], work:['environment','brief','work','redirect','compare','documents','review','reuse'], codex:['workspace','folders','run','codex','plan','modify','changes','debug','backup','publish'], service:['savebackup','git','github','repository','gitpush','localdata','datatransfer','server','apilocal','database','dbdesign','crud','login','permissions','railway','envvars','postgres','operations']};
 const ALL = Object.values(ORDER).flat();
 const rowsOf = (html, group) => [...html.match(new RegExp('<section class="course-group" data-group="'+group+'">([\\s\\S]*?)<\\/section>'))[1].matchAll(/<(a|div)\b[^>]*class="course-row (published|planned)[^"]*"[^>]*>[\s\S]*?<\/\1>/g)].map(m=>m[0]);
 
@@ -81,7 +81,7 @@ test('Legacy progress through twenty-two lessons survive service extension upgra
     const app=setup(saved);
     const banner=app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/);
     assert.ok(banner,'Home shows the progress banner for returning learners');
-    assert.ok(banner[0].includes(saved.completed.length+'/50 완료'));
+    assert.ok(banner[0].includes(saved.completed.length+'/48 완료'));
     assert.ok(banner[0].includes('href="#/lesson/'+expected+'"'),'Banner recommends '+expected+' for '+JSON.stringify(saved));
     assert.deepEqual(app.saved(),saved);
     app.route('#/lesson/'+saved.last);
@@ -92,11 +92,11 @@ test('Existing thirty-lesson progress persists and resumes in the optional exten
  const legacy=Object.values(ORDER).slice(0,4).flat();
  const app=setup({completed:legacy,last:'publish'});
  assert.deepEqual(app.saved().completed,legacy);
- assert.match(app.html(),/30\/50 완료/);
+ assert.match(app.html(),/30\/48 완료/);
  assert.ok(app.html().includes('href="#/lesson/savebackup"'));
  app.route('#/service');
- assert.match(app.html(),/선택 확장 20편/);
- assert.equal((app.html().match(/class="course-row published"/g)||[]).length,20);
+ assert.match(app.html(),/선택 확장 18편/);
+ assert.equal((app.html().match(/class="course-row published"/g)||[]).length,18);
 });
 
 test('All four foundations render real content and consecutive previous/next links', () => {
@@ -112,9 +112,9 @@ test('All four foundations render real content and consecutive previous/next lin
     assert.ok(nav.includes('href="#/lesson/'+(sequence[i+1] || 'chat')+'"'));
   });
 });
-test('Learning map exposes exactly fifty usable lessons and no prepared topics', () => {
+test('Learning map exposes exactly forty-eight usable lessons and no prepared topics', () => {
   const app=setup(undefined,'#/courses');
-  assert.equal((app.html().match(/class="course-row published[^"]*"/g)||[]).length,50);
+  assert.equal((app.html().match(/class="course-row published[^"]*"/g)||[]).length,48);
   assert.equal((app.html().match(/class="course-row planned"/g)||[]).length,0);
   for(const key of ['choose','setup','prompt','privacy','chat','followup','clues','files','images','search','projects','teaching','work','environment','brief','compare','documents','redirect','review','reuse','codex','workspace','folders','plan','run','modify','debug','changes','backup','publish']) assert.ok(app.html().includes('href="#/lesson/'+key+'"'));
   const rows=rowsOf(app.html(),'chat');
@@ -127,12 +127,12 @@ test('New completion persists through restart, cancellation persists, old comple
   assert.equal(button.getAttribute('aria-pressed'),'true');
   assert.deepEqual(app.saved(),{completed:['chat','work','privacy','prompt','reuse'],last:'reuse'});
   app=setup(app.saved(),'#/lesson/reuse');
-  assert.match(app.html(),/전체 학습 5\/50 완료/);
+  assert.match(app.html(),/전체 학습 5\/48 완료/);
   assert.match(app.html(),/✓ 학습 완료 · 취소/);
   await app.complete();
   app=setup(app.saved());
   assert.deepEqual(app.saved().completed,['chat','work','privacy','prompt']);
-  assert.match(app.html(),/4\/50 완료/);
+  assert.match(app.html(),/4\/48 완료/);
 });
 test('Every new title and a text-only body fragment are searchable', () => {
   const app=setup();
@@ -147,7 +147,7 @@ test('Every new title and a text-only body fragment are searchable', () => {
 test('Cross-tab completion event updates visible lesson count and button', async () => {
   const app=setup({completed:['chat'],last:'chat'},'#/lesson/choose');
   app.storage({completed:['chat','choose'],last:'choose'});
-  assert.match(app.sidebar(),/전체 학습 2\/50 완료/);
+  assert.match(app.sidebar(),/전체 학습 2\/48 완료/);
   const button=await app.complete();
   assert.equal(button.getAttribute('aria-pressed'),'false');
   assert.deepEqual(app.saved().completed,['chat']);
@@ -155,7 +155,7 @@ test('Cross-tab completion event updates visible lesson count and button', async
 test('Unknown and duplicate legacy completion entries cannot inflate progress', () => {
   const app=setup({completed:['chat','chat','removed','privacy'],last:'removed'});
   app.route('#/lesson/setup');
-  assert.match(app.html(),/전체 학습 2\/50 완료/);
+  assert.match(app.html(),/전체 학습 2\/48 완료/);
   assert.deepEqual(app.saved(),{completed:['chat','privacy'],last:'setup'});
 });
 test('Unknown and prototype property routes render not-found without overwriting resume state', () => {
@@ -227,7 +227,7 @@ test('Home banner recommends the next unfinished lesson and handles first-time a
   assert.ok(banner.includes('href="#/lesson/followup"'),'recommends the lesson after the last completed one, not the last opened page');
   assert.ok(banner.includes('href="#/lesson/publish"'),'still offers the last opened lesson as a secondary link');
   app=setup({completed:ALL,last:'publish'});
-  assert.match(app.html(),/progress-banner[\s\S]*?50\/50 완료[\s\S]*?href="#\/courses"/);
+  assert.match(app.html(),/progress-banner[\s\S]*?48\/48 완료[\s\S]*?href="#\/courses"/);
   assert.doesNotMatch(app.html().match(/<section class="progress-banner"[\s\S]*?<\/section>/)[0],/href="#\/lesson\//,'nothing left to recommend');
 });
 test('Lesson meta shows the position within its path instead of a generic badge', () => {
@@ -239,7 +239,7 @@ test('Lesson meta shows the position within its path instead of a generic badge'
     assert.doesNotMatch(meta,/초보 필수|첫 프로젝트/);
   }
 });
-test('Lesson heading exposes the current path position and the next destination across all fifty lessons', () => {
+test('Lesson heading exposes the current path position and the next destination across all forty-eight lessons', () => {
   const app=setup();
   const labels={start:'공통 입문',chat:'ChatGPT 채팅',work:'ChatGPT Work',codex:'Codex',service:'Codex 서비스 확장'};
   for(const [group,sequence] of Object.entries(ORDER)) sequence.forEach((key,i)=>{
@@ -339,7 +339,7 @@ test('Lesson navigation renders previous and next as labelled buttons', () => {
   assert.match(nav,/<a class="nav-button prev" href="#\/lesson\/followup"><small>이전<\/small><span>후속 요청<\/span><\/a>/);
   assert.match(nav,/<a class="nav-button next" href="#\/lesson\/clues"><small>다음<\/small><span>요청의 네 단서<\/span><\/a>/);
 });
-test('Sidebar groups the fifty lessons by path in the unified order', () => {
+test('Sidebar groups the forty-eight lessons by path in the unified order', () => {
   const app=setup();
   app.route('#/lesson/files');
   const sidebar=app.html().match(/<aside class="lesson-sidebar">[\s\S]*?<\/aside>/)[0];
@@ -356,7 +356,6 @@ test('Search understands the words beginners actually type', () => {
   assert.equal(firstHits('코덱스')[0],'#/lesson/workspace','path matches rank above lessons that merely mention Codex');
   assert.equal(firstHits('워크')[0],'#/lesson/environment');
   assert.equal(firstHits('파일 질문')[0],'#/lesson/files','title matches rank above body matches');
-  assert.equal(firstHits('동기화')[0],'#/lesson/realtime','direct topic ranks above older mentions');
   assert.equal(firstHits('레일웨이')[0],'#/lesson/railway');
   assert.equal(firstHits('깃허브')[0],'#/lesson/github');
 });
@@ -468,7 +467,7 @@ test('Extension lessons carry an audience warning and the risky ones a caution b
 test('Learning map and start page state the two course sizes in hours', () => {
   const app=setup(undefined,'#/courses');
   assert.match(app.html(),/기본 과정 30편 약 8시간/);
-  assert.match(app.html(),/선택 확장 20편 약 8시간/);
+  assert.match(app.html(),/선택 확장 18편 약 7시간/);
   app.route('#/start');
   assert.match(app.html(),/기본 과정 30편/);
   assert.doesNotMatch(app.html(),/입문 30편/);
@@ -501,25 +500,25 @@ test('Extension lesson 8 shows the readiness gate until all items are checked', 
   app.route('#/lesson/server');
   assert.doesNotMatch(app.html(),/class="gate-note"/,'gate disappears once ready');
 });
-test('Lessons 13-20 are marked advanced in the lesson, sidebar and learning map', () => {
+test('Lessons 13-18 are marked advanced in the lesson, sidebar and learning map', () => {
   const app=setup(undefined,'#/lesson/login');
   assert.match(app.html(),/class="advanced-note"[\s\S]*?개발 경험/);
   const sidebar=app.html().match(/<div class="service-sidebar">[\s\S]*?<\/div>/)[0];
-  assert.ok((sidebar.match(/심화/g)||[]).length>=3,'advanced chapters are labelled in the sidebar');
+  assert.ok((sidebar.match(/심화/g)||[]).length>=2,'advanced chapters are labelled in the sidebar');
   app.route('#/lesson/server');
   assert.doesNotMatch(app.html(),/class="advanced-note"/);
   app.route('#/courses');
   const adv=app.html().match(/<details class="advanced-group"[\s\S]*?<\/details>/);
   assert.ok(adv,'learning map folds the advanced chapters');
-  for(const k of ['login','permissions','railway','envvars','postgres','operations','realtime','syncerrors']) assert.ok(adv[0].includes('href="#/lesson/'+k+'"'),k+' inside advanced group');
+  for(const k of ['login','permissions','railway','envvars','postgres','operations']) assert.ok(adv[0].includes('href="#/lesson/'+k+'"'),k+' inside advanced group');
   for(const k of ['savebackup','server','crud']) assert.ok(!adv[0].includes('href="#/lesson/'+k+'"'),k+' outside advanced group');
   assert.match(adv[0],/<summary>[^<]*심화/);
 });
 test('Counts separate the basic course from the optional extension', () => {
   const app=setup({completed:['chat','savebackup','login'],last:'login'},'#/lesson/files');
-  assert.match(app.html(),/기본 1\/30 · 확장 2\/20/);
+  assert.match(app.html(),/기본 1\/30 · 확장 2\/18/);
   const html=fs.readFileSync(path.join(__dirname,'2026-09-20-guide.html'),'utf8');
-  assert.match(html,/기본 과정 30편 \+ 선택 확장 20편/);
+  assert.match(html,/기본 과정 30편 \+ 선택 확장 18편/);
   assert.doesNotMatch(html,/총 50편 공개/);
 });
 
