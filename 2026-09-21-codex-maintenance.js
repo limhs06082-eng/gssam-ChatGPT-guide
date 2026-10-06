@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   modify: {
-    title: '기존 기능을 지키며 수정하기', eyebrow: 'CODEX · 작은 변경', checkedDate: '2026-09-23', minutes: 15,
+    title: '기존 기능을 지키며 수정하기', eyebrow: 'CODEX · 작은 변경', checkedDate: '2026-10-06', minutes: 15,
     summary: '완성 예시 보드의 글자 크기 하나를 바꾸면서 기존 기능도 확인합니다. 바꿀 것과 그대로 지킬 것을 함께 전달해요.',
     outcome: '진행 화면의 안내 글자 개선과 기존 기능 확인 기록',
     prerequisites: ['실습 폴더(codex-실습)의 완성 예시 HTML과 Codex에서 그 폴더가 열린 상태', '현재 가상 수업의 백업 JSON', '수정·검토·복원 기록표'],
@@ -17,7 +17,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Codex 활용 안내', url: 'https://learn.chatgpt.com/guides/best-practices'}]
   },
   changes: {
-    title: '변경된 내용 확인하기', eyebrow: 'CODEX · 변경 검토', checkedDate: '2026-09-23', minutes: 15,
+    title: '변경된 내용 확인하기', eyebrow: 'CODEX · 변경 검토', checkedDate: '2026-10-06', minutes: 15,
     summary: '완료 보고를 읽는 데서 한 걸음 더 나아가 실제 바뀐 파일을 비교합니다. 요청한 변화와 관련 없는 수정을 나눠 살펴봐요.',
     outcome: '변경 전후 비교와 실제 실행 결과를 담은 검토 기록',
     prerequisites: ['보관 폴더의 변경 전 HTML과 실습 폴더의 수정한 완성 예시 파일(4편의 내 보드가 아니라 완성 예시로 진행해요)', '앞 편의 수정 요청과 완료 기준', '수정·검토·복원 기록표'],
@@ -34,7 +34,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Codex 활용 안내', url: 'https://learn.chatgpt.com/guides/best-practices'}]
   },
   backup: {
-    title: '이전 상태로 돌아가기와 백업', eyebrow: 'CODEX · 보관과 복원', checkedDate: '2026-09-23', minutes: 20,
+    title: '이전 상태로 돌아가기와 백업', eyebrow: 'CODEX · 보관과 복원', checkedDate: '2026-10-06', minutes: 20,
     summary: '프로그램 파일과 수업 자료를 따로 보관하고 복원합니다. 복원 전 현재 상태를 먼저 남기고, 취소와 실제 복원 결과를 확인해요.',
     outcome: '코드 보관본·데이터 백업의 위치와 복원 확인 결과',
     prerequisites: ['보관 폴더의 변경 전후 HTML', '개인정보 없는 연습 백업 JSON', '평소 쓰지 않는 다른 브라우저(Edge를 쓰면 Chrome, Chrome을 쓰면 Edge)'],

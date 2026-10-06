@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   plan: {
-    title: '만들기 전에 함께 기획하기', eyebrow: 'CODEX · 작은 기능 기획', checkedDate: '2026-09-28', minutes: 20,
+    title: '만들기 전에 함께 기획하기', eyebrow: 'CODEX · 작은 기능 기획', checkedDate: '2026-10-06', minutes: 20,
     summary: '완성 예시 보드에 활동 복제 기능을 기획합니다. 누가 언제 쓸지, 어떻게 동작해야 할지 정한 뒤 작은 변경부터 시작해요.',
     outcome: '활동 복제 기능의 작업 계획과 완료 기준, 확인한 첫 구현 결과',
     prerequisites: ['완성 예시 HTML이 든 실습 폴더(codex-실습)와 그 폴더가 열린 Codex', '가상 수업 자료와 현재 자료의 백업 JSON', '실습 기록표'],
@@ -18,7 +18,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Codex 활용 안내', url: 'https://learn.chatgpt.com/guides/best-practices'}]
   },
   debug: {
-    title: '오류를 재현하고 전달하기', eyebrow: 'CODEX · 문제 확인과 수정', checkedDate: '2026-09-28', minutes: 20,
+    title: '오류를 재현하고 전달하기', eyebrow: 'CODEX · 문제 확인과 수정', checkedDate: '2026-10-06', minutes: 20,
     summary: '“안 돼요”를 다시 따라 할 수 있는 설명으로 바꿉니다. 기대한 결과와 실제 관찰을 나누고, 수정 뒤 같은 순서로 확인해요.',
     outcome: '재현 순서·기대 결과·실제 결과가 있는 오류 기록과 수정 후 확인 결과',
     prerequisites: ['실습 폴더의 완성 예시 보드와 백업 JSON', 'Codex에서 열린 그 실습 폴더', '실습 기록표'],
@@ -36,7 +36,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Codex 활용 안내', url: 'https://learn.chatgpt.com/guides/best-practices'}]
   },
   publish: {
-    title: '내 웹앱을 인터넷에 공개하기', eyebrow: 'CODEX · GITHUB PAGES 배포', checkedDate: '2026-09-23', minutes: 35,
+    title: '내 웹앱을 인터넷에 공개하기', eyebrow: 'CODEX · GITHUB PAGES 배포', checkedDate: '2026-10-06', minutes: 35,
     summary: '확인한 수업 운영 보드를 GitHub Pages로 공개합니다. 다른 기기에서 주소를 열어 보고, 웹앱 공개와 수업 데이터 공유의 차이를 배워요.',
     outcome: '접속을 확인한 공개 웹 주소와 배포·저장 범위, 다시 내리는 방법까지 적은 실습 결과',
     prerequisites: ['내 컴퓨터에서 확인한 수업 운영 보드 HTML(완성 예시 또는 4편의 내 보드)', 'GitHub 계정(없으면 3단계에서 먼저 가입해요)', '공개해도 되는 가상 예시만 담긴 파일'],

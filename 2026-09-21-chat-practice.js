@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   files: {
-    title: '파일을 넣고 질문하기', eyebrow: 'CHATGPT 채팅 · 자료 읽기', checkedDate: '2026-09-28', minutes: 12,
+    title: '파일을 넣고 질문하기', eyebrow: 'CHATGPT 채팅 · 자료 읽기', checkedDate: '2026-10-06', minutes: 12,
     summary: '계획서와 메모 두 파일을 첨부해 함께 읽게 하고, 답변의 근거를 원본에서 찾아봅니다. 파일 이름이 보이는 것과 내용을 읽은 것은 다를 수 있어요.',
     outcome: '두 가상 자료에서 찾은 확정 정보·미확정 정보·교사 내부 메모의 분류표',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태', '아래 가상 공개수업 계획과 준비 메모 두 파일(내 컴퓨터에 저장해 두세요)', '실제 학생 정보가 없는 가상 자료만 사용해요.'],
@@ -20,10 +20,10 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: '파일을 넣었는데 읽지 못했다고 해요.', answer: '내 컴퓨터에서 파일이 정상적으로 열리는지 확인하고, 이 편의 작은 txt 가상 자료로 다시 시도하세요. 그래도 안 되면 본문 붙여넣기로 진행합니다.'}
     ],
     tip: '파일을 많이 넣기보다 “어떤 자료를 읽었고 어느 문장이 근거인가?”를 확인하세요. AI의 요약과 원본 사이를 오갈 수 있으면 실제 업무에서도 오류를 찾기 쉬워집니다.',
-    sources: [{label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}, {label: '공식 파일 작업 안내 · 2026-09-21 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
+    sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}, {label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
   },
   search: {
-    title: '검색 결과와 출처 확인하기', eyebrow: 'CHATGPT 채팅 · 검색 검토', checkedDate: '2026-09-28', minutes: 15,
+    title: '검색 결과와 출처 확인하기', eyebrow: 'CHATGPT 채팅 · 검색 검토', checkedDate: '2026-10-06', minutes: 15,
     summary: '자석 탐구 아이디어를 검색하고 출처를 직접 열어 봅니다. 답변에 링크가 있다는 사실보다 링크가 그 내용을 뒷받침하는지 확인해요.',
     outcome: '원문을 확인한 자료 한 개와, 내 수업에 맞게 검토한 탐구 아이디어 한 개',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태(웹 검색 제공 여부는 계정·조직 설정에 따라 다를 수 있어요)', '출처 링크를 열어 볼 브라우저', '공식 자료를 찾고 원문을 읽는 시간에 따라 더 걸릴 수 있어요.'],
@@ -42,11 +42,11 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: '페이지에 날짜가 없어요.', answer: '날짜를 추측하지 말고 확인 불가로 적으세요. 내가 열어 본 날짜는 별도로 기록하고, 날짜가 중요한 행사 정보라면 현재 운영 여부를 다시 확인합니다.'},
       {question: '공식 자료면 바로 수업에 써도 되나요?', answer: '우리 학년의 이해 수준, 준비물, 수업 시간, 학교의 실험 안전 지침과 맞는지 검토해야 합니다. AI가 덧붙인 변형이 원문 내용인지도 구분하세요.'}
     ],
-    tip: '출처를 두 개 받는 것보다 하나를 제대로 읽는 경험이 먼저입니다. 연수 짝에게 “이 문장은 원문의 여기에서 확인했다”고 보여 주세요.',
-    sources: [{label: '공식 웹 검색 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/web-search'}, {label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
+    tip: '출처를 두 개 받는 것보다 하나를 제대로 읽는 경험이 먼저입니다. 연수 짝에게 “이 문장은 원문의 여기에서 확인했다”고 보여 주세요. 여러 출처를 조사한 보고서가 필요해지면 Work의 + 메뉴에서 Deep research를 찾아보세요(계정에 따라 없을 수 있어요). 그때도 출처를 직접 여는 습관은 같습니다.',
+    sources: [{label: '공식 웹 검색 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/web-search'}, {label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   },
   projects: {
-    title: '프로젝트로 대화와 자료 모으기', eyebrow: 'CHATGPT 채팅 · 프로젝트', checkedDate: '2026-09-28', minutes: 25,
+    title: '프로젝트로 대화와 자료 모으기', eyebrow: 'CHATGPT 채팅 · 프로젝트', checkedDate: '2026-10-06', minutes: 25,
     summary: '같은 공개수업을 준비하는 대화 두 개를 한 프로젝트에 모읍니다. 공통 자료와 지침을 넣고 새 대화에서도 제대로 참고하는지 확인해요.',
     outcome: '가상 자료 두 개·공통 지침·서로 다른 목적의 대화 두 개가 있는 연습 프로젝트',
     prerequisites: ['왼쪽 사이드바에 프로젝트 항목이 보이는 ChatGPT Chat(채팅) 환경(공통 입문 2편 5단계에서 메모한 항목이에요)', '내 컴퓨터에 저장한 가상 공개수업 계획과 준비 메모 두 파일', '프로젝트 제공 여부와 버튼 이름은 계정·앱·버전에 따라 다를 수 있어요. 이번 실습에서는 초대나 공유 링크를 만들지 않아요.'],
@@ -66,6 +66,6 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: '자료를 프로젝트에 넣으면 컴퓨터의 원본도 수정되나요?', answer: 'ChatGPT 프로젝트에 파일을 첨부하는 것과 컴퓨터의 폴더를 작업 위치로 연결하는 것은 다릅니다. 이번 실습은 첨부한 가상 자료를 참고하는 방식이며 컴퓨터의 원본 파일은 바뀌지 않아요.'}
     ],
     tip: '프로젝트 이름 하나에 여러 업무를 모두 넣기보다 공개수업처럼 관련된 일부터 묶어 보세요. 대화는 결과물별로 나누고, 공통 사실과 기준은 자료·지침으로 모으면 다시 찾기 쉽습니다.',
-    sources: [{label: '공식 프로젝트 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/projects'}, {label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
+    sources: [{label: '공식 프로젝트 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/projects'}, {label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   }
 });

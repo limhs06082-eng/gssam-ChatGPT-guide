@@ -49,3 +49,9 @@
 /* 2026-09-28: show the current lesson and next destination above the title on small screens. */
 .lesson-article .lesson-position{display:none;font-size:12px;line-height:1.7;color:#5f6e66;margin:0 0 12px}
 @media(max-width:600px){.lesson-article .lesson-position{display:block}}
+
+/* 2026-10-06 · 선택 확장 경고, 주의 상자, 기본 과정 완료 표시, 모바일 위치 중복 제거 */
+.service-note{padding:18px 20px;margin:0 0 24px;border:1px solid #e3d9c2;border-left:4px solid #c9a24a;background:#fbf6e9;border-radius:0 12px 12px 0}.service-note strong{display:block;font-size:15px;color:#5a4a1e;margin-bottom:6px}.service-note p{font-size:14px;color:#5f5338;margin:0;line-height:1.8}
+.caution-box{padding:18px 20px;margin:0 0 24px;border:1px solid #e6c9c3;border-left:4px solid #b9483b;background:#fbefec;border-radius:0 12px 12px 0}.caution-box strong{display:block;font-size:15px;color:#7a2e25;margin-bottom:6px}.caution-box p{font-size:14px;color:#5e3a35;margin:0;line-height:1.8}
+.milestone{padding:22px 24px;margin:28px 0 0;background:#eaf0e2;border:1px solid #cfdcc3;border-radius:14px}.milestone strong{display:block;font-size:18px;color:var(--green);margin-bottom:8px}.milestone p{font-size:14px;color:#4f6844;margin:0 0 14px;line-height:1.8}
+@media(max-width:600px){.lesson-meta .badge{display:none}}

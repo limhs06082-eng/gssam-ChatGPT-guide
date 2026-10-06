@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   compare: {
-    title: '비교표와 분석 자료 만들기', eyebrow: 'CHATGPT WORK · 비교와 분석', checkedDate: '2026-09-28', minutes: 15,
+    title: '비교표와 분석 자료 만들기', eyebrow: 'CHATGPT WORK · 비교와 분석', checkedDate: '2026-10-06', minutes: 15,
     summary: '가상 탐구 준비물 자료로 비용을 비교합니다. 빈칸을 0원으로 채우지 않고, 계산할 수 있는 값과 확인할 조건을 나눠요.',
     outcome: '세 공급안의 계산식·총비용 확정 여부·추가 확인 사항이 담긴 비교표',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '가상 탐구 준비물 비교 CSV 파일 (1단계에서 받을 수 있어요)', 'CSV는 표 데이터를 담는 텍스트 파일이며 실제 견적이 아니에요.'],
@@ -14,10 +14,10 @@ Object.assign(window.GUIDE_LESSONS, {
     checks: ['A와 C의 총비용이 각각 75,000원임을 직접 확인했어요.', 'B는 66,000원에 미확정 배송비를 더해야 한다고 표시했어요.', '비교표에 계산식과 예정 배송일(A 2026-10-12, C 2026-10-15)이 함께 적혀 있어요.', '배송비 조건·예정일·구성 미확인 한계가 확인할 사항에 남아 있어요.'],
     troubleshooting: [{question: 'B를 가장 싸다고 추천했어요.', answer: 'B의 최종 배송비가 없으므로 총비용 최저 여부를 확정할 수 없다고 지적하세요. 물품 소계 비교와 총비용 비교를 나눠 달라고 요청합니다.'}, {question: 'CSV가 한글 깨짐으로 열려요.', answer: '표 프로그램의 텍스트 가져오기에서 UTF-8을 선택하거나 메모장으로 내용을 확인하세요. 읽지 못한 숫자를 추측해 진행하지 않습니다.'}, {question: 'CSV를 첨부했는데 못 읽어요.', answer: '입력창 위에 파일 이름이 보였는지 확인하고 다시 첨부해 보세요. 그래도 안 되면 CSV를 메모장으로 열어 표 본문을 붙여 넣고 같은 요청을 보냅니다.'}],
     tip: '비교의 좋은 결과는 항상 1등을 뽑는 것이 아닙니다. 자료가 부족해 결론을 보류해야 하는 부분을 찾는 것도 분석의 결과예요.',
-    sources: [{label: '공식 Work 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 파일 작업 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
+    sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
   },
   documents: {
-    title: '문서와 발표자료 만들기', eyebrow: 'CHATGPT WORK · 결과물 제작', checkedDate: '2026-09-28', minutes: 25,
+    title: '문서와 발표자료 만들기', eyebrow: 'CHATGPT WORK · 결과물 제작', checkedDate: '2026-10-06', minutes: 25,
     summary: '같은 공개수업 자료를 학부모용 한 쪽 문서와 교사 회의용 네 장 발표자료로 바꿉니다. 읽는 사람이 달라지면 담을 내용도 달라져요.',
     outcome: '검토한 학부모용 A4 한 쪽 문서와 교사 회의용 4장 발표자료, 또는 파일이 안 나올 때는 각각의 구성 초안',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '가상 파일 두 개: 2026-09-20-공개수업-계획.txt, 2026-09-20-공개수업-메모.txt (1단계에서 받을 수 있어요)', 'DOCX·PPTX를 열 수 있는 프로그램 또는 미리보기 화면'],
@@ -32,10 +32,10 @@ Object.assign(window.GUIDE_LESSONS, {
     checks: ['학부모 문서에는 확정 일정·협조 사항만, 교사 회의 자료에는 내부 준비·미확정 목록이 들어 있어요.', '두 결과물의 2026-10-16 10:00~10:40과 3학년 각 교실이 원본과 같아요.', '내려받은 파일을 열어 문서 한 쪽·슬라이드 네 장 여부와 잘림을 직접 확인했어요.', '교사 회의 자료 4장에 미확정 확인 목록이 별도 장으로 있어요.'],
     troubleshooting: [{question: 'PPTX 대신 글만 나왔어요.', answer: '“PPTX 파일로 만들어 줘”라고 형식을 다시 지정해 보세요. 그래도 본문만 나오면 슬라이드별 제목·핵심 문장을 발표 프로그램에 옮겨 편집하고, 4단계 확인은 그 파일에서 진행합니다.'}, {question: '파일은 있는데 열리지 않아요.', answer: '확장자와 오류 문구를 확인하고 호환되는 프로그램에서 열어 보세요. 계속 안 되면 오류를 전달해 다시 생성하도록 요청하고 재확인합니다.'}, {question: '학부모 문서에 교사 업무가 들어갔어요.', answer: '해당 문장을 지정해 학부모 문서에서 빼고 교사 회의 자료로 옮기도록 요청하세요. 파일 두 개를 모두 다시 확인합니다.'}],
     tip: '“예쁜 파일”보다 “누가 읽고 무엇을 해야 하는지 분명한 파일”이 먼저입니다. 내용 검토 후 화면 검토를 하면 무엇을 고쳐야 할지 명확해져요.',
-    sources: [{label: '공식 파일 작업 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 Work 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
+    sources: [{label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
   },
   review: {
-    title: '결과물을 원본과 대조하기', eyebrow: 'CHATGPT WORK · 검토와 수정', checkedDate: '2026-09-28', minutes: 15,
+    title: '결과물을 원본과 대조하기', eyebrow: 'CHATGPT WORK · 검토와 수정', checkedDate: '2026-10-06', minutes: 15,
     summary: '일부러 오류를 넣은 가상 안내문을 검토합니다. AI의 지적을 원본에서 확인하고, 수정본도 다시 읽어야 검토가 끝나요.',
     outcome: '근거가 있는 오류 대조표와 확인을 마친 수정 안내문·교사용 미확정 목록',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '원본 두 파일: 2026-09-20-공개수업-계획.txt, 2026-09-20-공개수업-메모.txt', '오류가 포함된 검토용 초안 2026-09-21-공개수업-검토용초안.txt와 Work 결과 검토표 (1·3단계에서 받을 수 있어요)'],
@@ -49,6 +49,6 @@ Object.assign(window.GUIDE_LESSONS, {
     checks: ['답변에 실제로 읽은 파일 이름 세 개와 각 역할이 나왔어요.', '09:50 오류·09:40 내부 정보·미확정 세 항목을 원본에서 확인했어요.', '수정본의 10:00~10:40과 날짜·장소를 직접 대조했어요.', '주차·신청·촬영은 교사용 확인 목록에 남겼어요.', 'AI의 검토 답변 이후 수정 결과도 다시 읽었어요.'],
     troubleshooting: [{question: 'AI가 초안을 원본보다 우선했어요.', answer: '계획·메모가 기준이며 초안은 오류 찾기 대상이라고 다시 지정하세요. 자료 역할을 확인한 뒤 대조표를 새로 받습니다.'}, {question: '없던 신청 방법을 새로 만들었어요.', answer: '근거 없는 조건은 삭제하고 미확정 목록으로 옮기세요. 모르는 내용을 채우지 않는 것이 이번 실습의 올바른 수정입니다.'}, {question: 'AI가 검토 완료라고 하면 끝인가요?', answer: '원본 근거와 수정본을 직접 비교해야 합니다. AI가 놓친 오류나 수정하면서 생긴 누락이 있는지 교사가 확인하세요.'}, {question: 'Work 없이 진행할 수 있나요?', answer: '네. 1단계의 “Work 대신 채팅으로 하는 절차” 링크대로 같은 세 파일을 첨부해 진행하세요.'}],
     tip: '검토를 “틀린 곳 찾아 줘” 한 번으로 끝내지 마세요. 기준 정하기 → 근거 확인 → 수정 요청 → 수정본 재확인이 한 과정입니다.',
-    sources: [{label: '공식 Work 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 파일 작업 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
+    sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
   }
 });

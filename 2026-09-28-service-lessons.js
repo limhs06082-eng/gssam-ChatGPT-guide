@@ -217,6 +217,9 @@ const lessons={
   trouble('연결되었다고 나오지만 화면은 오래됐어요.','연결 표시와 최신 자료 조회는 별개예요. 재연결 뒤 실제 DB를 다시 읽고 조회 시각을 갱신하도록 요청합니다.')
  ],'공유 도구의 완성 기준에는 실패할 때 사용자에게 무엇을 보여주는지도 포함돼요.',[source.sync,source.db])
 };
+/* 사고가 가장 잦은 두 편에는 본문과 별도로 눈에 띄는 주의 상자를 둔다. */
+lessons.login.caution='Firebase에서 내려받는 서버 자격(비공개 키) 파일은 비밀번호와 같습니다. GitHub에 올리거나, AI 대화에 붙여 넣거나, 화면 캡처에 담지 마세요. 실습 폴더 안의 비공개 위치에만 두고 .gitignore로 제외한 뒤, 커밋 전에 파일 목록을 다시 확인하세요. 유출됐다고 생각되면 Firebase 콘솔에서 그 키를 바로 삭제하고 새로 만듭니다.';
+lessons.railway.caution='Railway는 결제 수단 등록을 요구할 수 있고, 사용량에 따라 요금이 나올 수 있어요. 등록 전에 요금 안내를 먼저 읽고, 계정 설정에서 사용 한도(Hard limit)를 걸어 두세요. 학교 공용 카드나 학생 정보는 쓰지 않습니다. 실습이 끝나면 서비스를 삭제하거나 중지해 비용이 계속 나가지 않게 하세요.';
 window.GUIDE_LESSONS=Object.assign(window.GUIDE_LESSONS||{},lessons);
 window.GUIDE_SERVICE={
  names:{savebackup:'저장과 백업',git:'Git',github:'GitHub',repository:'Repository',gitpush:'GitHub에 코드 올리기',localdata:'브라우저 저장',datatransfer:'백업으로 자료 이동',server:'서버의 역할',apilocal:'내 컴퓨터 서버 실행',database:'데이터베이스',dbdesign:'DB 구조 설계',crud:'추가·조회·수정·삭제',login:'Google 로그인',permissions:'서버 접근 권한',railway:'Railway 서버 배포',envvars:'환경변수',postgres:'실제 DB 연결',operations:'백업·비용·운영',realtime:'실시간 동기화',syncerrors:'끊김·동시 수정'},
@@ -230,6 +233,11 @@ window.GUIDE_SERVICE={
   {title:'실시간 동기화 확인하기',description:'PC·휴대폰의 자동 반영과 연결 끊김·동시 수정을 확인합니다.',keys:['realtime','syncerrors']}
  ],
  glossary:[
+  {term:'SDK',text:'어떤 서비스를 내 코드에서 쓰기 위해 제공되는 도구 묶음. 예: Firebase Admin SDK는 서버에서 로그인 토큰을 검증할 때 씁니다.'},
+  {term:'.gitignore',text:'Git이 기록하지 않을 파일 목록을 적는 파일. 비공개 키·환경변수 파일 이름을 여기에 적어야 GitHub에 올라가지 않아요.'},
+  {term:'PORT (포트)',text:'한 컴퓨터 안에서 프로그램을 구분하는 번호. 로컬 서버 주소 끝의 :3000 같은 숫자이며, Railway는 환경변수 PORT로 알려 줍니다.'},
+  {term:'409 (충돌 응답)',text:'서버가 “다른 사람이 먼저 바꿔서 이 수정은 받을 수 없다”고 알리는 응답 번호. 동시 수정을 막는 신호예요.'},
+  {term:'SSE',text:'서버가 브라우저에 변경 사항을 계속 흘려보내는 방식(Server-Sent Events). 휴대폰에서 바꾼 수업이 교실 화면에 자동 반영될 때 씁니다.'},
   {term:'Git',text:'파일의 변경 이력을 관리하는 도구. 커밋한 코드와 브라우저에 입력한 수업 데이터는 별개예요.'},
   {term:'GitHub',text:'Git 저장소를 온라인에 보관·공유하는 서비스. 코드 업로드만으로 DB나 동기화가 생기지는 않아요.'},
   {term:'Repository (저장소)',text:'프로젝트 파일과 변경 이력을 담는 보관함. 브라우저 저장 공간과는 다른 대상이에요.'},

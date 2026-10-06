@@ -64,6 +64,7 @@ function setup(saved, hash = '#/') {
     search(query) { nodes.get('#search-input').value=query; nodes.get('#search-input').events.input(); return nodes.get('#search-results').innerHTML; },
     storage(value) { windowHandlers.storage({key:KEY,newValue:JSON.stringify(value)}); },
     sidebar: () => dynamic.sidebar.innerHTML,
+    dialog: () => nodes.get('#search-dialog'),
     scrolls,
     rootScrollBehavior: () => document.documentElement.style.scrollBehavior
   };
@@ -243,7 +244,7 @@ test('Lesson heading exposes the current path position and the next destination 
     const html=app.html();
     const position=html.match(/<p class="lesson-position">([^<]*)<\/p>/);
     assert.ok(position,key+' exposes a position line');
-    const next=html.match(/<a class="nav-button next"[^>]*><small>다음<\/small><span>([^<]*)<\/span>/)[1];
+    const next=html.match(/<a class="nav-button next"[^>]*><small>다음(?: · 선택 확장)?<\/small><span>([^<]*)<\/span>/)[1];
     assert.equal(position[1],labels[group]+' '+(i+1)+'/'+sequence.length+' · 다음: '+next);
     assert.ok(html.indexOf(position[0])<html.indexOf('<h1 class="lesson-title">'),key+' position precedes the title');
   });
@@ -415,6 +416,63 @@ test('Published entrypoint loads new lesson script before guide and rendered loc
       assert.ok(fs.existsSync(path.join(__dirname,filename)),route+' linked file '+filename);
     }
   }
+});
+
+test('Empty search lists lessons in learning order with the optional extension last', () => {
+  const app=setup();
+  const hrefs=[...app.search('').matchAll(/href="([^"]+)"/g)].map(m=>m[1]);
+  assert.equal(hrefs[0],'#/lesson/choose');
+  assert.equal(hrefs[1],'#/lesson/setup');
+  assert.ok(!hrefs.slice(0,12).includes('#/service'),'extension overview is not among the first results');
+});
+test('Help page answers the first-day ChatGPT login problem', () => {
+  const app=setup(undefined,'#/help');
+  assert.ok(app.html().includes('id="faq-login"'));
+  assert.ok(app.search('로그인 안 돼요').includes('href="#/help?faq=login"'));
+  const hrefs=[...app.search('로그인').matchAll(/href="([^"]+)"/g)].map(m=>m[1]);
+  assert.ok(hrefs.indexOf('#/help?faq=login')<hrefs.indexOf('#/lesson/login'),'ChatGPT login FAQ ranks above the extension Google-login lesson');
+});
+test('Route change closes an open search dialog', () => {
+  const app=setup();
+  app.dialog().showModal();
+  app.route('#/start');
+  assert.equal(app.dialog().open,false);
+});
+test('Last core lesson celebrates finishing the basic course and labels the extension as optional', () => {
+  const app=setup();
+  app.route('#/lesson/publish');
+  assert.match(app.html(),/class="milestone"[\s\S]*?기본 과정 30편을 모두 마쳤어요/);
+  const nav=app.html().match(/<nav class="lesson-nav"[\s\S]*?<\/nav>/)[0];
+  assert.match(nav,/<small>다음 · 선택 확장<\/small>/);
+  app.route('#/lesson/backup');
+  assert.doesNotMatch(app.html(),/class="milestone"/);
+  assert.match(app.html().match(/<nav class="lesson-nav"[\s\S]*?<\/nav>/)[0],/<small>다음<\/small>/);
+});
+test('Extension lessons carry an audience warning and the risky ones a caution box', () => {
+  const app=setup();
+  app.route('#/lesson/savebackup');
+  assert.match(app.html(),/class="service-note"[\s\S]*?개발 경험/);
+  assert.doesNotMatch(app.html(),/class="caution-box"/);
+  app.route('#/lesson/login');
+  assert.match(app.html(),/class="caution-box"[\s\S]*?비밀번호와 같/);
+  app.route('#/lesson/railway');
+  assert.match(app.html(),/class="caution-box"[\s\S]*?결제/);
+  app.route('#/lesson/chat');
+  assert.doesNotMatch(app.html(),/service-note|caution-box/);
+  app.route('#/service');
+  assert.match(app.html(),/class="service-note"/);
+});
+test('Learning map and start page state the two course sizes in hours', () => {
+  const app=setup(undefined,'#/courses');
+  assert.match(app.html(),/기본 과정 30편 약 8시간/);
+  assert.match(app.html(),/선택 확장 20편 약 8시간/);
+  app.route('#/start');
+  assert.match(app.html(),/기본 과정 30편/);
+  assert.doesNotMatch(app.html(),/입문 30편/);
+});
+test('Extension glossary explains the shorthand its lessons use', () => {
+  const app=setup(undefined,'#/help');
+  for(const term of ['SDK','.gitignore','PORT','409','SSE']) assert.ok(app.html().includes('<dt>'+term),'glossary defines '+term);
 });
 (async () => {
   let failed=0;

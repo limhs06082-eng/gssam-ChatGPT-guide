@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   workspace: {
-    title: 'Codex 설치하고 실습 폴더 열기', eyebrow: 'CODEX · 설치와 첫 화면', checkedDate: '2026-09-28', minutes: 20,
+    title: 'Codex 설치하고 실습 폴더 열기', eyebrow: 'CODEX · 설치와 첫 화면', checkedDate: '2026-10-06', minutes: 20,
     summary: '이 가이드는 Windows 데스크톱 앱만 사용합니다. 앱을 설치하고 로그인한 뒤 Codex를 고르고, 빈 실습 폴더를 열어 첫 화면에서 찾을 것 세 가지를 확인해요.',
     outcome: 'Codex에서 내 실습 폴더가 열려 있고, 완성 예시 HTML이 그 폴더 안에 들어 있는 상태',
     prerequisites: ['ChatGPT 계정(없으면 chatgpt.com에서 먼저 만들어요)', 'Windows 컴퓨터와 인터넷 연결', '자료실의 완성 예시 HTML(7단계에서 받아요)'],
@@ -16,10 +16,10 @@ Object.assign(window.GUIDE_LESSONS, {
     checks: ['Windows 데스크톱 앱을 설치하고 내 계정으로 로그인했어요.', '선택 메뉴에서 Codex를 골랐어요.', '문서 안에 빈 실습 폴더 codex-실습을 만들고 Codex에서 열었어요.', '첫 화면에서 폴더 이름·입력창·권한(승인) 표시 자리를 찾았어요.', '완성 예시 HTML을 실습 폴더에 넣고 Codex가 읽는 것을 확인했어요.'],
     troubleshooting: [{question: '설치 파일을 받았는데 설치가 안 돼요.', answer: '받은 파일이 Windows용인지 확인하세요. macOS용(.dmg)은 Windows에서 열리지 않아요. 공식 Windows 앱 안내의 링크로 다시 받고, 그래도 안 되면 문제 해결 페이지의 Codex 설치 항목을 보세요.'}, {question: 'Codex가 메뉴에 안 보여요.', answer: 'ChatGPT라고 표시된 선택 메뉴를 눌러 목록을 펼쳐 보세요. 없으면 앱을 완전히 닫았다가 다시 열고 로그인합니다. 계정 종류에 따라 제공되지 않을 수 있으니 공식 시작 안내의 조건도 확인하세요.'}, {question: '폴더를 열었는데 파일이 없다고 해요.', answer: '파일 탐색기에서 HTML이 실제로 codex-실습 안에 있는지 확인하세요. 다운로드 폴더에만 남아 있거나 다른 폴더를 열었을 수 있어요. Codex에 표시된 폴더 이름과 파일 탐색기의 경로를 다시 대조합니다.'}, {question: '권한을 넓히라는 안내가 떠요.', answer: '실습 폴더를 읽는 데 필요한 요청인지 내용을 읽으세요. 실습 폴더 밖 접근이나 프로그램 설치 요청이면 멈추고 “무엇을 바꾸려는지, 기존 파일에 어떤 영향이 있는지 쉬운 말로 설명해 줘”라고 물어봅니다. 기준표는 문제 해결 페이지의 권한 승인 항목에 있어요.'}],
     tip: '첫 성공은 코드를 만드는 것이 아니라 “Codex가 지금 내 실습 폴더를 보고 있다”를 확인하는 데서 시작해요.',
-    sources: [{label: '공식 시작 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/quickstart'}, {label: '공식 데스크톱 앱 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/app'}, {label: '공식 Windows 앱 안내 · 2026-09-28 확인', url: 'https://learn.chatgpt.com/docs/windows/windows-app'}]
+    sources: [{label: '공식 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/quickstart'}, {label: '공식 데스크톱 앱 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/app'}, {label: '공식 Windows 앱 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/windows/windows-app'}]
   },
   folders: {
-    title: '실습 폴더의 파일 이해하기', eyebrow: 'CODEX · 파일과 데이터', checkedDate: '2026-09-23', minutes: 10,
+    title: '실습 폴더의 파일 이해하기', eyebrow: 'CODEX · 파일과 데이터', checkedDate: '2026-10-06', minutes: 10,
     summary: '실습 폴더에는 보드를 움직이는 HTML 파일이, 브라우저 저장 공간에는 내가 편집한 수업 내용이 있어요. 둘을 나눠 이해하고 경로를 복사하는 법을 익힙니다.',
     outcome: '보드 HTML·브라우저 저장 공간·백업 JSON의 역할을 구분한 파일 지도와 경로 복사 연습',
     prerequisites: ['1편에서 만든 실습 폴더(문서\\codex-실습)와 그 안의 완성 예시 HTML', 'Codex에서 그 폴더가 열린 상태', '준비 점검표'],
@@ -37,7 +37,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Codex 활용 안내', url: 'https://learn.chatgpt.com/guides/best-practices'}]
   },
   run: {
-    title: '더블클릭으로 열고 화면 확인하기', eyebrow: 'CODEX · 직접 실행', checkedDate: '2026-09-23', minutes: 15,
+    title: '더블클릭으로 열고 화면 확인하기', eyebrow: 'CODEX · 직접 실행', checkedDate: '2026-10-06', minutes: 15,
     summary: '“파일을 만들었어요”라는 답에서 멈추지 않고 브라우저에서 직접 열어 봅니다. 같은 파일을 열어 편집·저장·진행 화면을 점검해요.',
     outcome: '가상 수업을 편집하고 새로고침·진행 화면·백업까지 확인한 실행 기록',
     prerequisites: ['실습 폴더 안의 완성 예시 HTML', 'Edge 또는 Chrome 같은 브라우저', '개인정보 없는 가상 수업 자료'],

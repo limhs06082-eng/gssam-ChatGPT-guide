@@ -20,8 +20,8 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: 'Work나 Codex 메뉴가 안 보여요.', answer: '다음 입문에서 내 계정과 화면을 확인합니다. 메뉴를 찾지 못했다는 이유만으로 결제하거나 설정을 크게 바꿀 필요는 없어요.'}
     ],
     tip: '연수에서는 “나는 무엇을 완성하고 싶은가?”를 먼저 말해 보세요. 도구 선택보다 목표를 설명하는 연습이 오래 남습니다.',
-    sources: [{label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}, {label: '공식 Work 시작 안내', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}],
-    checkedDate: '2026-09-28'
+    sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}, {label: '공식 Work 시작 안내', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}],
+    checkedDate: '2026-10-06'
   },
   setup: {
     title: '내 계정에서 첫 대화 시작하기',
@@ -46,8 +46,8 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: '답변이 오지 않거나 이용 제한이 표시돼요.', answer: '입력이 전송되었는지와 화면의 오류·이용 제한 안내를 먼저 읽으세요. 표시된 재시도 안내를 따르고, 기다리는 동안 요청문과 결과 확인 기준을 메모할 수 있습니다.'}
     ],
     tip: '강사 화면을 그대로 따라가기보다 내 화면의 현재 상태를 말해 보세요. “Work가 없어요”보다 “웹에서 로그인했고 Chat은 보이지만 Work는 찾지 못했어요”가 도움을 받기 좋습니다.',
-    sources: [{label: '공식 시작 안내 · 2026-09-20 확인', url: 'https://learn.chatgpt.com/docs/quickstart'}, {label: '공식 사용 안내 · 2026-09-23 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}],
-    checkedDate: '2026-09-28'
+    sources: [{label: '공식 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/quickstart'}, {label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}],
+    checkedDate: '2026-10-06'
   },
   prompt: {
     title: '좋은 요청과 후속 질문 만들기',
@@ -71,8 +71,8 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: '새 대화에서 이어 말했더니 다른 답이 나와요.', answer: '수정할 답변이 있는 대화에서 이어서 요청하세요. 왼쪽 사이드바의 대화 목록에서 그 대화 제목을 누르면 돌아갈 수 있어요. 새 대화라면 원문과 조건을 함께 붙여 넣어 무엇을 수정하는지 알려줍니다.'}
     ],
     tip: '연수 짝과 첫 요청문·수정 요청문을 비교해 보세요. 어느 조건이 결과를 바꿨는지 설명할 수 있으면 다음 업무에도 적용할 수 있습니다.',
-    sources: [{label: '공식 요청문 작성 안내 · 2026-09-20 확인', url: 'https://learn.chatgpt.com/docs/prompting'}],
-    checkedDate: '2026-09-28'
+    sources: [{label: '공식 요청문 작성 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/prompting'}],
+    checkedDate: '2026-10-06'
   },
   privacy: {
     title: '자료 첨부와 개인정보, 먼저 확인해요',
@@ -86,7 +86,7 @@ Object.assign(window.GUIDE_LESSONS, {
       {title: '2. 이름 외에도 사람을 알아볼 단서가 있는지 봐요', text: '이름을 지웠다고 충분히 익명화된 것은 아닐 수 있어요. 학년·반·날짜·특이한 사건이 결합되어 누군지 짐작될 수 있습니다. 실제 학생의 상담 기록, 평가 내용, 얼굴 사진, 연락처를 연습용으로 바꾸어 넣지 마세요. 이번에는 처음부터 가상 행사 자료를 씁니다. 파일명·본문·주석·사진에도 불필요한 정보가 없는지 살피는 습관을 연습해요.'},
       {title: '3. 가상 자료를 붙여 넣고 읽은 범위를 물어요', text: '파일 첨부는 채팅 과정의 “파일을 넣고 질문하기” 편에서 배워요. 이번에는 붙여넣기만 씁니다.\n1) 1단계에서 연 계획서 탭에서 본문을 한 번 클릭하고 Ctrl+A(전체 선택), Ctrl+C(복사)를 누릅니다.\n2) ChatGPT에서 새 대화를 열고 입력창을 클릭한 뒤 Ctrl+V로 붙여 넣습니다.\n3) 붙여 넣은 본문 아래에 한 줄 띄우고, 아래 요청문을 이어서 붙여 넣은 뒤 보냅니다.\n답변에서 AI가 무엇을 근거로 답했다고 밝히는지 먼저 읽으세요.', prompt: '위에 붙여 넣은 글은 실습용 가상 공개수업 계획서야. 이 글만 근거로 날짜·시간·대상·장소를 네 줄로 정리해 줘.\n먼저 “붙여 넣은 본문을 기준으로 답한다”고 한 줄로 밝혀 줘. 본문에 없는 정보는 추측하지 말고 “본문에 없음”이라고 적어 줘. 본문에 “정하지 않은 사항”이 있으면 배포용 정보와 섞지 말고 따로 표시해 줘.', links: [{label: '가상 계획서 열기', url: './2026-09-20-공개수업-계획.txt'}, {label: '파일 첨부는 이 편에서 배워요', url: '#/lesson/files?section=step-2'}]},
       {title: '4. 결과를 원본과 한 항목씩 대조해요', text: '날짜·시간·대상·장소를 계획서 원문과 비교하세요. 계획서의 “정하지 않은 사항”(참가 신청·주차·사진 촬영)이 확정 정보처럼 들어가지 않았는지도 봅니다. 표나 이미지가 있는 실제 문서를 다룰 때에도 일부 내용이 빠지지 않았는지 같은 방식으로 확인해야 해요. 이번에는 네 항목을 모두 대조하면 됩니다.'},
-      {title: '5. 파일 접근과 공개 범위를 따로 확인해요', text: '데스크톱 앱의 폴더 선택은 작업할 파일 범위와 관련되고, 다운로드는 결과를 내 기기에 받는 일이며, 공유·게시는 다른 사람에게 보여 주는 일입니다. 서로 다른 행동이에요. 내 컴퓨터의 폴더를 사용한다는 말이 AI 서비스로 정보가 전혀 전달되지 않는다는 보장은 아닙니다. 권한 요청의 대상과 행동을 읽고, 문서 설정 하나를 바꾼 것만으로 모든 자료를 넣어도 된다고 판단하지 마세요.'}
+      {title: '5. 파일 접근과 공개 범위를 따로 확인해요', text: '데스크톱 앱의 폴더 선택은 작업할 파일 범위와 관련되고, 다운로드는 결과를 내 기기에 받는 일이며, 공유·게시는 다른 사람에게 보여 주는 일입니다. 서로 다른 행동이에요. 내 컴퓨터의 폴더를 사용한다는 말이 AI 서비스로 정보가 전혀 전달되지 않는다는 보장은 아닙니다. 권한 요청의 대상과 행동을 읽고, 문서 설정 하나를 바꾼 것만으로 모든 자료를 넣어도 된다고 판단하지 마세요. 내 데이터가 어떻게 쓰이는지 설정하는 곳은 웹의 계정 메뉴 → Help → Privacy Center입니다(2026-09-21부터 제공, 계정에 따라 다를 수 있어요).'}
     ],
     checks: ['실제 학생 정보 대신 제공된 가상 자료만 사용했어요.', '답변 첫 줄에 붙여 넣은 본문을 기준으로 답한다는 말이 있어요.', '날짜·시간·대상·장소 네 항목을 원본과 대조했어요.', '참가 신청·주차·사진 촬영이 확정 정보와 섞이지 않았어요.'],
     troubleshooting: [
@@ -96,7 +96,7 @@ Object.assign(window.GUIDE_LESSONS, {
       {question: '실수로 실제 정보를 넣었어요.', answer: '추가 공유를 멈추고 학교의 개인정보 담당자와 정해진 대응 절차에 따라 확인하세요. 서비스의 삭제·관리 기능을 확인하되, 화면에서 지웠다는 사실만으로 모든 처리가 끝났다고 단정하지 않습니다.'}
     ],
     tip: '자료를 많이 넣는 것보다 이 작업에 필요한 자료를 고르는 능력이 중요합니다. “내가 읽기 → 범위 정하기 → AI 결과 대조하기”를 한 묶음으로 연습하세요.',
-    sources: [{label: '공식 파일 작업 안내 · 2026-09-20 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 권한 안내', url: 'https://learn.chatgpt.com/docs/permission-modes'}],
-    checkedDate: '2026-09-28'
+    sources: [{label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 권한 안내', url: 'https://learn.chatgpt.com/docs/permission-modes'}],
+    checkedDate: '2026-10-06'
   }
 });
