@@ -96,7 +96,7 @@ function isExampleUrl(value) {
 }
 
 function is403Exception(parsed) {
-  return parsed.hostname === 'chatgpt.com' ||
+  return parsed.hostname === 'chatgpt.com' || parsed.hostname === 'help.openai.com' ||
     (parsed.hostname === 'github.com' && parsed.pathname === '/signup');
 }
 

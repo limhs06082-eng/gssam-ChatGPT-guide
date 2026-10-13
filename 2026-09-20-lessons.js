@@ -22,7 +22,7 @@ window.GUIDE_LESSONS = {
     ],
     tip: '좋은 요청문 하나를 외우기보다 “사실 알려주기 → 결과 읽기 → 구체적으로 수정하기”를 익혀 보세요. 채팅은 첫 답변에서 끝나는 작업이 아닙니다.',
     sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   },
   work: {
     title: '가상 자료로 공개수업 안내자료 만들기',
@@ -51,7 +51,7 @@ window.GUIDE_LESSONS = {
     ],
     tip: '“예쁘게 만들어 줘”에서 한 걸음 더 나아가 대상·분량·필수 내용·제외할 정보·검토 기준을 알려주세요. 맡길 작업이 명확할수록 결과를 평가하기도 쉬워집니다.',
     sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   },
   codex: {
     title: '매일 쓰는 나만의 수업 운영 보드 만들기',
@@ -79,6 +79,6 @@ window.GUIDE_LESSONS = {
     ],
     tip: '멋진 첫 화면보다 “다음 날 다시 열어도 쓸 수 있는가”를 목표로 삼아 보세요. Codex 실습의 핵심은 제작 후에 사용하고, 고치고, 데이터를 지키며 발전시키는 경험이에요.',
     sources: [{label: '공식 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/quickstart'}, {label: '공식 Codex 활용 안내', url: 'https://learn.chatgpt.com/guides/best-practices'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   }
 };

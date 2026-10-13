@@ -532,7 +532,7 @@ test('New-feature practices: flashcards in teaching, paper scan tip in files, an
   assert.ok(app.html().includes('href="https://help.openai.com/en/articles/20001533-flashcards-in-chatgpt"'),'links the official flashcard article');
   assert.ok(app.lessons.files.troubleshooting.some(t=>t.question.includes('종이')&&/Scan|스캔/.test(t.answer)),'files explains paper documents via phone camera/scan');
   assert.ok(app.lessons.documents.steps[4].text.includes('주석'),'documents step 5 mentions preview annotations');
-  for(const k of ['teaching','files','documents']) assert.equal(app.lessons[k].checkedDate,'2026-10-06');
+  for(const k of ['teaching','files','documents']) assert.equal(app.lessons[k].checkedDate,'2026-10-13');
 });
 (async () => {
   let failed=0;

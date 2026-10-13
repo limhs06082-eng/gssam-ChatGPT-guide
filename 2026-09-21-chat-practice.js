@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   files: {
-    title: '파일을 넣고 질문하기', eyebrow: 'CHATGPT 채팅 · 자료 읽기', checkedDate: '2026-10-06', minutes: 12,
+    title: '파일을 넣고 질문하기', eyebrow: 'CHATGPT 채팅 · 자료 읽기', checkedDate: '2026-10-13', minutes: 12,
     summary: '계획서와 메모 두 파일을 첨부해 함께 읽게 하고, 답변의 근거를 원본에서 찾아봅니다. 파일 이름이 보이는 것과 내용을 읽은 것은 다를 수 있어요.',
     outcome: '두 가상 자료에서 찾은 확정 정보·미확정 정보·교사 내부 메모의 분류표',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태', '아래 가상 공개수업 계획과 준비 메모 두 파일(내 컴퓨터에 저장해 두세요)', '실제 학생 정보가 없는 가상 자료만 사용해요.'],
@@ -24,7 +24,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}, {label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 릴리스 노트(Scan) · 2026-10-06 확인', url: 'https://help.openai.com/en/articles/6825453-chatgpt-release-notes'}]
   },
   search: {
-    title: '검색 결과와 출처 확인하기', eyebrow: 'CHATGPT 채팅 · 검색 검토', checkedDate: '2026-10-06', minutes: 15,
+    title: '검색 결과와 출처 확인하기', eyebrow: 'CHATGPT 채팅 · 검색 검토', checkedDate: '2026-10-13', minutes: 15,
     summary: '자석 탐구 아이디어를 검색하고 출처를 직접 열어 봅니다. 답변에 링크가 있다는 사실보다 링크가 그 내용을 뒷받침하는지 확인해요.',
     outcome: '원문을 확인한 자료 한 개와, 내 수업에 맞게 검토한 탐구 아이디어 한 개',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태(웹 검색 제공 여부는 계정·조직 설정에 따라 다를 수 있어요)', '출처 링크를 열어 볼 브라우저', '공식 자료를 찾고 원문을 읽는 시간에 따라 더 걸릴 수 있어요.'],
@@ -47,7 +47,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 웹 검색 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/web-search'}, {label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   },
   projects: {
-    title: '프로젝트로 대화와 자료 모으기', eyebrow: 'CHATGPT 채팅 · 프로젝트', checkedDate: '2026-10-06', minutes: 25,
+    title: '프로젝트로 대화와 자료 모으기', eyebrow: 'CHATGPT 채팅 · 프로젝트', checkedDate: '2026-10-13', minutes: 25,
     summary: '같은 공개수업을 준비하는 대화 두 개를 한 프로젝트에 모읍니다. 공통 자료와 지침을 넣고 새 대화에서도 제대로 참고하는지 확인해요.',
     outcome: '가상 자료 두 개·공통 지침·서로 다른 목적의 대화 두 개가 있는 연습 프로젝트',
     prerequisites: ['왼쪽 사이드바에 프로젝트 항목이 보이는 ChatGPT Chat(채팅) 환경(공통 입문 2편 5단계에서 메모한 항목이에요)', '내 컴퓨터에 저장한 가상 공개수업 계획과 준비 메모 두 파일', '프로젝트 제공 여부와 버튼 이름은 계정·앱·버전에 따라 다를 수 있어요. 이번 실습에서는 초대나 공유 링크를 만들지 않아요.'],

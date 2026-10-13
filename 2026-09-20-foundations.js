@@ -21,7 +21,7 @@ Object.assign(window.GUIDE_LESSONS, {
     ],
     tip: '연수에서는 “나는 무엇을 완성하고 싶은가?”를 먼저 말해 보세요. 도구 선택보다 목표를 설명하는 연습이 오래 남습니다.',
     sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}, {label: '공식 Work 시작 안내', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   },
   setup: {
     title: '내 계정에서 첫 대화 시작하기',
@@ -47,7 +47,7 @@ Object.assign(window.GUIDE_LESSONS, {
     ],
     tip: '강사 화면을 그대로 따라가기보다 내 화면의 현재 상태를 말해 보세요. “Work가 없어요”보다 “웹에서 로그인했고 Chat은 보이지만 Work는 찾지 못했어요”가 도움을 받기 좋습니다.',
     sources: [{label: '공식 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/quickstart'}, {label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   },
   prompt: {
     title: '좋은 요청과 후속 질문 만들기',
@@ -72,7 +72,7 @@ Object.assign(window.GUIDE_LESSONS, {
     ],
     tip: '연수 짝과 첫 요청문·수정 요청문을 비교해 보세요. 어느 조건이 결과를 바꿨는지 설명할 수 있으면 다음 업무에도 적용할 수 있습니다.',
     sources: [{label: '공식 요청문 작성 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/prompting'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   },
   privacy: {
     title: '자료 첨부와 개인정보, 먼저 확인해요',
@@ -97,6 +97,6 @@ Object.assign(window.GUIDE_LESSONS, {
     ],
     tip: '자료를 많이 넣는 것보다 이 작업에 필요한 자료를 고르는 능력이 중요합니다. “내가 읽기 → 범위 정하기 → AI 결과 대조하기”를 한 묶음으로 연습하세요.',
     sources: [{label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 권한 안내', url: 'https://learn.chatgpt.com/docs/permission-modes'}],
-    checkedDate: '2026-10-06'
+    checkedDate: '2026-10-13'
   }
 });

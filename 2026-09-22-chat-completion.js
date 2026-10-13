@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   followup: {
-    title: '대화를 이어가며 수정하기', eyebrow: 'CHATGPT 채팅 · 후속 요청', checkedDate: '2026-10-06', minutes: 10,
+    title: '대화를 이어가며 수정하기', eyebrow: 'CHATGPT 채팅 · 후속 요청', checkedDate: '2026-10-13', minutes: 10,
     summary: '이전 대화를 다시 찾아 이어 가고, 한 번에 한 가지만 고치고, 마음에 안 들면 되돌립니다. 새 대화를 여는 게 나은 때의 기준도 정해요.',
     outcome: '이전 대화에서 말투만 바꾸고 한 번 되돌려 본 가상 안내문과, 새 대화 기준 메모 한 줄',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태', '채팅 1편(안내문 다듬기)을 했던 대화, 또는 아래 가상 계획서'],
@@ -17,7 +17,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   },
   clues: {
-    title: '좋은 요청을 만드는 네 가지 단서', eyebrow: 'CHATGPT 채팅 · 요청 설계', checkedDate: '2026-10-06', minutes: 10,
+    title: '좋은 요청을 만드는 네 가지 단서', eyebrow: 'CHATGPT 채팅 · 요청 설계', checkedDate: '2026-10-13', minutes: 10,
     summary: '목표·자료·조건·결과 형식 네 칸으로 요청을 구체화합니다. 공통 입문에서 본 틀을 교사 준비 목록에 적용해요. 네 칸은 연습 틀이며 반드시 외워야 할 공식은 아니에요.',
     outcome: '막연한 요청을 교사 업무에 바로 쓸 수 있게 바꾼 요청문',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태', '아래 가상 공개수업 계획서'],
@@ -34,7 +34,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   },
   images: {
-    title: '사진과 화면으로 질문하기', eyebrow: 'CHATGPT 채팅 · 이미지 읽기', checkedDate: '2026-10-06', minutes: 12,
+    title: '사진과 화면으로 질문하기', eyebrow: 'CHATGPT 채팅 · 이미지 읽기', checkedDate: '2026-10-13', minutes: 12,
     summary: '개인정보 없는 연습 화면을 캡처해 질문합니다. 화면에 보이는 글자와 AI가 추정한 설명을 구분해요.',
     outcome: '가상 일정 화면의 세 활동과 시간 합계를 대조한 기록',
     prerequisites: ['이미지 첨부가 가능한 ChatGPT Chat(채팅) 환경(제공 여부는 계정·앱에 따라 다를 수 있어요)', '아래 가상 수업 일정 연습 화면', 'Windows 캡처 기능 또는 기기의 화면 캡처'],
@@ -51,7 +51,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 이미지 입력 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/image-inputs'}]
   },
   teaching: {
-    title: '수업과 교사 업무에 적용하기', eyebrow: 'CHATGPT 채팅 · 업무 적용', checkedDate: '2026-10-06', minutes: 20,
+    title: '수업과 교사 업무에 적용하기', eyebrow: 'CHATGPT 채팅 · 업무 적용', checkedDate: '2026-10-13', minutes: 20,
     summary: '가상 공개수업 자료를 교사의 준비 질문과 수업 후 성찰 틀로 바꿉니다. AI의 제안을 현장 조건에 맞게 고르는 연습이에요.',
     outcome: '검토한 수업 준비 질문 3개와 빈 수업 후 성찰표',
     prerequisites: ['ChatGPT Chat(채팅)에 로그인한 상태', '아래 가상 공개수업 계획서', '본인이 검토할 수 있는 작은 업무 한 가지'],

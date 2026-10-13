@@ -151,6 +151,7 @@ test('403 on a lookalike host or subdomain remains a failure', async () => {
 test('only github.com/signup 403 is manual review', async () => {
   assert.equal((await run('https://github.com/signup',403)).kind,'exception');
   assert.equal((await run('https://github.com/signup?source=guide',403)).kind,'exception');
+  assert.equal((await run('https://help.openai.com/en/articles/20001533-flashcards-in-chatgpt',403)).kind,'exception','help.openai.com blocks fetchers but the pages exist');
   assert.equal((await run('https://github.com/signup-more',403)).kind,'failed');
   assert.equal((await run('https://github.com/other',403)).kind,'failed');
   assert.equal((await run('https://github.com/signup',404)).kind,'failed');
