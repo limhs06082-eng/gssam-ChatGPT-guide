@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   compare: {
-    title: '비교표와 분석 자료 만들기', eyebrow: 'CHATGPT WORK · 비교와 분석', checkedDate: '2026-10-13', minutes: 15,
+    title: '비교표와 분석 자료 만들기', eyebrow: 'CHATGPT WORK · 비교와 분석', checkedDate: '2026-10-25', minutes: 15,
     summary: '가상 탐구 준비물 자료로 비용을 비교합니다. 빈칸을 0원으로 채우지 않고, 계산할 수 있는 값과 확인할 조건을 나눠요.',
     outcome: '세 공급안의 계산식·총비용 확정 여부·추가 확인 사항이 담긴 비교표',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '가상 탐구 준비물 비교 CSV 파일 (1단계에서 받을 수 있어요)', 'CSV는 표 데이터를 담는 텍스트 파일이며 실제 견적이 아니에요.'],
@@ -17,7 +17,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}]
   },
   documents: {
-    title: '문서와 발표자료 만들기', eyebrow: 'CHATGPT WORK · 결과물 제작', checkedDate: '2026-10-13', minutes: 25,
+    title: '문서와 발표자료 만들기', eyebrow: 'CHATGPT WORK · 결과물 제작', checkedDate: '2026-10-25', minutes: 25,
     summary: '같은 공개수업 자료를 학부모용 한 쪽 문서와 교사 회의용 네 장 발표자료로 바꿉니다. 읽는 사람이 달라지면 담을 내용도 달라져요.',
     outcome: '검토한 학부모용 A4 한 쪽 문서와 교사 회의용 4장 발표자료, 또는 파일이 안 나올 때는 각각의 구성 초안',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '가상 파일 두 개: 2026-09-20-공개수업-계획.txt, 2026-09-20-공개수업-메모.txt (1단계에서 받을 수 있어요)', 'DOCX·PPTX를 열 수 있는 프로그램 또는 미리보기 화면'],
@@ -35,7 +35,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 파일 작업 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/artifacts-viewer'}, {label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
   },
   review: {
-    title: '결과물을 원본과 대조하기', eyebrow: 'CHATGPT WORK · 검토와 수정', checkedDate: '2026-10-13', minutes: 15,
+    title: '결과물을 원본과 대조하기', eyebrow: 'CHATGPT WORK · 검토와 수정', checkedDate: '2026-10-25', minutes: 15,
     summary: '일부러 오류를 넣은 가상 안내문을 검토합니다. AI의 지적을 원본에서 확인하고, 수정본도 다시 읽어야 검토가 끝나요.',
     outcome: '근거가 있는 오류 대조표와 확인을 마친 수정 안내문·교사용 미확정 목록',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '원본 두 파일: 2026-09-20-공개수업-계획.txt, 2026-09-20-공개수업-메모.txt', '오류가 포함된 검토용 초안 2026-09-21-공개수업-검토용초안.txt와 Work 결과 검토표 (1·3단계에서 받을 수 있어요)'],

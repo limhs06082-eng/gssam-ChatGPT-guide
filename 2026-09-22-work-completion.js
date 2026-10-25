@@ -1,6 +1,6 @@
 Object.assign(window.GUIDE_LESSONS, {
   environment: {
-    title: '온라인 작업과 내 컴퓨터 작업 구분하기', eyebrow: 'CHATGPT WORK · 작업 환경', checkedDate: '2026-10-13', minutes: 12,
+    title: '온라인 작업과 내 컴퓨터 작업 구분하기', eyebrow: 'CHATGPT WORK · 작업 환경', checkedDate: '2026-10-25', minutes: 12,
     summary: 'Work를 여는 방법과 파일을 첨부하는 방법을 익히고, 지금 내 작업이 온라인 작업인지 내 컴퓨터 작업인지 세 줄 규칙으로 구분합니다. 파일 경로를 글로 적는 대신 첨부해야 하는 이유도 확인해요.',
     outcome: '내 작업 환경(온라인/내 컴퓨터), 실제로 읽은 파일, 결과를 받을 위치를 적은 기록',
     prerequisites: ['ChatGPT에 로그인한 상태. 화면에 Work가 없으면 1단계의 “Work가 안 보일 때” 안내를 먼저 보세요.', '가상 공개수업 계획서 한 파일 (3단계에서 받을 수 있어요)', 'Work 작업 설계표 (5단계에서 열 수 있어요)'],
@@ -17,7 +17,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}, {label: '공식 사용 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'}]
   },
   brief: {
-    title: '자료와 완료 조건 전달하기', eyebrow: 'CHATGPT WORK · 작업 요청', checkedDate: '2026-10-13', minutes: 12,
+    title: '자료와 완료 조건 전달하기', eyebrow: 'CHATGPT WORK · 작업 요청', checkedDate: '2026-10-25', minutes: 12,
     summary: '두 파일을 첨부하면서 자료의 역할과 완성된 결과의 기준을 함께 전달합니다. 파일 이름만 나열하지 않고 어떤 근거를 우선할지 정해요.',
     outcome: '가상 안내자료 제작을 위한 자료 목록·완료 조건과, 그 조건으로 받은 학부모용 본문·교사용 확인 목록',
     prerequisites: ['작업 환경 편에서 Work를 열고 파일을 첨부해 본 경험', '가상 파일 두 개: 2026-09-20-공개수업-계획.txt, 2026-09-20-공개수업-메모.txt (1단계에서 받을 수 있어요)', 'Work 작업 설계표'],
@@ -34,7 +34,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
   },
   redirect: {
-    title: '중간에 방향 바꾸기', eyebrow: 'CHATGPT WORK · 방향 조정', checkedDate: '2026-10-13', minutes: 12,
+    title: '중간에 방향 바꾸기', eyebrow: 'CHATGPT WORK · 방향 조정', checkedDate: '2026-10-25', minutes: 12,
     summary: '작업 도중 대상이나 형식이 달라졌다면 바뀐 조건과 유지할 조건을 나눠 전달합니다. 이미 만들어진 결과도 따로 확인해요.',
     outcome: '수정된 작업 조건과 그 조건에 맞춰 검토한 결과',
     prerequisites: ['“자료와 완료 조건 전달하기” 4단계 또는 “가상 자료로 공개수업 안내자료 만들기” 6단계에서 받은 안내자료 초안이 있는 대화 (1단계 링크에서 다시 열 수 있어요)', 'Work 작업 설계표'],
@@ -51,7 +51,7 @@ Object.assign(window.GUIDE_LESSONS, {
     sources: [{label: '공식 Work 시작 안내 · 2026-10-06 확인', url: 'https://learn.chatgpt.com/docs/get-started-with-work'}]
   },
   reuse: {
-    title: '다음 작업에 재사용하기', eyebrow: 'CHATGPT WORK · 재사용', checkedDate: '2026-10-13', minutes: 12,
+    title: '다음 작업에 재사용하기', eyebrow: 'CHATGPT WORK · 재사용', checkedDate: '2026-10-25', minutes: 12,
     summary: '검토한 결과에서 틀은 남기고 날짜·대상·자료는 바꿉니다. 지난 행사의 사실이 새 작업에 섞이지 않도록 확인해요.',
     outcome: '변수를 비운 요청 틀과 새 가상 행사에 적용한 검토 기록',
     prerequisites: ['“결과물을 원본과 대조하기” 5단계에서 검토를 마친 수정 안내문. 검토 편을 건너뛰었다면 “자료와 완료 조건 전달하기” 4단계 본문 (2단계 링크에서 다시 열 수 있어요)', 'Work 작업 설계표', '새로 사용할 가상 조건 (3단계에 있어요)'],
