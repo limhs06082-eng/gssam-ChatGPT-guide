@@ -104,6 +104,18 @@ const courses = [
  {key:'service',title:'Codex · 내 도구를 서비스로 발전시키기 (선택 확장)'}
 ].map(g=>({...g,items:order[g.key]}));
 glossary.push(...service.glossary);
+/* 2026-11-07 기능 보강에 맞춘 용어와 FAQ. 레슨 단계는 2026-11-07-feature-additions.js에 있다. */
+glossary.push(
+ {term:'공유 링크',text:'대화를 링크로 보여 주는 기능. 링크를 가진 사람은 누구나 그 시점의 대화를 볼 수 있어요. 설정 → 데이터 제어 → Shared links에서 보고 지웁니다.'},
+ {term:'맞춤 설정과 메모리',text:'모든 대화에서 지킬 말투·선호를 정하는 곳(설정 → Personalization)과, 대화에서 알게 된 내용을 다음 대화에 이어 쓰는 기능. 학생 정보는 기억시키지 않고, 필요 없으면 관리 화면에서 지웁니다.'},
+ {term:'AGENTS.md',text:'Codex가 작업 전에 읽는 규칙 파일. 실습 폴더 맨 위에 두면 “쉬운 말로 설명하기”, “삭제 전에 묻기” 같은 부탁을 매번 반복하지 않아도 돼요.'},
+ {term:'Appshots',text:'ChatGPT 데스크톱 앱에서 맨 앞 창 하나를 그림과 글자로 첨부하는 기능. Windows에서는 양쪽 Alt 키를 함께 눌러요. 화면 밖 글자도 함께 갈 수 있어 개인정보 창에서는 쓰지 않습니다.'},
+ {term:'권한 모드',text:'Codex가 일할 때 얼마나 묻고 진행할지 정하는 방식. Ask for approval(승인 요청)은 중요한 동작마다 묻고, Approve for me는 자동 검토로 진행하며, Full access는 폭넓게 접근해요. 이 가이드는 Ask for approval만 씁니다.'}
+);
+faqItems.push(
+ {id:'sites',group:'Codex와 수업 운영 보드',question:'내 웹앱을 더 쉽게 공개하는 방법은 없나요? (Sites)',answer:'ChatGPT에는 말로 설명해 웹사이트를 만들고 공개하는 Sites 기능이 있어요. Plus 이상 요금제에서 쓸 수 있고, 호스팅은 2026-12-31까지 무료이며 2027-01-01부터 요금제 기본량을 넘는 사용량에 비용이 붙습니다. 이 가이드는 비용이 들지 않는 GitHub Pages로 공개를 연습해요. Sites를 쓸 때도 학생 개인정보는 넣지 않습니다. 공식 안내: https://learn.chatgpt.com/docs/sites',tags:'sites 사이트 웹사이트 공개 배포 호스팅 비용 plus'},
+ {id:'plus-features',group:'이 가이드 이용하기',question:'예약 작업·음성 대화·플러그인 연결은 왜 안 다루나요?',answer:'정해진 시간에 자동으로 실행하는 예약 작업, 실시간 음성 대화, Google Drive·Gmail 같은 외부 도구를 연결하는 플러그인은 Plus 이상 요금제에서 제공되고 학교 계정과 연결할 때 주의가 필요해요. 이 가이드는 Free 계정에서도 따라 할 수 있는 기능을 기준으로 합니다. 쓰고 싶다면 공식 안내(learn.chatgpt.com의 automations, voice, plugins 문서)를 먼저 읽고, 학교 계정·업무 메일은 연결하지 마세요.',tags:'예약 자동 음성 voice 플러그인 plugins 연결 gmail drive 요금제 plus'}
+);
 faqItems.push(...service.faqs);
 faqItems.find(f=>f.id==='progress').answer=`이 가이드의 학습 기록은 현재 브라우저에 저장됩니다. 회원가입이나 서버 전송은 없고 다른 기기에서는 이어지지 않아요. 기본 과정 30편과 선택 서비스 확장 ${order.service.length}편, 총 ${keys.length}편의 완료를 따로 표시할 수 있어요.`;
 faqItems.find(f=>f.id==='planned').question=`${keys.length}편을 모두 볼 수 있나요?`;

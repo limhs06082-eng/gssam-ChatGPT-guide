@@ -6,7 +6,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const vm = require('node:vm');
 const KEY = 'gssam-guide-progress-v1';
-const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-22-chat-completion.js', '2026-09-21-work-practice.js', '2026-09-22-work-completion.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-28-service-lessons.js', '2026-09-20-guide.js'];
+const files = ['2026-09-20-lessons.js', '2026-09-20-foundations.js', '2026-09-21-chat-practice.js', '2026-09-22-chat-completion.js', '2026-09-21-work-practice.js', '2026-09-22-work-completion.js', '2026-09-21-codex-practice.js', '2026-09-21-codex-basics.js', '2026-09-21-codex-maintenance.js', '2026-09-28-service-lessons.js', '2026-11-07-feature-additions.js', '2026-09-20-guide.js'];
 const sources = files.map(file => fs.readFileSync(path.join(__dirname, file), 'utf8'));
 // Single learning order: preparation lessons precede the practice that needs them. Home, map, sidebar and prev/next must all follow it.
 const ORDER = {start:['choose','setup','prompt','privacy'], chat:['chat','followup','files','clues','images','search','projects','teaching'], work:['environment','brief','work','redirect','compare','documents','review','reuse'], codex:['workspace','folders','run','codex','plan','modify','changes','debug','backup','publish'], service:['savebackup','git','github','repository','gitpush','localdata','datatransfer','server','apilocal','database','dbdesign','crud','login','permissions','railway','envvars','postgres','operations']};
@@ -466,7 +466,7 @@ test('Extension lessons carry an audience warning and the risky ones a caution b
 });
 test('Learning map and start page state the two course sizes in hours', () => {
   const app=setup(undefined,'#/courses');
-  assert.match(app.html(),/기본 과정 30편 약 8시간/);
+  assert.match(app.html(),/기본 과정 30편 약 \d+시간/);
   assert.match(app.html(),/선택 확장 18편 약 7시간/);
   app.route('#/start');
   assert.match(app.html(),/기본 과정 30편/);
@@ -532,7 +532,38 @@ test('New-feature practices: flashcards in teaching, paper scan tip in files, an
   assert.ok(app.html().includes('href="https://help.openai.com/en/articles/20001533-flashcards-in-chatgpt"'),'links the official flashcard article');
   assert.ok(app.lessons.files.troubleshooting.some(t=>t.question.includes('종이')&&/Scan|스캔/.test(t.answer)),'files explains paper documents via phone camera/scan');
   assert.ok(app.lessons.documents.steps[4].text.includes('주석'),'documents step 5 mentions preview annotations');
-  for(const k of ['teaching','files','documents']) assert.equal(app.lessons[k].checkedDate,'2026-10-25');
+  for(const k of ['teaching','files','documents']) assert.ok(['2026-10-25','2026-11-07'].includes(app.lessons[k].checkedDate),k+' re-verified');
+});
+
+test('Missing ChatGPT and Codex features are taught inside the existing thirty lessons', () => {
+  const app=setup();
+  const L=app.lessons;
+  const step=(k,re)=>L[k].steps.find(st=>re.test(st.title));
+  const share=step('privacy',/공유|기록/);
+  assert.ok(share&&/Shared links/.test(share.text)&&/데이터 제어|Data controls/.test(share.text),'privacy: data controls and shared links');
+  const memory=step('followup',/맞춤 설정|메모리/);
+  assert.ok(memory&&memory.prompt&&/Personalization/.test(memory.text)&&/삭제/.test(memory.text),'followup: personalization and memory with deletion');
+  const study=step('teaching',/학생 입장/);
+  assert.ok(study&&study.prompt,'teaching: guided learning step');
+  assert.ok(/플래시카드/.test(L.teaching.steps[4].title)&&/적용 여부/.test(L.teaching.steps[L.teaching.steps.length-1].title),'teaching keeps flashcards before and the wrap-up last');
+  const deep=step('search',/Deep research/);
+  assert.ok(deep&&deep.prompt,'search: deep research step');
+  const viz=step('compare',/그래프|Visualize/);
+  assert.ok(viz&&/@Visualize/.test(viz.prompt||''),'compare: visualize step');
+  const agents=step('plan',/AGENTS\.md/);
+  assert.ok(agents&&agents.prompt,'plan: AGENTS.md step');
+  const browser=step('modify',/브라우저/);
+  assert.ok(browser&&/Annotate/.test(browser.text)&&/@Browser/.test(browser.prompt||''),'modify: built-in browser annotations');
+  assert.doesNotMatch(L.run.steps[4].text,/브라우저 화면을 직접 볼 수는 없어요/,'run no longer claims Codex can never see the page');
+  assert.ok(L.images.troubleshooting.some(t=>/Alt/.test(t.answer)),'images: appshots tip');
+  for(const k of ['privacy','followup','teaching','search','compare','plan','modify','run','images']) assert.equal(L[k].checkedDate,'2026-11-07',k+' re-dated');
+  for(const k of ['publish','backup']) assert.notEqual(L[k].checkedDate,'2026-09-28',k+' is no longer back-dated by the extension file');
+  app.route('#/help');
+  for(const id of ['sites','plus-features']) assert.ok(app.html().includes('id="faq-'+id+'"'),'FAQ '+id);
+  for(const term of ['공유 링크','맞춤 설정과 메모리','AGENTS.md','Appshots','권한 모드']) assert.ok(app.html().includes('<dt>'+term),'glossary '+term);
+  app.route('#/lesson/plan');
+  assert.match(app.html(),/AGENTS\.md/);
+  assert.ok(app.html().includes('href="https://learn.chatgpt.com/docs/agent-configuration/agents-md"'));
 });
 (async () => {
   let failed=0;

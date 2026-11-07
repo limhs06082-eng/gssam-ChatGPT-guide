@@ -250,8 +250,7 @@ window.GUIDE_SERVICE={
 const publish=window.GUIDE_LESSONS.publish;
 if(publish){
  publish.steps.push(step('7. 다른 기기와 함께 쓰고 싶다면','이번 Pages 실습은 브라우저마다 수업을 따로 저장하는 기본 보드예요. 코드와 수업 데이터 저장을 구분한 뒤, 별도의 확장 복사본으로 Git·서버·로그인·DB·자동 반영을 배울 수 있습니다. 원본 보드는 유지하세요.',null,[{label:'서비스 확장 전체 안내',url:'#/service'},link('savebackup','저장·백업부터 확장하기')]));
- publish.checkedDate='2026-09-28';
 }
 const backup=window.GUIDE_LESSONS.backup;
-if(backup){backup.steps[0].links=[...(backup.steps[0].links||[]),link('savebackup','저장과 백업 더 알아보기'),link('git','Git으로 코드 기록하기')];backup.checkedDate='2026-09-28';}
+if(backup){backup.steps[0].links=[...(backup.steps[0].links||[]),link('savebackup','저장과 백업 더 알아보기'),link('git','Git으로 코드 기록하기')];}
 })();
