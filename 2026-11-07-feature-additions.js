@@ -4,16 +4,16 @@
 (() => {
 'use strict';
 const L = window.GUIDE_LESSONS || {};
-const DATE = '2026-11-07';
+const DATE = '2026-11-17';
 const src = {
-  use: {label: '공식 사용 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'},
-  personalize: {label: '공식 맞춤 설정 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/personalize'},
-  memories: {label: '공식 메모리 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/customization/memories'},
-  search: {label: '공식 웹 검색 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/web-search'},
-  viz: {label: '공식 시각화 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/visualizations'},
-  agents: {label: '공식 AGENTS.md 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/agent-configuration/agents-md'},
-  browser: {label: '공식 내장 브라우저 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/browser'},
-  appshots: {label: '공식 Appshots 안내 · 2026-11-07 확인', url: 'https://learn.chatgpt.com/docs/appshots'}
+  use: {label: '공식 사용 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/use-chatgpt'},
+  personalize: {label: '공식 맞춤 설정 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/personalize'},
+  memories: {label: '공식 메모리 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/customization/memories'},
+  search: {label: '공식 웹 검색 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/web-search'},
+  viz: {label: '공식 시각화 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/visualizations'},
+  agents: {label: '공식 AGENTS.md 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/agent-configuration/agents-md'},
+  browser: {label: '공식 내장 브라우저 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/browser'},
+  appshots: {label: '공식 Appshots 안내 · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/appshots'}
 };
 const addSource = (lesson, s) => { if (!lesson.sources.some(x => x.url === s.url)) lesson.sources.push(s); };
 /* 마무리(기록·보관) 단계는 맨 끝에 두고, 새 단계는 그 바로 앞에 넣는다. */
@@ -84,5 +84,12 @@ touch('run', 0, l => {
 touch('images', 0, l => {
   l.troubleshooting.push({question: 'Windows에서 창 하나만 빠르게 보내고 싶어요.', answer: 'ChatGPT 데스크톱 앱의 Appshots를 쓰면 맨 앞에 있는 창 하나를 그림과 글자로 함께 첨부할 수 있어요. 보낼 창을 맨 앞에 두고 양쪽 Alt 키를 함께 누릅니다. 권한 안내가 나오면 따르세요. 화면에 보이지 않는 스크롤 아래 글자까지 함께 전달될 수 있으니, 개인정보가 있는 창에서는 쓰지 않습니다.'});
   addSource(l, src.appshots);
+});
+/* 채팅 7편 · 잠근 대화 (2026-11-17 공식 문서 projects의 Use locked chats 절 반영) */
+touch('projects', 0, l => {
+  l.troubleshooting.push({question: '프로젝트 안에 있던 대화가 목록에서 사라졌어요.', answer: '대화의 더보기(…) 메뉴에서 Lock chat을 눌렀다면 그 대화는 잠근 대화가 되어 일반 기록과 검색에서 숨겨지고 프로젝트에서도 빠져요. Projects > Locked chats에서 계정 PIN을 넣으면 다시 볼 수 있고, 다 본 뒤에는 Lock now를 누릅니다. Unlock chat을 누르면 일반 기록으로 돌아와요. 잠긴 동안에는 프로젝트 지침·파일·메모리를 쓰지 못합니다. PIN을 잊어 재설정하면 잠근 대화가 영구 삭제되니 주의하세요. 화면 공유 전에는 다른 기기에서도 새로고침해 제목이 보이지 않는지 확인합니다. 계정에 따라 이 기능이 보이지 않을 수 있어요.'});
+  const proj = l.sources.find(x => x.url === 'https://learn.chatgpt.com/docs/projects');
+  if (proj) proj.label = '공식 프로젝트 안내(잠근 대화 포함) · 2026-11-17 확인';
+  else l.sources.push({label: '공식 프로젝트 안내(잠근 대화 포함) · 2026-11-17 확인', url: 'https://learn.chatgpt.com/docs/projects'});
 });
 })();

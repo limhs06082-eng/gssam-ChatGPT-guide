@@ -110,6 +110,7 @@ glossary.push(
  {term:'맞춤 설정과 메모리',text:'모든 대화에서 지킬 말투·선호를 정하는 곳(설정 → Personalization)과, 대화에서 알게 된 내용을 다음 대화에 이어 쓰는 기능. 학생 정보는 기억시키지 않고, 필요 없으면 관리 화면에서 지웁니다.'},
  {term:'AGENTS.md',text:'Codex가 작업 전에 읽는 규칙 파일. 실습 폴더 맨 위에 두면 “쉬운 말로 설명하기”, “삭제 전에 묻기” 같은 부탁을 매번 반복하지 않아도 돼요.'},
  {term:'Appshots',text:'ChatGPT 데스크톱 앱에서 맨 앞 창 하나를 그림과 글자로 첨부하는 기능. Windows에서는 양쪽 Alt 키를 함께 눌러요. 화면 밖 글자도 함께 갈 수 있어 개인정보 창에서는 쓰지 않습니다.'},
+ {term:'잠근 대화',text:'대화의 더보기(…) 메뉴에서 Lock chat으로 잠그면 일반 기록과 검색에서 숨겨지고, Projects > Locked chats에서 계정 PIN을 넣어야 다시 볼 수 있는 대화. PIN을 재설정하면 잠근 대화가 영구 삭제돼요.'},
  {term:'권한 모드',text:'Codex가 일할 때 얼마나 묻고 진행할지 정하는 방식. Ask for approval(승인 요청)은 중요한 동작마다 묻고, Approve for me는 자동 검토로 진행하며, Full access는 폭넓게 접근해요. 이 가이드는 Ask for approval만 씁니다.'}
 );
 faqItems.push(

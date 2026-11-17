@@ -532,7 +532,7 @@ test('New-feature practices: flashcards in teaching, paper scan tip in files, an
   assert.ok(app.html().includes('href="https://help.openai.com/en/articles/20001533-flashcards-in-chatgpt"'),'links the official flashcard article');
   assert.ok(app.lessons.files.troubleshooting.some(t=>t.question.includes('종이')&&/Scan|스캔/.test(t.answer)),'files explains paper documents via phone camera/scan');
   assert.ok(app.lessons.documents.steps[4].text.includes('주석'),'documents step 5 mentions preview annotations');
-  for(const k of ['teaching','files','documents']) assert.ok(['2026-10-25','2026-11-07'].includes(app.lessons[k].checkedDate),k+' re-verified');
+  for(const k of ['teaching','files','documents']) assert.ok(['2026-10-25','2026-11-07','2026-11-17'].includes(app.lessons[k].checkedDate),k+' re-verified');
 });
 
 test('Missing ChatGPT and Codex features are taught inside the existing thirty lessons', () => {
@@ -556,7 +556,7 @@ test('Missing ChatGPT and Codex features are taught inside the existing thirty l
   assert.ok(browser&&/Annotate/.test(browser.text)&&/@Browser/.test(browser.prompt||''),'modify: built-in browser annotations');
   assert.doesNotMatch(L.run.steps[4].text,/브라우저 화면을 직접 볼 수는 없어요/,'run no longer claims Codex can never see the page');
   assert.ok(L.images.troubleshooting.some(t=>/Alt/.test(t.answer)),'images: appshots tip');
-  for(const k of ['privacy','followup','teaching','search','compare','plan','modify','run','images']) assert.equal(L[k].checkedDate,'2026-11-07',k+' re-dated');
+  for(const k of ['privacy','followup','teaching','search','compare','plan','modify','run','images','projects']) assert.equal(L[k].checkedDate,'2026-11-17',k+' re-dated');
   for(const k of ['publish','backup']) assert.notEqual(L[k].checkedDate,'2026-09-28',k+' is no longer back-dated by the extension file');
   app.route('#/help');
   for(const id of ['sites','plus-features']) assert.ok(app.html().includes('id="faq-'+id+'"'),'FAQ '+id);
@@ -564,6 +564,17 @@ test('Missing ChatGPT and Codex features are taught inside the existing thirty l
   app.route('#/lesson/plan');
   assert.match(app.html(),/AGENTS\.md/);
   assert.ok(app.html().includes('href="https://learn.chatgpt.com/docs/agent-configuration/agents-md"'));
+});
+
+test('Projects lesson explains locked chats with the official menu names', () => {
+  const app=setup();
+  const t=app.lessons.projects.troubleshooting.find(x=>/사라졌/.test(x.question));
+  assert.ok(t,'locked-chat troubleshooting item');
+  for(const w of ['Lock chat','Projects > Locked chats','Unlock chat','PIN','영구 삭제']) assert.ok(t.answer.includes(w),'answer mentions '+w);
+  assert.ok(app.lessons.projects.sources.some(x=>x.url==='https://learn.chatgpt.com/docs/projects'));
+  app.route('#/help');
+  assert.ok(app.html().includes('<dt>잠근 대화'),'glossary term');
+  assert.ok(app.search('잠근 대화').includes('href="#/lesson/projects"'),'search finds the projects lesson');
 });
 (async () => {
   let failed=0;
